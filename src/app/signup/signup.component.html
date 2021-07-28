@@ -1,0 +1,71 @@
+<section class="signup-section">
+    <div class="container">
+
+        <div class="alert alert-danger"  *ngIf="isError" role="alert">
+            {{errorMessages[0]}}
+          </div>
+
+        <div class="row">
+            <div class="col-lg-4 my-form">
+                <div class="signup-caption">Sign up</div>
+                <div class="signup-caption">Already have an account? <a routerLink="/login" [ngStyle]="{'text-decoration': 'none'}">Log in here</a></div>
+
+                <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group my-form-group">
+                      <input type="text" formControlName="username" class="form-control my-input" id="username" aria-describedby="usernameHelp" placeholder="Enter username">                    
+                    </div>
+
+                    <div class="form-group my-form-group">
+                      <input type="email" formControlName="email" class="form-control my-input" id="email" aria-describedby="emailHelp" placeholder="Enter email">                    
+                    </div>
+
+                    <div class="form-group my-form-group">
+                      <input type="password" formControlName="password" class="form-control my-input" id="password" aria-describedby="passwordHelp" placeholder="Enter password">                    
+                    </div>
+
+                    <div class="form-group my-form-group">
+                      <label for="birthday" class="signup-field-text">Birthday</label>
+                      <input type="date" formControlName="birthday" min="1900-01-01" max="2021-01-01" class="form-control my-input" id="birthday" aria-describedby="birthdayHelp">                    
+                    </div>
+                    <div class="my-form-group">
+
+                        <span class="signup-field-text">Level</span>
+
+                        <div class="form-check">
+                            <input class="form-check-input" formControlName="level" type="radio" name="level" id="level1" value="Junior High" checked>
+                            <label class="form-check-label" for="level1">
+                                Junior High
+                            </label>
+                        </div>
+                        
+                        <div class="form-check">
+                            <input class="form-check-input" formControlName="level" type="radio" name="level" id="level2" value="Senior High">
+                            <label class="form-check-label" for="level2">
+                                Senior High
+                            </label>
+                        </div>
+                        
+                        <div class="form-check">
+                            <input class="form-check-input" formControlName="level" type="radio" name="level" id="level3" value="College">
+                            <label class="form-check-label" for="level3">
+                                College
+                            </label>
+                        </div>
+                    </div>
+                        
+                    <div class="form-group my-form-group">
+                        <label for="profilePicture">ProfilePicture</label>
+                        <input type="file" formControlName="profilePicture" class="form-control my-input" id="profilePicture" aria-describedby="profilePictureHelp">                    
+                      </div>
+
+                    <button type="submit" class="btn my-btn">Sign Up</button>
+
+                  </form>
+            </div>
+
+            <div class="col-lg-8 caption-container">
+                <span class="caption">JOIN US AND LET'S START SHARING KNOWLEDGE</span>
+            </div>
+        </div>
+    </div>
+</section>

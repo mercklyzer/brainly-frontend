@@ -1,0 +1,53 @@
+<section class="question-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-9">
+                <div class="question-container">
+                    <div class="question">                    
+                        <div class="question-header">
+                            <img src="../../assets/images/icon_brain_round.png" alt="" class="user-icon">
+                            <div class="question-info-container">
+                                <div class="user-name">{{question.username}}</div>
+                                <div class="question-info">
+                                    <div class="date">{{relativeDate(question.date)}}</div>
+                                    <div class="subject">{{titleCase(question.subject)}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="question-body">
+                            {{question.question}}
+                        </div>
+                        <button class="btn question-btn" (click)="onAnswerClick()">
+                            <div class="answer-count">
+                                <span>2</span>
+                            </div> 
+                            SEE ANSWERS
+                        </button>
+                    </div>
+
+                    <!-- for comments -->
+                    <div class="comments-container">
+                        <div class="other-comment" *ngFor="let comment of comments">
+                            <img src="../../assets/images/icon_brain_round.png" title="{{comment.username}}" class="user-icon comment-user-icon"> {{comment.comment}}
+                        </div>
+
+                        <div class="add-comment">
+                            <img src="../../assets/images/icon_brain_round.png" alt="" class="user-icon comment-user-icon">
+                            <span class="comment-area" role="textbox" contenteditable placeholder="Ask Samui about the question..."></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- for answers -->
+                <app-answer [showAnswer]="showAnswer"></app-answer>
+            </div>
+
+            <div class="col-3">
+                <app-user></app-user>
+            </div>
+        </div>
+    </div>
+
+
+
+</section>

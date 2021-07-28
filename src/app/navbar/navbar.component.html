@@ -1,0 +1,15 @@
+<nav class="navbar navbar-expand my-navbar" [class.sticky]="sticky" #stickyNavbar
+    [ngClass]="{sticky : url !== '/'}"
+>
+    <div class="container-lg my-container">
+        <a class="navbar-brand" routerLink="/">
+            <img src="../../assets/images/brainly-brand.svg" class="my-brand my-brand-pc"/>
+            <img src="../../assets/images/brainly-brand-mobile.svg" class="my-brand my-brand-mobile"/>
+        </a>
+        <ul class="navbar-nav">
+            <li class="navbar-item my-item" routerLink="/login"><a >LOG IN</a></li>
+            <li class="navbar-item my-item" routerLink="/signup"><a >JOIN NOW</a></li>
+            <li class="navbar-item my-item"><a>ASK QUESTION</a></li>
+        </ul>
+    </div>
+</nav>

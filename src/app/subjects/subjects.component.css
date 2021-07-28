@@ -1,0 +1,40 @@
+*{
+    font-family: 'Roboto', sans-serif;
+}
+
+.dashboard{
+    padding-top: 80px;
+}
+
+/* start of subjects styles */
+
+.my-subjects{
+    padding: 20px;
+}
+
+.subjects-header{
+    padding: 10px 10px 16px 10px;
+    border-bottom: 2px solid #EBF2F7;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
+}
+
+.my-subject{
+    margin: 5px 0px;
+    padding: 5px;
+    cursor: pointer;
+    /* border: 2px solid red; */
+}
+
+.my-subject.active{
+    background-color: #EBF2F7;
+}
+
+.my-subject:hover{
+    background-color: #EBF2F7;
+}
+
+.subject-icon{
+    margin: auto 0;
+}
