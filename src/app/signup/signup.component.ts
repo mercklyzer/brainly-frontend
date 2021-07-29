@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie';
 
 
 
@@ -27,7 +28,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private fb:FormBuilder,
     private userService: UserService,
-    private router:Router
+    private router:Router,
+    private cookieService:CookieService
   ) { }
 
   ngOnInit(): void {
@@ -41,8 +43,10 @@ export class SignupComponent implements OnInit {
     if(!this.getFormValidationErrors()){
       console.log(this.signupForm.controls);
       console.log({data: this.signupForm.value});
-      this.userService.signupUser({data: this.signupForm.value}).subscribe((res) => {
-        this.router.navigate(['/']);
+      this.userService.signupUser({data: this.signupForm.value}).subscribe((userResponse) => {
+        this.cookieService.put('Token', userResponse.data.token)
+        this.cookieService.put('User', userResponse.data.user)
+        this.router.navigate(['/dashboard'])
   
       },
       (err) => {

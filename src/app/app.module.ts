@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { CookieModule } from 'ngx-cookie';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HeroComponent } from './hero/hero.component';
@@ -14,6 +15,10 @@ import { QuestionComponent } from './question/question.component';
 import { SubjectsComponent } from './subjects/subjects.component';
 import { UserComponent } from './user/user.component';
 import { AnswerComponent } from './answer/answer.component';
+import { CommentComponent } from './comment/comment.component';
+import { AnswersComponent } from './answers/answers.component';
+import { CommentsComponent } from './comments/comments.component';
+
 
 @NgModule({
   declarations: [
@@ -27,13 +32,17 @@ import { AnswerComponent } from './answer/answer.component';
     QuestionComponent,
     SubjectsComponent,
     UserComponent,
-    AnswerComponent
+    AnswerComponent,
+    CommentComponent,
+    AnswersComponent,
+    CommentsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    CookieModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

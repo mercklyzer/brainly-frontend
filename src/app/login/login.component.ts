@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit {
     private fb:FormBuilder,
     private userService:UserService,
     private router:Router,
+    private cookieService:CookieService,
   ) { }
 
   ngOnInit(): void {
@@ -33,8 +35,8 @@ export class LoginComponent implements OnInit {
     console.log(this.loginForm.value);
 
     if(!this.getFormValidationErrors()){
-      this.userService.loginUser({data: this.loginForm.value}).subscribe((res) => {
-        console.log(res);
+      this.userService.loginUser({data: this.loginForm.value}).subscribe((userResponse) => {
+        this.cookieService.put('Token', userResponse.data.token)
         this.router.navigate(['/dashboard'])
       },
       (err) => {

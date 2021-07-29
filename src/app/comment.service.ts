@@ -25,9 +25,9 @@ export class CommentService {
     return this.http.get<{data:Comment[]}>(this.url+'/questions/'+questionId+'/comments', httpOptions)
   }
 
-  // getCommentsOfAnswer(questionId:string): Observable<{data:Comment}>{
-  //   return this.http.get<{data:Question[]}>(this.url+'/questions', httpOptions)
-  // }
+  getCommentsOfAnswer(questionId:string, answerId:string): Observable<{data:Comment[]}>{
+    return this.http.get<{data:Comment[]}>(this.url+'/questions/'+questionId+'/answers/' + answerId + '/comments', httpOptions)
+  }
 
  
 

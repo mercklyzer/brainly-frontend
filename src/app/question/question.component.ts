@@ -5,6 +5,8 @@ import { Question } from '../models/question.model';
 import { Comment } from '../models/comment.model';
 import { CommentService } from '../comment.service';
 import * as moment from 'moment'
+import { Answer } from '../models/answer.model';
+import { AnswerService } from '../answer.service';
 
 @Component({
   selector: 'app-question',
@@ -16,9 +18,12 @@ export class QuestionComponent implements OnInit {
   routeObserver:any
   questionObserver:any
   commentObserver:any
+  
   showAnswer:boolean = false
+  showComment:boolean = false
 
   question!:Question
+  answers:Answer[] = []
   comments:Comment[] = []
 
   constructor(
@@ -31,6 +36,7 @@ export class QuestionComponent implements OnInit {
     this.routeObserver = this.route.params.subscribe((routeParams) => {
       this.questionObserver = this.questionService.getQuestion(routeParams.questionId)
       .subscribe((question) => {
+
         this.question = question.data
         console.log(this.question);
 
@@ -38,7 +44,6 @@ export class QuestionComponent implements OnInit {
         this.commentObserver = this.commentService.getCommentsOfQuestion(routeParams.questionId)
         .subscribe((comments) => {
           this.comments = comments.data
-          console.log(this.comments);
         })
 
       })
@@ -47,6 +52,10 @@ export class QuestionComponent implements OnInit {
 
   onAnswerClick():void{
     this.showAnswer = true
+  }
+
+  onCommentClick():void{
+    this.showComment = true
   }
 
   relativeDate(time:number){

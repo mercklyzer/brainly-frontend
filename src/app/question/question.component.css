@@ -81,43 +81,20 @@
     margin-right: 10px;
 }
 
-.add-comment{
-    /* border: 2px solid red; */
+.answer-btn-and-comment-btn-container{
     display: flex;
-    padding: 6px 0px;
-    margin: 10px 0px;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.comment-user-icon{
-    align-self: center;
-    /* margin: 0px 10px 0px 0px; */
+.comments-view-btn{
+    cursor: pointer;
+    transition: 0.4s;
 }
 
-.comment-area{
-    width: 100%;
-    border-radius: 20px;
-    /* height: 40px; */
-    height: auto;
-    background-color: #EBF2F7;
-    padding: 10px 20px;
-    vertical-align: middle;
-    overflow: hidden;
-    resize: both;
+.comments-view-btn.clicked{
+    display: none;
 }
 
-.comment-area:focus{
-    outline: none;
-}
 
-[placeholder]:empty::before {
-    content: attr(placeholder);
-    color: #7D7B8C; 
-}
 
-[placeholder]:empty:focus::before {
-    content: "";
-}
-
-.other-comment{
-    margin: 6px 0px;
-}

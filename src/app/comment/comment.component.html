@@ -1,0 +1,10 @@
+<div class="comments-container" *ngIf="showComment">
+    <div class="other-comment" *ngFor="let comment of comments">
+        <img src="../../assets/images/icon_brain_round.png" title="{{comment.username}}" class="user-icon comment-user-icon"> {{comment.comment}}
+    </div>
+
+    <div class="add-comment">
+        <img src="../../assets/images/icon_brain_round.png" alt="" class="user-icon comment-user-icon">
+        <span class="comment-area" role="textbox" contenteditable placeholder="Ask Samui about the question..."></span>
+    </div>
+</div>

@@ -1,1 +1,57 @@
-<p *ngIf="showAnswer">answer works!</p>
+<div class="answer-container">
+    <div class="answer-header">
+        <div class="answer-header-caption">Answer</div>
+    </div>
+
+    <div class="user-header">
+        <img src="../../assets/images/icon_brain_round.png" alt="" class="user-icon">
+        <div class="answer-info-container">
+            <div class="user-name">{{answer.username}}</div>
+            <div class="answer-info">
+                <div class="date">{{relativeDate(answer.date)}}</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="answer-body">
+        <div class="answer-body-header">Answer:</div>
+        {{answer.answer}}
+    </div>
+
+    <div class="answer-footer">
+        <div class="thanks-btn-and-comment-btn-container">
+            <button class="btn thanks-btn">
+                <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" class="sg-icon__svg" width="30"  height="30" >
+                    <defs>
+                        <symbol viewBox="0 0 512 512" style="overflow: visible" id="icon-heart_outlined" xmlns="http://www.w3.org/2000/svg">
+                            <title>heart outlined</title>
+                            <path d="M403.01 104.49a105.799 105.799 0 0 1 44.91 82.98c2.507 69.933-54.647 126.928-143.983 209.02L281.9 416.67c-14.633 13.393-37.086 13.31-51.62-.18l-35.068-32.095C113.321 308.808 61.852 254 64.06 187.47a105.799 105.799 0 0 1 44.92-82.98c47.186-31.752 110.76-22.554 147.01 21.27 36.203-43.917 99.855-53.125 147.02-21.27zm-269.503 34.913c-16.208 11.387-26.133 29.72-26.804 49.482l-.041 4.977c.707 40.403 27.612 75.758 124.95 165.933l24.559 22.562 23.595-21.671C346 299.404 372.312 271.56 389.035 243.201l4.158-7.419c8.834-16.588 12.636-31.496 12.085-46.866a63.133 63.133 0 0 0-23.423-46.971l-3.018-2.276-3.228-2.046c-27.332-16.135-62.313-11.074-83.951 12.146l-2.745 3.131-32.866 39.87-32.934-39.814c-22.27-26.923-61.325-32.574-89.606-13.553z"></path>
+                        </symbol>
+                    </defs>
+                    <use xlink:href="#icon-heart_outlined" fill="#FF7968"></use>
+                </svg>           
+                THANKS
+            </button>
+
+            <div (click)="onCommentClick()">
+                <div class="comments-view-btn" [ngClass]="{'clicked':showComment}">
+                    <svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" class="sg-icon__svg" width="30"  height="30" >
+                        <defs>
+                            <symbol viewBox="0 0 512 512" style="overflow: visible" id="icon-comment" xmlns="http://www.w3.org/2000/svg">
+                                <title>comment</title>
+                                <path d="M392.533 128c18.235-.516 33.473 13.77 34.134 32v192c-.66 18.23-15.9 32.516-34.134 32h-243.2l-38.441 38.44a14.972 14.972 0 0 1-25.559-10.586V160c.66-18.23 15.9-32.516 34.134-32zM170.667 234.667c-11.782 0-21.334 9.55-21.334 21.333 0 11.782 9.552 21.333 21.334 21.333S192 267.783 192 256c0-11.782-9.551-21.333-21.333-21.333zm170.666 0c-11.782 0-21.333 9.55-21.333 21.333 0 11.782 9.551 21.333 21.333 21.333 11.782 0 21.334-9.55 21.334-21.333 0-11.782-9.552-21.333-21.334-21.333zm-85.333 0c-11.782 0-21.333 9.55-21.333 21.333 0 11.782 9.55 21.333 21.333 21.333 11.782 0 21.333-9.55 21.333-21.333 0-11.782-9.55-21.333-21.333-21.333z"></path>
+                            </symbol>
+                        </defs>
+                        <use xlink:href="#icon-comment" fill="#687B8C"></use>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+
+    <!-- for comments -->
+    <app-comment [showComment]="showComment" [questionId]="questionId" [answerId]="answer.answerId"></app-comment>
+
+</div>

@@ -24,7 +24,7 @@
                 <!-- LOOP FOR EACH QUESTION -->
                 <div class="question-container" *ngFor="let question of questions">
                     <div class="my-question-header">
-                        <img class="brain-icon" src="../../assets/images/icon_brain_round.png">
+                        <img class="brain-icon" src="../../assets/images/icon_brain_round.png" title="{{question.username}}">
                         <span class="question-subject">{{titleCase(question.subject)}}</span>
                         <span class="date">{{relativeDate(question.date)}}</span>
                         <div class="points-container">
