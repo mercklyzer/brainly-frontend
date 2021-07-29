@@ -7,7 +7,7 @@
         <ul class="navbar-nav">
             <li class="navbar-item my-item" routerLink="/login" *ngIf="!user"><a >LOG IN</a></li>
             <li class="navbar-item my-item" routerLink="/signup" *ngIf="!user"><a >JOIN NOW</a></li>
-            <li class="navbar-item my-item"><a>ASK QUESTION</a></li>
+            <li class="navbar-item my-item" routerLink="{{user? '/ask-question' : '/login'}}"><a>ASK QUESTION</a></li>
             <li class="navbar-item my-item" (click)="onLogOut()" routerLink="/" *ngIf="user"><a>LOG OUT</a></li>
         </ul>
     </div>

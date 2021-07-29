@@ -13,10 +13,11 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { QuestionComponent } from './question/question.component';
 import { SubjectsComponent } from './subjects/subjects.component';
-import { UserComponent } from './user/user.component';
+import { SideUserComponent } from './side-user/side-user.component';
 import { AnswerComponent } from './answer/answer.component';
 import { CommentComponent } from './comment/comment.component';
 import { AnswersComponent } from './answers/answers.component';
+import { AddQuestionComponent } from './add-question/add-question.component';
 
 
 @NgModule({
@@ -30,10 +31,11 @@ import { AnswersComponent } from './answers/answers.component';
     DashboardComponent,
     QuestionComponent,
     SubjectsComponent,
-    UserComponent,
+    SideUserComponent,
     AnswerComponent,
     CommentComponent,
     AnswersComponent,
+    AddQuestionComponent,
   ],
   imports: [
     BrowserModule,

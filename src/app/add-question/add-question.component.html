@@ -1,0 +1,51 @@
+<section class="add-question">
+    <div class="container">
+        <div class="row">
+            <div class="col-9">
+                <div class="question-container">
+                    <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
+                        <div class="question-header">
+                            Ask a question about your assignment
+                        </div>
+                        <div class="question-body">
+                            <textarea rows="8" formControlName="question" placeholder="Write your question here. Keep it simple and clear to get the best answer."></textarea>
+                        </div>
+                        <div class="question-options">
+                            
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="subject">
+                                            <select class="form-select" formControlName="subject" aria-label="Default select example">
+                                                <option value="filipino">Filipino</option>
+                                                <option value="math">Math</option>
+                                                <option value="araling-panlipunan">Araling Panlipunan</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="points">
+                                            <div class="form-group">
+                                                <input type="number" formControlName="rewardPoints" class="form-control" [min]="10" [max]="user.currentPoints" placeholder="Reward">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="point-status">
+                                            You have {{user.currentPoints}} points
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                        </div>
+                        <button class="btn btn-submit" type="submit">ASK YOUR QUESTION</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-3">
+                <app-side-user></app-side-user>
+            </div>
+        </div>
+    </div>
+</section>

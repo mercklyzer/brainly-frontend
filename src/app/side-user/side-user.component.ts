@@ -4,11 +4,11 @@ import { User } from '../models/user.model';
 import jwt_decode from 'jwt-decode';
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  selector: 'app-side-user',
+  templateUrl: './side-user.component.html',
+  styleUrls: ['./side-user.component.css']
 })
-export class UserComponent implements OnInit {
+export class SideUserComponent implements OnInit {
   user!:User
 
   constructor(

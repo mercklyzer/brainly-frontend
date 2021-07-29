@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddQuestionComponent } from './add-question/add-question.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { LoginComponent } from './login/login.component';
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'dashboard/questions/:subject', component: DashboardComponent, pathMatch:'full'},
   {path: 'dashboard', redirectTo: 'dashboard/questions/all', pathMatch:'full'},
   {path: 'question/:questionId', component: QuestionComponent, pathMatch: 'full'},
+  {path: 'ask-question', component: AddQuestionComponent, pathMatch: 'full'},
   {path: '**', redirectTo:'', pathMatch: 'full'}
 ];
 
