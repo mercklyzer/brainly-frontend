@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { QuestionService } from '../question.service';
 import { Question } from '../models/question.model';
@@ -6,18 +6,16 @@ import { Comment } from '../models/comment.model';
 import { CommentService } from '../comment.service';
 import * as moment from 'moment'
 import { Answer } from '../models/answer.model';
-import { AnswerService } from '../answer.service';
 
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
   styleUrls: ['./question.component.css']
 })
-export class QuestionComponent implements OnInit {
+export class QuestionComponent implements OnInit, OnDestroy {
 
   routeObserver:any
   questionObserver:any
-  commentObserver:any
   
   showAnswer:boolean = false
   showComment:boolean = false
@@ -38,16 +36,14 @@ export class QuestionComponent implements OnInit {
       .subscribe((question) => {
 
         this.question = question.data
-        console.log(this.question);
-
-        // get comments for the question
-        this.commentObserver = this.commentService.getCommentsOfQuestion(routeParams.questionId)
-        .subscribe((comments) => {
-          this.comments = comments.data
-        })
 
       })
     })
+  }
+
+  ngOnDestroy():void{
+    this.routeObserver?.unsubscribe()
+    this.questionObserver?.unsubscribe()
   }
 
   onAnswerClick():void{

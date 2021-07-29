@@ -23,12 +23,13 @@ export class CommentComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy():void{
-    this.commentObserver.unsubscribe()
+    this.commentObserver?.unsubscribe()
   }
 
   ngOnChanges():void{
     if(this.showComment){
       if(this.questionId && !this.answerId){
+        
         this.commentObserver = this.commentService.getCommentsOfQuestion(this.questionId)
         .subscribe((commentResponse) => {
           this.comments = commentResponse.data
@@ -36,6 +37,7 @@ export class CommentComponent implements OnInit, OnChanges, OnDestroy {
         })
       }
       else if(this.questionId && this.answerId){
+        console.log(this.answerId);
         this.commentObserver = this.commentService.getCommentsOfAnswer(this.questionId, this.answerId)
         .subscribe((commentResponse) => {
           this.comments = commentResponse.data

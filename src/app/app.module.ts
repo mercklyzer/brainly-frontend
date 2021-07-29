@@ -17,7 +17,6 @@ import { UserComponent } from './user/user.component';
 import { AnswerComponent } from './answer/answer.component';
 import { CommentComponent } from './comment/comment.component';
 import { AnswersComponent } from './answers/answers.component';
-import { CommentsComponent } from './comments/comments.component';
 
 
 @NgModule({
@@ -35,7 +34,6 @@ import { CommentsComponent } from './comments/comments.component';
     AnswerComponent,
     CommentComponent,
     AnswersComponent,
-    CommentsComponent,
   ],
   imports: [
     BrowserModule,
