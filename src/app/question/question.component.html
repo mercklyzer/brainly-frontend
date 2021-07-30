@@ -20,9 +20,19 @@
                         <div class="answer-btn-and-comment-btn-container">
                             <button class="btn question-btn" (click)="onAnswerClick()">
                                 <div class="answer-count">
-                                    <span>2</span>
+                                    <span>{{question.answersCtr}}</span>
                                 </div> 
                                 SEE ANSWERS
+                                
+                            </button>
+
+                            <button class="btn add-answer-btn" routerLink="add-answer" [disabled]="question.isUserAnswered || user.userId === question.askerId">
+                                <img src="../../assets/images/plus.svg" class="plus-icon"/>
+
+                                ADD ANSWER
+                                <div class="reward-points">
+                                    <span>+ {{question.rewardPoints}} PTS</span>
+                                </div> 
                             </button>
 
                             <div (click)="onCommentClick()">
@@ -42,11 +52,11 @@
                     </div>
 
                     <!-- for comments -->
-                    <app-comment [showComment]="showComment" [questionId]="question.questionId"></app-comment>
+                    <app-comment [showComment]="showComment" [question]="question"></app-comment>
                 </div>
                 
                 <!-- for answers -->
-                <app-answers [showAnswer]="showAnswer" [questionId]="question.questionId"></app-answers>
+                <app-answers [showAnswer]="showAnswer" [question]="question"></app-answers>
             </div>
 
             <div class="col-3">

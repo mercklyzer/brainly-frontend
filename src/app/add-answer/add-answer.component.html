@@ -1,0 +1,26 @@
+<section class="add-answer">
+    <div class="container">
+        <div class="row">
+            <div class="alert alert-danger"  *ngIf="errorMessages[0]" role="alert">
+                {{errorMessages[0]}}
+            </div>
+            <div class="col-9">
+                <div class="answer-container">
+                    <form [formGroup]="answerForm" (ngSubmit)="onSubmit()">
+                        <div class="answer-header">
+                            Answer a question
+                        </div>
+                        <div class="answer-body">
+                            <textarea rows="8" formControlName="answer" placeholder="Write your answer here. Keep it simple and clear to make it understandable."></textarea>
+                        </div>
+
+                        <button class="btn btn-submit" type="submit">SUBMIT ANSWER</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-3">
+                <app-side-user></app-side-user>
+            </div>
+        </div>
+    </div>
+</section>

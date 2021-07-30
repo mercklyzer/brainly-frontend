@@ -96,5 +96,28 @@
     display: none;
 }
 
+.add-answer-btn{
+    background-color: #fff;
+    border: 2px solid black;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    transition: 0.4s;
+}
 
+.add-answer-btn:hover{
+    background-color: #edeff1;
+}
 
+.plus-icon{
+    width: 100%;
+    max-width: 25px;
+}
+
+.reward-points{
+    margin-left: 12px;
+    font-weight: 500;
+    color: #687B8C;
+}

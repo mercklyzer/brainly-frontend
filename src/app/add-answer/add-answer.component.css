@@ -1,0 +1,49 @@
+*{
+    font-family: 'Roboto', sans-serif;
+}
+
+.add-answer{
+    padding-top: 80px;
+}
+
+.answer-container{
+    margin: 20px;
+    border: 2px solid #EBF2F7;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.answer-header{
+    font-weight: 700;
+    font-size: 22px;
+}
+
+.answer-body{
+    /* border: 2px solid red; */
+    margin-top: 20px;
+    
+}
+
+textarea{
+    width: 100%;
+    background-color: #EBF2F7;
+    outline: none;
+    border: none;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+
+.btn-submit{
+    margin-top: 20px;
+    background-color: #60D399;
+    color: white;
+    border-radius: 20px;
+    font-weight: 600;
+    padding: 8px 20px;
+    transition: 0.4s;
+}
+
+.btn-submit:hover{
+    background-color: #30b16f;
+}

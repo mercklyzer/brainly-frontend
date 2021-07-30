@@ -18,6 +18,10 @@ import { AnswerComponent } from './answer/answer.component';
 import { CommentComponent } from './comment/comment.component';
 import { AnswersComponent } from './answers/answers.component';
 import { AddQuestionComponent } from './add-question/add-question.component';
+import { AddAnswerComponent } from './add-answer/add-answer.component';
+import { DummyComponent } from './dummy/dummy.component';
+import { CommentsComponent } from './comments/comments.component';
+import { AddCommentComponent } from './add-comment/add-comment.component';
 
 
 @NgModule({
@@ -36,6 +40,10 @@ import { AddQuestionComponent } from './add-question/add-question.component';
     CommentComponent,
     AnswersComponent,
     AddQuestionComponent,
+    AddAnswerComponent,
+    DummyComponent,
+    CommentsComponent,
+    AddCommentComponent,
   ],
   imports: [
     BrowserModule,

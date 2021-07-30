@@ -4,7 +4,16 @@
     </div>
 
     <div class="add-comment">
-        <img src="../../assets/images/icon_brain_round.png" alt="" class="user-icon comment-user-icon">
-        <span class="comment-area" role="textbox" contenteditable placeholder="Ask Samui about the question..."></span>
+        
+            <img src="../../assets/images/icon_brain_round.png" alt="" class="user-icon comment-user-icon">
+            <form [formGroup]="commentForm">
+                <ng-container *ngIf="!answer">
+                    <textarea class="comment-area" rows="1" formControlName="comment" (keydown.enter)="onSubmit()" placeholder="Ask {{question.username}} about the question..."></textarea>
+                </ng-container>
+                <ng-container *ngIf="answer">
+                    <textarea class="comment-area" rows="1" formControlName="comment" (keydown.enter)="onSubmit()" placeholder="Ask {{answer.username}} about the answer..."></textarea>
+                </ng-container>
+            </form>
+        
     </div>
 </div>

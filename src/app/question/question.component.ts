@@ -6,6 +6,8 @@ import { Comment } from '../models/comment.model';
 import { CommentService } from '../comment.service';
 import {relativeDate, titleCase} from '../utils/utils'
 import { Answer } from '../models/answer.model';
+import { CookieService } from 'ngx-cookie';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-question',
@@ -21,6 +23,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
   showComment:boolean = false
 
   question!:Question
+  user!:User
 
   helper = {
     relativeDate: relativeDate,
@@ -29,10 +32,13 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
   constructor(
     private questionService:QuestionService,
-    private route:ActivatedRoute
+    private route:ActivatedRoute,
+    private cookieService:CookieService
   ) { }
 
   ngOnInit(): void {
+    this.user = JSON.parse(this.cookieService.get('User'))
+
     this.routeObserver = this.route.params.subscribe((routeParams) => {
       this.questionObserver = this.questionService.getQuestion(routeParams.questionId)
       .subscribe((question) => {

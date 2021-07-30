@@ -3,6 +3,7 @@ import { Answer } from '../models/answer.model';
 import * as utils from '../utils/utils';
 import * as moment from 'moment'
 import { AnswerService } from '../answer.service';
+import { Question } from '../models/question.model';
 
 @Component({
   selector: 'app-answer',
@@ -11,7 +12,7 @@ import { AnswerService } from '../answer.service';
 })
 export class AnswerComponent implements OnInit {
   @Input() answer!:Answer
-  @Input() questionId:string = ''
+  @Input() question!:Question
   
   showComment:boolean = false
 

@@ -34,7 +34,7 @@ export class QuestionService {
     return this.http.get<{data:Question}>(this.url+'/questions/'+questionId, this.httpOptions)
   }
 
-postQuestion(question:{data: Question}):Observable<{data: Question}>{
+  postQuestion(question:{data: Question}):Observable<{data: Question}>{
     return this.http.post<{data:Question}>(this.url+'/questions', question, this.httpOptions)
   }
 

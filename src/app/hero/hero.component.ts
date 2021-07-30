@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie';
 
 @Component({
   selector: 'app-hero',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeroComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private cookieService:CookieService,
+    private router:Router
+  ) { }
 
   ngOnInit(): void {
+    if(this.cookieService.get('User')){
+      this.router.navigate(['/dashboard'])
+    }
   }
 
 }

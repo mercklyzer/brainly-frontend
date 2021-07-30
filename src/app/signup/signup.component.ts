@@ -5,8 +5,6 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 import {getFormValidationErrors} from '../utils/utils'
 
-
-
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',

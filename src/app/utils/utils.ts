@@ -1,5 +1,6 @@
 import { FormGroup } from '@angular/forms'
 import * as moment from 'moment'
+import { CookieService } from 'ngx-cookie'
 
 export const relativeDate = (time:number):string =>  moment(time).fromNow()
     
@@ -31,37 +32,45 @@ export const getFormValidationErrors = (form: FormGroup) => {
   }
 
 
-  export const getKeyString = (key:string):string => {
-    if(key === 'username')          return 'Username'
-    if(key === 'usernameOrEmail')   return 'Username or email'
-    if(key === 'email')             return 'Email'
-    if(key === 'profilePicture')    return 'Profile picture'
-    if(key === 'password')          return 'Password'
-    if(key === 'birthday')          return 'Birthday'
-    if(key === 'level')             return 'Level'
-    if(key === 'question')          return 'Question'
-    if(key === 'subject')           return 'Subject'
-    if(key === 'rewardPoints')      return 'Reward points'
+export const getKeyString = (key:string):string => {
+  if(key === 'username')          return 'Username'
+  if(key === 'usernameOrEmail')   return 'Username or email'
+  if(key === 'email')             return 'Email'
+  if(key === 'profilePicture')    return 'Profile picture'
+  if(key === 'password')          return 'Password'
+  if(key === 'birthday')          return 'Birthday'
+  if(key === 'level')             return 'Level'
+  if(key === 'question')          return 'Question'
+  if(key === 'answer')            return 'Answer'
+  if(key === 'subject')           return 'Subject'
+  if(key === 'rewardPoints')      return 'Reward points'
 
-    return ''
-  }
+  return ''
+}
   
-  export const getErrorMessage = (key:string, keyError:string):string => {
-    if(keyError === 'required')   return 'is required.'
-    if(keyError === 'minlength'){
-      if(key === 'username'){
-        return 'should be at least 6 characters.'
-      }
-      if(key === 'password'){
-        return 'should be at least 8 characters.'
-      }
+export const getErrorMessage = (key:string, keyError:string):string => {
+  if(keyError === 'required')   return 'is required.'
+  if(keyError === 'minlength'){
+    if(key === 'username'){
+      return 'should be at least 6 characters.'
     }
-    if(keyError === 'maxlength'){
-      if(key === 'username'){
-        return 'should not exceed 16 characters.'
-      }
+    if(key === 'password'){
+      return 'should be at least 8 characters.'
     }
-    if(keyError === 'email')    return 'has invalid format.'
-
-    return ''
   }
+  if(keyError === 'maxlength'){
+    if(key === 'username'){
+      return 'should not exceed 16 characters.'
+    }
+  }
+  if(keyError === 'email')    return 'has invalid format.'
+
+  return ''
+}
+
+export const updateUserCurrentPtsCookie = (cookieService:CookieService, addPoints:number):void => {
+  let user = JSON.parse(cookieService.get('User'))
+  user.currentPoints += addPoints
+  console.log(user);
+  cookieService.put('User', JSON.stringify(user))
+}
