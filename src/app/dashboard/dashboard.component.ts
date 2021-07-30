@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Question } from '../models/question.model';
 import { QuestionService } from '../question.service';
 import * as moment from 'moment';
+import {relativeDate, titleCase} from '../utils/utils'
 import { CookieService } from 'ngx-cookie';
 
 @Component({
@@ -16,6 +17,13 @@ export class DashboardComponent implements OnInit {
   routeObserver:any
   questionObserver:any
   subject:string = 'all'
+
+  // helper functions
+  helper = {
+    titleCase : titleCase,
+    relativeDate : relativeDate
+  }
+  
 
   constructor(
     private route: ActivatedRoute,
@@ -39,16 +47,6 @@ export class DashboardComponent implements OnInit {
     else{
       this.router.navigate(['/']);
     }
-
-
-  }
-
-  titleCase(param:string):string{
-    return param.split('-').map((word) => word[0].toUpperCase() + word.substr(1).toLowerCase()).join(' ')
-  }
-
-  relativeDate(time:number){
-    return moment(time).fromNow()
   }
 
   isUserLoggedIn():boolean{

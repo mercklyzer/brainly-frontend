@@ -2,9 +2,7 @@ import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } fro
 import { NavigationEnd, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 import { User } from '../models/user.model';
-import jwt_decode from 'jwt-decode';
 import {filter} from 'rxjs/operators';
-
 
 @Component({
   selector: 'app-navbar',
@@ -22,7 +20,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.sticky = window.pageYOffset > 0 ? true : false
     }
   }
-  
   // end of navbar animation on scroll
   
   url?:string
@@ -37,30 +34,18 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // keep track of the value of the route (url) and check if user cookie exists
     this.routerObserver = this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-      )
+      filter(event => event instanceof NavigationEnd))
       .subscribe((receivedEvent) => {
         if(receivedEvent instanceof NavigationEnd){
           this.url = receivedEvent.url;
 
-          this.user = this.getDecodedAccessToken(this.cookieService.get('Token'))?.user;
-
+          this.user = this.cookieService.get('User')? JSON.parse(this.cookieService.get('User')) : '';
         }
       });
   }
 
   ngOnDestroy():void{
     this.routerObserver.unsubscribe()
-  }
-  
-  getDecodedAccessToken(token: string): any {
-    try{
-      return jwt_decode(token);
-    }
-    catch(Error){
-      console.log(Error);
-      return null;
-    }
   }
 
   onLogOut():void{
@@ -71,6 +56,4 @@ export class NavbarComponent implements OnInit, OnDestroy {
   deleteCookies():void{
     this.cookieService.removeAll()
   }
-  
-
 }

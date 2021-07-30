@@ -3,8 +3,9 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 import { User } from '../models/user.model';
 import jwt_decode from 'jwt-decode'
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { QuestionService } from '../question.service';
+import { getFormValidationErrors } from '../utils/utils';
 
 
 @Component({
@@ -16,11 +17,13 @@ export class AddQuestionComponent implements OnInit {
   user!:User
   questionObserver:any
 
+  errorMessages:string[] = []
+
   questionForm = this.fb.group({
-    question: [''],
+    question: ['', Validators.required],
     image: [''],
-    subject: [''],
-    rewardPoints: ['']
+    subject: ['filipino', Validators.required],
+    rewardPoints: ['', Validators.required]
   })
 
 
@@ -33,7 +36,7 @@ export class AddQuestionComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.isUserLoggedIn()){
-      this.user = this.getDecodedAccessToken(this.cookieService.get('Token'))?.user;
+      this.user = JSON.parse(this.cookieService.get('User'));
     }
     else{
       this.router.navigate(['/']);
@@ -55,13 +58,30 @@ export class AddQuestionComponent implements OnInit {
   }
 
   onSubmit(){
-    this.questionObserver = this.questionService.postQuestion({data: this.questionForm.value})
-    .subscribe((res) => {
-      console.log(res);
-    },
-    (err) => {
-      console.log(err);
-    })
+    this.errorMessages = getFormValidationErrors(this.questionForm)
+
+    if(!this.errorMessages[0]){
+      this.questionObserver = this.questionService.postQuestion({data: this.questionForm.value})
+      .subscribe((res) => { 
+
+        this.updateUserCurrentPtsCookie(this.questionForm.value.rewardPoints)
+        this.router.navigate(['/question',res.data.questionId]);
+        
+      },
+      (err) => {
+        console.log(err);
+        this.errorMessages.push(err.error.error.message)
+      })
+    }
+
+
+  }
+
+  updateUserCurrentPtsCookie(rewardPoints:number):void{
+    let user = JSON.parse(this.cookieService.get('User'))
+    user.currentPoints -= rewardPoints
+    console.log(user);
+    this.cookieService.put('User', JSON.stringify(user))
   }
 
 }

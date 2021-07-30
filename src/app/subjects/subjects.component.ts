@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
+import { titleCase } from '../utils/utils';
 @Component({
   selector: 'app-subjects',
   templateUrl: './subjects.component.html',
@@ -32,6 +32,10 @@ export class SubjectsComponent implements OnInit {
     {subject: 'Spanish', imgSource: '../../assets/images/spanish.svg', route: 'spanish'},
   ]
 
+  helper = {
+    titleCase: titleCase
+  }
+
   subject:string = 'all'
   routeObserver:any
 
@@ -41,13 +45,9 @@ export class SubjectsComponent implements OnInit {
 
   ngOnInit(): void {
     this.routeObserver = this.route.params.subscribe((routeParams) => {
-      this.subject = this.titleCase(routeParams.subject)
+      this.subject = this.helper.titleCase(routeParams.subject)
       console.log(this.subject);
     })
-  }
-
-  titleCase(param:string):string{
-    return param.split('-').map((word) => word[0].toUpperCase() + word.substr(1).toLowerCase()).join(' ')
   }
 
 }

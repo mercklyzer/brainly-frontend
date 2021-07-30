@@ -24,8 +24,8 @@
                 <div class="question-container" *ngFor="let question of questions">
                     <div class="my-question-header">
                         <img class="brain-icon" src="../../assets/images/icon_brain_round.png" title="{{question.username}}">
-                        <span class="question-subject">{{titleCase(question.subject)}}</span>
-                        <span class="date">{{relativeDate(question.date)}}</span>
+                        <span class="question-subject">{{helper.titleCase(question.subject)}}</span>
+                        <span class="date">{{helper.relativeDate(question.date)}}</span>
                         <div class="points-container">
                             <img src="../../assets/images/points.svg" class="points-icon">
                             +{{question.rewardPoints}} <span [ngStyle]="{color: '#687B8C'}"> pts </span>

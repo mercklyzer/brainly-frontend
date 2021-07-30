@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie';
 import { User } from '../models/user.model';
-import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-side-user',
@@ -16,17 +15,6 @@ export class SideUserComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.user = this.getDecodedAccessToken(this.cookieService.get('Token'))?.user;
+    this.user = JSON.parse(this.cookieService.get('User'));
   }
-
-  getDecodedAccessToken(token: string): any {
-    try{
-      return jwt_decode(token);
-    }
-    catch(Error){
-      console.log(Error);
-      return null;
-    }
-  }
-
 }
