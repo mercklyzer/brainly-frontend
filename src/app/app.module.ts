@@ -19,10 +19,11 @@ import { CommentComponent } from './comment/comment.component';
 import { AnswersComponent } from './answers/answers.component';
 import { AddQuestionComponent } from './add-question/add-question.component';
 import { AddAnswerComponent } from './add-answer/add-answer.component';
-import { DummyComponent } from './dummy/dummy.component';
 import { CommentsComponent } from './comments/comments.component';
 import { AddCommentComponent } from './add-comment/add-comment.component';
 import { Interceptor } from './interceptor';
+import { UserLoginGuardService } from './user-login-guard.service';
+import { UserLogoutGuardService } from './user-logout-guard.service';
 
 
 @NgModule({
@@ -42,7 +43,6 @@ import { Interceptor } from './interceptor';
     AnswersComponent,
     AddQuestionComponent,
     AddAnswerComponent,
-    DummyComponent,
     CommentsComponent,
     AddCommentComponent,
   ],
@@ -54,11 +54,14 @@ import { Interceptor } from './interceptor';
     CookieModule.forRoot(),
   ],
   providers: [
+    UserLoginGuardService,
+    UserLogoutGuardService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: Interceptor,
       multi: true
     }
+    
   ],
   bootstrap: [AppComponent]
 })
