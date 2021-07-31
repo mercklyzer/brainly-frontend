@@ -29,7 +29,7 @@
                                     <div class="col-2">
                                         <div class="points">
                                             <div class="form-group">
-                                                <input type="number" (blur)="test()" formControlName="rewardPoints" class="form-control" [min]="10" [max]="user.currentPoints" placeholder="Reward">
+                                                <input type="number" #rewardPointsInput (blur)="verifyRewardPoints()" formControlName="rewardPoints" class="form-control" [min]="10" [max]="user.currentPoints" placeholder="Reward">
                                             </div>
                                         </div>
                                     </div>

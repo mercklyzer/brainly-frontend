@@ -52,14 +52,27 @@ export class CommentsComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(comment:{data:Comment}){
-    this.commentObserver = this.commentService.addCommentOfQuestion(this.question.questionId, comment)
-    .subscribe((res) => {
-      console.log(res);
-      this.comments.push(res.data)
-    },
-    (err) => {
-      console.log(err);
-    })
+    if(this.answer){
+      this.commentObserver = this.commentService.addCommentOfAnswer(this.question.questionId, this.answer.answerId, comment)
+      .subscribe((res) => {
+        console.log(res);
+        this.comments.push(res.data)
+      },
+      (err) => {
+        console.log(err);
+      })
+    }
+    else{
+      this.commentObserver = this.commentService.addCommentOfQuestion(this.question.questionId, comment)
+      .subscribe((res) => {
+        console.log(res);
+        this.comments.push(res.data)
+      },
+      (err) => {
+        console.log(err);
+      })
+    }
+
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 import { User } from '../models/user.model';
@@ -13,6 +13,8 @@ import { getFormValidationErrors, updateUserCurrentPtsCookie } from '../utils/ut
   styleUrls: ['./add-question.component.css']
 })
 export class AddQuestionComponent implements OnInit {
+  @ViewChild('rewardPointsInput') rewardPointsInput!:ElementRef
+
   user!:User
   questionObserver:any
 
@@ -63,8 +65,14 @@ export class AddQuestionComponent implements OnInit {
     }
   }
 
-  test(){
-    console.log("working test");
+  verifyRewardPoints(){
+    const maxRewardPoints = this.user.currentPoints
+
+    if(this.rewardPointsInput.nativeElement.value > maxRewardPoints){
+      console.log(maxRewardPoints);
+      this.rewardPointsInput.nativeElement.value = maxRewardPoints
+    }
+    console.log("blur");
   }
 
 }

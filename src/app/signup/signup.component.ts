@@ -41,7 +41,7 @@ export class SignupComponent implements OnInit {
       console.log({data: this.signupForm.value});
       this.userService.signupUser({data: this.signupForm.value}).subscribe((userResponse) => {
         this.cookieService.put('Token', userResponse.data.token)
-        this.cookieService.put('User', userResponse.data.user)
+        this.cookieService.put('User', JSON.stringify(userResponse.data.user))
         this.router.navigate(['/dashboard'])
   
       },

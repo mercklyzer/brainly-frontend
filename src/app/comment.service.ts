@@ -34,6 +34,10 @@ export class CommentService {
   addCommentOfQuestion(questionId:string, comment:{data:Comment}):Observable<{data:Comment}>{
     return this.http.post<{data:Comment}>(this.url+'/questions/'+questionId+'/comments', comment, this.httpOptions)
   }
+  
+  addCommentOfAnswer(questionId:string, answerId:string, comment:{data:Comment}):Observable<{data:Comment}>{
+    return this.http.post<{data:Comment}>(this.url+'/questions/'+questionId+'/answers/'+answerId+'/comments', comment, this.httpOptions)
+  }
  
 
 }

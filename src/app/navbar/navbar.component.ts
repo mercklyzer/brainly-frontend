@@ -24,7 +24,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   
   url?:string
   routerObserver: any
-  user?:User | null
+  user:User | null = null
 
   constructor(
     private router:Router,
@@ -38,8 +38,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       .subscribe((receivedEvent) => {
         if(receivedEvent instanceof NavigationEnd){
           this.url = receivedEvent.url;
-
-          this.user = this.cookieService.get('User')? JSON.parse(this.cookieService.get('User')) : '';
+          this.user = this.cookieService.get('User')? JSON.parse(this.cookieService.get('User')) : null;
         }
       });
   }
@@ -49,7 +48,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   onLogOut():void{
-    this.user = null
+    // this.user = null
     this.deleteCookies()
   }
 
