@@ -22,6 +22,7 @@ import { AddAnswerComponent } from './add-answer/add-answer.component';
 import { DummyComponent } from './dummy/dummy.component';
 import { CommentsComponent } from './comments/comments.component';
 import { AddCommentComponent } from './add-comment/add-comment.component';
+import { Interceptor } from './interceptor';
 
 
 @NgModule({
@@ -52,7 +53,13 @@ import { AddCommentComponent } from './add-comment/add-comment.component';
     ReactiveFormsModule,
     CookieModule.forRoot(),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: Interceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

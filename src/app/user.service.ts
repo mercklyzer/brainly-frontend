@@ -2,13 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type':  'application/json',
-    Authorization: 'my-auth-token'
-  })
-};
-
 @Injectable({
   providedIn: 'root'
 })
@@ -21,11 +14,11 @@ export class UserService {
   private url = 'http://localhost:3000'
 
   signupUser(user:any): Observable<any>{
-    return this.http.post<any>(this.url+'/signup',user, httpOptions)
+    return this.http.post<any>(this.url+'/signup',user)
   }
 
   loginUser(user:any):Observable<any>{
-    return this.http.post<any>(this.url+'/login',user,httpOptions)
+    return this.http.post<any>(this.url+'/login',user)
   }
 
 }
