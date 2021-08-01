@@ -17,12 +17,23 @@
 .question{
     border-bottom: 2px solid #EBF2F7;
     padding-bottom: 20px;
+    position: relative;
 }
 
 .question-header{
     display: flex;
     flex-direction: row;
     margin-bottom: 24px;
+}
+
+.question-dropdown{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.dropdown-item{
+    cursor: pointer;
 }
 
 .user-icon{

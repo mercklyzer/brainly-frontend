@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionService } from '../question.service';
 import { Question } from '../models/question.model';
 import { Comment } from '../models/comment.model';
@@ -33,6 +33,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
   constructor(
     private questionService:QuestionService,
     private route:ActivatedRoute,
+    private router:Router,
     private cookieService:CookieService
   ) { }
 
@@ -58,5 +59,16 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
   onCommentClick():void{
     this.showComment = true
+  }
+
+  onDelete():void{
+    this.questionObserver = this.questionService.deleteQuestion(this.question.questionId)
+    .subscribe((deletedAnswer) => {
+      console.log(deletedAnswer);
+      this.router.navigate(['/dashboard']);
+    },
+    (err) => {
+      console.log(err);
+    })
   }
 }

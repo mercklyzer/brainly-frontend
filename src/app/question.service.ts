@@ -29,4 +29,8 @@ export class QuestionService {
     return this.http.post<{data:Question}>(this.url+'/questions', question)
   }
 
+  deleteQuestion(questionId:string):Observable<{data: Question}>{
+    return this.http.delete<{data:Question}>(this.url+'/questions/'+questionId)
+  }
+
 }
