@@ -44,6 +44,10 @@ export class QuestionComponent implements OnInit, OnDestroy {
       this.questionObserver = this.questionService.getQuestion(routeParams.questionId)
       .subscribe((question) => {
         this.question = question.data
+      },
+      (err) => {
+        console.log(err.error.error.message);
+        this.router.navigate(['/dashboard']);
       })
     })
   }
@@ -65,10 +69,11 @@ export class QuestionComponent implements OnInit, OnDestroy {
     this.questionObserver = this.questionService.deleteQuestion(this.question.questionId)
     .subscribe((deletedAnswer) => {
       console.log(deletedAnswer);
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/dashboard'])
     },
     (err) => {
-      console.log(err);
+      console.log(err.error.error.message);
+      this.router.navigate(['/dashboard'])
     })
   }
 }
