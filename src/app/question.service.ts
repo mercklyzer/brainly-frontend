@@ -29,6 +29,11 @@ export class QuestionService {
     return this.http.post<{data:Question}>(this.url+'/questions', question)
   }
 
+  editQuestion(questionId:string, newQuestion:{data: {newQuestion:string}}):Observable<{data: Question}>{
+    return this.http.put<{data:Question}>(this.url+'/questions/'+ questionId, newQuestion)
+  }
+
+
   deleteQuestion(questionId:string):Observable<{data: Question}>{
     return this.http.delete<{data:Question}>(this.url+'/questions/'+questionId)
   }

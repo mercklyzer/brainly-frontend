@@ -13,8 +13,6 @@ import { getFormValidationErrors, updateUserCurrentPtsCookie } from '../utils/ut
   styleUrls: ['./add-question.component.css']
 })
 export class AddQuestionComponent implements OnInit {
-  @ViewChild('rewardPointsInput') rewardPointsInput!:ElementRef
-
   user!:User
   questionObserver:any
 
@@ -35,16 +33,7 @@ export class AddQuestionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if(this.isUserLoggedIn()){
-      this.user = JSON.parse(this.cookieService.get('User'));
-    }
-    else{
-      this.router.navigate(['/']);
-    }
-  }
-
-  isUserLoggedIn():boolean{
-    return this.cookieService.get('Token') !== undefined
+    this.user = JSON.parse(this.cookieService.get('User'));
   }
 
   onSubmit(){
@@ -67,12 +56,15 @@ export class AddQuestionComponent implements OnInit {
 
   verifyRewardPoints(){
     const maxRewardPoints = this.user.currentPoints
+    const minRewardPoints = 10
 
-    if(this.rewardPointsInput.nativeElement.value > maxRewardPoints){
-      console.log(maxRewardPoints);
-      this.rewardPointsInput.nativeElement.value = maxRewardPoints
+    if(this.questionForm.value.rewardPoints < minRewardPoints){
+      this.questionForm.patchValue({rewardPoints : minRewardPoints})
     }
-    console.log("blur");
+
+    if(this.questionForm.value.rewardPoints > maxRewardPoints){
+      this.questionForm.patchValue({rewardPoints : maxRewardPoints})
+    }
   }
 
 }

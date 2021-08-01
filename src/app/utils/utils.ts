@@ -41,6 +41,7 @@ export const getKeyString = (key:string):string => {
   if(key === 'birthday')          return 'Birthday'
   if(key === 'level')             return 'Level'
   if(key === 'question')          return 'Question'
+  if(key === 'newQuestion')       return 'New question'
   if(key === 'answer')            return 'Answer'
   if(key === 'subject')           return 'Subject'
   if(key === 'rewardPoints')      return 'Reward points'
