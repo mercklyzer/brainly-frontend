@@ -19,9 +19,7 @@
                                     <div class="col-6">
                                         <div class="subject">
                                             <select class="form-select" [disabled]="true">
-                                                <option [selected]="question.subject === 'filipino'" value="filipino">Filipino</option>
-                                                <option [selected]="question.subject === 'math'" value="math">Math</option>
-                                                <option [selected]="question.subject === 'araling-panlipunan'" value="araling-panlipunan">Araling Panlipunan</option>
+                                                <option [selected]="true">{{helper.titleCase(question.subject)}}</option>
                                             </select>
                                         </div>
                                     </div>

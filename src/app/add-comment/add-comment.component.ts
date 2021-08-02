@@ -28,7 +28,6 @@ export class AddCommentComponent implements OnInit {
   }
 
   onSubmit():void{
-    // event emitter (form)
     this.submit.emit({data: this.commentForm.value})
     this.commentForm.reset()
   }

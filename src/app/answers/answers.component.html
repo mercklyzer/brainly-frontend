@@ -1,1 +1,3 @@
-<app-answer *ngFor="let answer of answers" [question]="question" [answer]="answer"></app-answer>
+<ng-container *ngIf="showAnswer" >
+    <app-answer *ngFor="let answer of answers" [question]="question" [answer]="answer"></app-answer>
+</ng-container>

@@ -27,6 +27,7 @@ export class AnswersComponent implements OnInit, OnChanges {
       this.answerObserver = this.answerService.getAnswers(this.question.questionId)
       .subscribe((answerResponse) => {
         this.answers = answerResponse.data
+        console.log(this.answers);
       })
     }
   }

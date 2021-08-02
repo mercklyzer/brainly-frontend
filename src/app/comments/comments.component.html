@@ -1,9 +1,6 @@
 <div class="comments-container" *ngIf="showComment">
-    <!-- display each comment -->
+    
     <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
 
-    <!-- add comment section -->
-    <app-add-comment (submit)="onSubmit($event)" [question]="question"></app-add-comment>
-
-
+    <app-add-comment (submit)="onSubmit($event)" [question]="question" [answer]="answer"></app-add-comment>
 </div>
