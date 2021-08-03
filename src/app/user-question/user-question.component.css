@@ -59,6 +59,18 @@
     margin: 20px 0px;
 }
 
+.answer-body p{
+    cursor:pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.answer-body p:hover{
+    text-decoration: underline;
+}
+
+
 .answer-footer{
     font-weight: 500;
     color: #807B8C;

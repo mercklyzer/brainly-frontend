@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 import { Question } from '../models/question.model';
 import { User } from '../models/user.model';
 import { QuestionService } from '../question.service';
+import { UserService } from '../user.service';
+import { dateTimeToDate } from '../utils/utils';
 
 @Component({
   selector: 'app-user-questions',
@@ -12,24 +15,38 @@ import { QuestionService } from '../question.service';
 export class UserQuestionsComponent implements OnInit {
   questions:Question[] = []
   user!:User
-  answerObserver:any
+  questionObserver:any
+  routeObserver:any
+  userObserver:any
 
   constructor(
-    private cookieService:CookieService,
+    private userService:UserService,
     private questionService:QuestionService,
+    private route:ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.user = JSON.parse(this.cookieService.get('User'))
+    this.routeObserver = this.route.params.subscribe((routeParams) => {
+      this.userObserver = this.userService.getUserByUserId(routeParams.userId)
+      .subscribe((res) => {
+        this.user = res.data
+        this.user.birthday = dateTimeToDate(this.user.birthday)
 
-    this.answerObserver = this.questionService.getQuestionsByUser(this.user.userId)
-    .subscribe((res) => {
-      this.questions = res.data
-      console.log(res);
-    },
-    (err) => {
-      console.log(err);
+        this.questionObserver = this.questionService.getQuestionsByUser(this.user.userId)
+        .subscribe((res) => {
+          this.questions = res.data
+          console.log(res);
+        },
+        (err) => {
+          console.log(err);
+        })
+
+      },
+      (err) => console.log(err))
     })
+
+
+
   }
 
 }

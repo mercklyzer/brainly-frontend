@@ -11,8 +11,8 @@
         </div>
     </div>
 
-    <div class="answer-body">
-        {{question.question}}
+    <div class="answer-body" [routerLink]="['/question', question.questionId]">
+        <p>{{question.question}}</p>
     </div>
 
     <div class="answer-footer">

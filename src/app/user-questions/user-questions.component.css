@@ -35,3 +35,7 @@
 .user-activities-btn:last-child{
     margin-left: 16px;
 }
+
+.user-activities-body{
+    margin: 0px 0px 30px 0px;
+}

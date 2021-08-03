@@ -3,7 +3,7 @@
 }
 
 .answer-container{
-    margin-top: 10px;
+    margin: 10px;
     border-radius: 20px;
     border: 2px solid #EBF2F7;
     padding: 20px;
@@ -17,7 +17,7 @@
 .user-icon img{
     width: 100%;
     max-width: 40px;
-    margin-right: 60px;
+    margin-right: 20px;
 }
 
 .username{
