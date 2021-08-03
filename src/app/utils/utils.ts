@@ -3,7 +3,26 @@ import * as moment from 'moment'
 import { CookieService } from 'ngx-cookie'
 
 export const relativeDate = (time:number):string =>  moment(time).fromNow()
-    
+
+export const dateTimeToDate = (dateTime:string):string => {
+  let date = dateTime.substring(0, dateTime.indexOf('T'))
+
+  let splitDate = date.split('-')
+
+  let year = splitDate[0]
+  let month = splitDate[1]
+  let day = splitDate[2]
+
+  month = getMonth(month)
+
+  return `${month} ${day}, ${year}`
+}    
+
+const getMonth = (month:string) => {
+  let months = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May,' ,'Jun.', 'Jul.', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.']
+  return months[Number(month) - 1]
+}
+
 export const titleCase = (param:string):string => param.split('-').map((word) => word[0].toUpperCase() + word.substr(1).toLowerCase()).join(' ')
 
 export const getFormValidationErrors = (form: FormGroup) => {

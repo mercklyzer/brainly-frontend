@@ -2,10 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionService } from '../question.service';
 import { Question } from '../models/question.model';
-import { Comment } from '../models/comment.model';
-import { CommentService } from '../comment.service';
 import {relativeDate, titleCase} from '../utils/utils'
-import { Answer } from '../models/answer.model';
 import { CookieService } from 'ngx-cookie';
 import { User } from '../models/user.model';
 

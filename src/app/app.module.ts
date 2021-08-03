@@ -29,6 +29,7 @@ import { UserAnswersComponent } from './user-answers/user-answers.component';
 import { UserAnswerComponent } from './user-answer/user-answer.component';
 import { UserQuestionsComponent } from './user-questions/user-questions.component';
 import { UserQuestionComponent } from './user-question/user-question.component';
+import { SideUserProfileComponent } from './side-user-profile/side-user-profile.component';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import { UserQuestionComponent } from './user-question/user-question.component';
     UserAnswerComponent,
     UserQuestionsComponent,
     UserQuestionComponent,
+    SideUserProfileComponent,
   ],
   imports: [
     BrowserModule,

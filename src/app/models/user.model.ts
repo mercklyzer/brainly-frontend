@@ -8,5 +8,6 @@ export interface User {
     level: string,
     currentPoints: number,
     brainliestCtr: number,
-    answersCtr: number
+    answersCtr: number,
+    thanksCtr: number
 }
