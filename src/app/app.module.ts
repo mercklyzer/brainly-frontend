@@ -25,6 +25,7 @@ import { Interceptor } from './interceptor';
 import { UserLoginGuardService } from './user-login-guard.service';
 import { UserLogoutGuardService } from './user-logout-guard.service';
 import { EditQuestionComponent } from './edit-question/edit-question.component';
+import { UserAnswersComponent } from './user-answers/user-answers.component';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { EditQuestionComponent } from './edit-question/edit-question.component';
     CommentsComponent,
     AddCommentComponent,
     EditQuestionComponent,
+    UserAnswersComponent,
   ],
   imports: [
     BrowserModule,

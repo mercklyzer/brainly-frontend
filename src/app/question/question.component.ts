@@ -44,6 +44,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
       this.questionObserver = this.questionService.getQuestion(routeParams.questionId)
       .subscribe((question) => {
         this.question = question.data
+        console.log(this.question);
       },
       (err) => {
         console.log(err.error.error.message);

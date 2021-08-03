@@ -1,0 +1,93 @@
+*{
+    font-family: 'Roboto', sans-serif;
+}
+
+.user-profile{
+    padding-top: 80px;
+}
+
+.user-profile-header{
+    width: 100%;
+    height: 120px;
+    background: rgb(185,226,254);
+    background: linear-gradient(90deg, rgba(185,226,254,1) 0%, rgba(185,226,254,1) 56%, rgba(217,240,255,1) 100%);    
+}
+
+.user-activities-header{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.user-activities-btn{
+    padding: 10px 8px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.user-activities-btn.active{
+    border-top: 3px solid #4FB3F6;
+}
+
+.user-activities-btn:last-child{
+    margin-left: 16px;
+}
+
+/* .user-activities-body{
+
+} */
+
+.answer-container{
+    margin-top: 10px;
+    border-radius: 20px;
+    border: 2px solid #EBF2F7;
+    padding: 20px;
+}
+
+.answer-header{
+    display: flex;
+    align-items: center;
+}
+
+.user-icon img{
+    width: 100%;
+    max-width: 30px;
+    margin-right: 13px;
+}
+
+.username{
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.question{
+    font-weight: 600;
+    font-size: 16px;
+    color: #687B9B;
+}
+
+.date{
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.subject{
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.answer-body{
+    margin: 20px 0px;
+}
+
+.answer-footer{
+    font-weight: 500;
+    color: #807B8C;
+}
+
+.answer-footer img{
+    width: 100%;
+    max-width: 30px;
+}

@@ -36,6 +36,22 @@
     cursor: pointer;
 }
 
+.user-icon-container{
+    padding: 4px;
+    border-radius: 50%;
+    cursor:pointer;
+    transition: 0.4s;
+}
+
+.user-icon-container:hover{
+    background-color: #abb6bf;
+}
+
+.user-icon{
+    max-width: 30px;
+    width: 100%;
+}
+
 .my-item{
     cursor: pointer;
     padding: 6px 10px;

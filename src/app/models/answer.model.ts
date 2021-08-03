@@ -11,7 +11,6 @@ export interface Answer {
     lastEdited: number,
     isBrainliest: number,
     isAnswer: number,
-    thanksCtr: number
-    thankerUsername: string[],
-    thankerProfilePicture: string[]
+    thanksCtr: number,
+    isUserThanked: number
 }

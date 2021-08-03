@@ -50,6 +50,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   onLogOut():void{
     // this.user = null
     this.deleteCookies()
+    this.router.navigate(['/'])
   }
 
   deleteCookies():void{

@@ -29,8 +29,6 @@ export class AnswerComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = JSON.parse(this.cookieService.get('User'))
-    console.log("answer:");
-    console.log(this.answer);
   }
 
   onCommentClick():void{
@@ -38,20 +36,18 @@ export class AnswerComponent implements OnInit {
   }
 
   onThank():void{
-    if(!this.answer.thankerUsername?.includes(this.user.username)){
+    console.log(this.answer.isUserThanked);
+    if(this.answer.isUserThanked === 0){
       // this.thankEmitter.emit({questionId: this.question.questionId, answerId:this.answer.answerId})
       this.answerObserver = this.answerService.addThank(this.question.questionId,this.answer.answerId)
       .subscribe((res) => {
         console.log(res);
         this.answer.thanksCtr++;
-        this.answer.thankerUsername.push(this.user.username)
-        this.answer.thankerProfilePicture.push(this.user.profilePicture)
+        this.answer.isUserThanked = 1;
       },
       (err) => {
         console.log(err);
       })
-      this.answer.thankerUsername.push(this.user.username)
-      this.answer.thankerProfilePicture.push('')
     }
   }
 

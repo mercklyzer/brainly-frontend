@@ -19,6 +19,10 @@ export class AnswerService {
     return this.http.get<{data:Answer[]}>(this.url+'/questions/'+questionId+'/answers')
   }
 
+  getAnswersByUser(userId:string):Observable<{data:Answer[]}>{
+    return this.http.get<{data:Answer[]}>(`${this.url}/users/${userId}/answers`);
+  }
+
   postAnswer(questionId:string, answer:{data: Answer}):Observable<{data: Answer}>{
     return this.http.post<{data:Answer}>(this.url+'/questions/'+questionId+'/answers', answer)
   }
