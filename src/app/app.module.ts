@@ -26,6 +26,9 @@ import { UserLoginGuardService } from './user-login-guard.service';
 import { UserLogoutGuardService } from './user-logout-guard.service';
 import { EditQuestionComponent } from './edit-question/edit-question.component';
 import { UserAnswersComponent } from './user-answers/user-answers.component';
+import { UserAnswerComponent } from './user-answer/user-answer.component';
+import { UserQuestionsComponent } from './user-questions/user-questions.component';
+import { UserQuestionComponent } from './user-question/user-question.component';
 
 
 @NgModule({
@@ -49,6 +52,9 @@ import { UserAnswersComponent } from './user-answers/user-answers.component';
     AddCommentComponent,
     EditQuestionComponent,
     UserAnswersComponent,
+    UserAnswerComponent,
+    UserQuestionsComponent,
+    UserQuestionComponent,
   ],
   imports: [
     BrowserModule,

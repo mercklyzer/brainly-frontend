@@ -11,6 +11,7 @@ import { SignupComponent } from './signup/signup.component';
 import { UserAnswersComponent } from './user-answers/user-answers.component';
 import { UserLoginGuardService } from './user-login-guard.service';
 import { UserLogoutGuardService } from './user-logout-guard.service';
+import { UserQuestionsComponent } from './user-questions/user-questions.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,7 @@ const routes: Routes = [
   {path: 'ask-question', component: AddQuestionComponent, canActivate:[UserLoginGuardService],pathMatch: 'full'},
   {path: 'users/:userId', redirectTo: 'users/:userId/answers',pathMatch: 'full'},
   {path: 'users/:userId/answers', component: UserAnswersComponent, canActivate:[UserLoginGuardService],pathMatch: 'full'},
+  {path: 'users/:userId/questions', component: UserQuestionsComponent, canActivate:[UserLoginGuardService],pathMatch: 'full'},
   {path: '**', redirectTo:'', pathMatch: 'full'}
 ];
 

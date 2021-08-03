@@ -14,13 +14,13 @@
                 <div class="col-8">
                     <div class="user-activities">
                             <div class="user-activities-header">
-                                <div class="user-activities-btn active">Answers</div>
-                                <div class="user-activities-btn" routerLink="../questions">Questions</div>
+                                <div class="user-activities-btn" routerLink="../answers">Answers</div>
+                                <div class="user-activities-btn active">Questions</div>
                             </div>
 
                             <div class="user-activities-body">
-                                <p *ngIf="answers.length === 0" [ngStyle]="{'padding': '10px'}">No answers yet.</p>
-                                <app-user-answer [answer]="answer" *ngFor="let answer of answers"></app-user-answer>
+                                <p *ngIf="questions.length === 0" [ngStyle]="{'padding': '10px'}">No questions yet.</p>
+                                <app-user-question [question]="question" *ngFor="let question of questions"></app-user-question>
                             </div>
                     </div>
                 </div>

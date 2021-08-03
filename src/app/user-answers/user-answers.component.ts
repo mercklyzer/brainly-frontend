@@ -21,9 +21,10 @@ export class UserAnswersComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = JSON.parse(this.cookieService.get('User'))
-
+    console.log(this.user);
     this.answerObserver = this.answerService.getAnswersByUser(this.user.userId)
     .subscribe((res) => {
+      this.answers = res.data
       console.log(res);
     })
   }

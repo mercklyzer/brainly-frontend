@@ -1,0 +1,22 @@
+<div class="answer-container">
+    <div class="answer-header">
+        <div class="user-icon"><img src="../../assets/images/icon_brain_round.png"></div>
+        <div class="question-detail">
+            <div>
+                <span class="username">{{answer.username}}</span> answered <p class="question" [routerLink]="['/question',answer.questionId]">{{answer.question}}</p>
+            </div>
+            <div>
+                <span class="date">{{helper.relativeDate(answer.date)}}</span> <span class="subject"> {{helper.titleCase(answer.subject)}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="answer-body">
+        {{answer.answer}}
+    </div>
+
+    <div class="answer-footer">
+        <img src="../../assets/images/heart-grayscale.svg">
+        {{answer.thanksCtr}}
+    </div>
+</div>

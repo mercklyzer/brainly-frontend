@@ -21,6 +21,10 @@ export class QuestionService {
     return this.http.get<{data:Question[]}>(this.url+'/questions')
   }
 
+  getQuestionsByUser(userId:string): Observable<{data:Question[]}>{
+    return this.http.get<{data:Question[]}>(`${this.url}/users/${userId}/questions`)
+  }
+
   getQuestion(questionId:string):Observable<{data:Question}>{
     return this.http.get<{data:Question}>(this.url+'/questions/'+questionId)
   }
@@ -32,7 +36,6 @@ export class QuestionService {
   editQuestion(questionId:string, newQuestion:{data: {newQuestion:string}}):Observable<{data: Question}>{
     return this.http.put<{data:Question}>(this.url+'/questions/'+ questionId, newQuestion)
   }
-
 
   deleteQuestion(questionId:string):Observable<{data: Question}>{
     return this.http.delete<{data:Question}>(this.url+'/questions/'+questionId)

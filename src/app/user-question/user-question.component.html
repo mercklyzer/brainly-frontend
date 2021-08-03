@@ -1,0 +1,22 @@
+<div class="answer-container">
+    <div class="answer-header">
+        <div class="user-icon"><img src="../../assets/images/icon_brain_round.png"></div>
+        <div class="question-detail">
+            <div>
+                <span class="username">{{question.username}}</span> asked
+            </div>
+            <div>
+                <span class="date">{{helper.relativeDate(question.date)}}</span> <span class="subject"> {{helper.titleCase(question.subject)}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="answer-body">
+        {{question.question}}
+    </div>
+
+    <div class="answer-footer">
+        <img src="../../assets/images/answer.svg">
+        {{question.answersCtr}}
+    </div>
+</div>
