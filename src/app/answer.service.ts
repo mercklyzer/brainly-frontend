@@ -27,5 +27,9 @@ export class AnswerService {
     return this.http.post<{data: Thank}>(`${this.url}/questions/${questionId}/answers/${answerId}/thank`,{})
   }
 
+  setBrainliest(questionId:string, answerId:string):Observable<{data:string}>{
+    return this.http.post<{data: string}>(`${this.url}/questions/${questionId}/answers/${answerId}/brainliest`,{})
+  }
+
 
 }

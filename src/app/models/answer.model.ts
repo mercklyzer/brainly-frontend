@@ -9,7 +9,7 @@ export interface Answer {
     profilePicture: string,
     date: number,
     lastEdited: number,
-    isBrainliset: number,
+    isBrainliest: number,
     isAnswer: number,
     thanksCtr: number
     thankerUsername: string[],

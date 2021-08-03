@@ -29,6 +29,8 @@ export class AnswerComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = JSON.parse(this.cookieService.get('User'))
+    console.log("answer:");
+    console.log(this.answer);
   }
 
   onCommentClick():void{
@@ -50,6 +52,20 @@ export class AnswerComponent implements OnInit {
       })
       this.answer.thankerUsername.push(this.user.username)
       this.answer.thankerProfilePicture.push('')
+    }
+  }
+
+  onSetBrainliest():void{
+    if(this.question.username === this.user.username ){
+      this.answerObserver = this.answerService.setBrainliest(this.question.questionId, this.answer.answerId)
+      .subscribe((res) => {
+        console.log(res);
+        this.answer.isBrainliest = 1;
+        this.question.userBrainliest = this.user.userId;
+      },
+      (err) => {
+        console.log(err);
+      })
     }
   }
 

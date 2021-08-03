@@ -1,6 +1,8 @@
 <div class="answer-container">
     <div class="answer-header">
         <div class="answer-header-caption">Answer</div>
+        <div class="brainliest-container brainliest" *ngIf="answer.isBrainliest"><img src="../../assets/images/excellent.svg" class="brainliest-icon"/></div>
+        <div class="brainliest-container" (click)="onSetBrainliest()" *ngIf="!answer.isBrainliest && !question.userBrainliest && user.username === question.username"><img src="../../assets/images/excellent-1.svg" class="brainliest-icon"/></div>
     </div>
 
     <div class="user-header">
@@ -20,7 +22,7 @@
 
     <div class="answer-footer">
         <div class="thanks-btn-and-comment-btn-container">
-            <button class="btn thanks-btn" (click)="onThank()">
+            <button class="btn thanks-btn" (click)="onThank()" [disabled]="user.userId === answer.userId">
                 <svg *ngIf="!answer.thankerUsername?.includes(user.username)" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" class="sg-icon__svg" width="30"  height="30" >
                     <defs>
                         <symbol viewBox="0 0 512 512" style="overflow: visible" id="icon-heart_outlined" xmlns="http://www.w3.org/2000/svg">
