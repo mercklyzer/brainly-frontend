@@ -18,5 +18,6 @@
     <div class="answer-footer">
         <img src="../../assets/images/heart-grayscale.svg">
         {{answer.thanksCtr}}
+        <img *ngIf="answer.isBrainliest" [ngStyle]="{'margin-left': '10px'}" src="../../assets/images/excellent-1.svg">
     </div>
 </div>

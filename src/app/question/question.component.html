@@ -6,7 +6,7 @@
                     <div class="question">       
                         <div class="question-header">
 
-                            <img src="../../assets/images/icon_brain_round.png" alt="" class="user-icon">
+                            <img src="../../assets/images/icon_brain_round.png" alt="" class="user-icon" [routerLink]="['/users',question.askerId]">
                             <div class="question-info-container">
                                 <div class="user-name">{{question.username}}</div>
                                 <div class="question-info">

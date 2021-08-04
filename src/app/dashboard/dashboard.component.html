@@ -23,7 +23,7 @@
                 <!-- LOOP FOR EACH QUESTION -->
                 <div class="question-container" *ngFor="let question of questions">
                     <div class="my-question-header">
-                        <img class="brain-icon" src="../../assets/images/icon_brain_round.png" title="{{question.username}}">
+                        <img class="brain-icon" src="../../assets/images/icon_brain_round.png" title="{{question.username}}" [routerLink]="['/users',question.askerId]">
                         <span class="question-subject">{{helper.titleCase(question.subject)}}</span>
                         <span class="date">{{helper.relativeDate(question.date)}}</span>
                         <div class="points-container">
