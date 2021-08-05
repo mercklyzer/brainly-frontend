@@ -21,6 +21,8 @@ export class SideUserProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log("side-user-profile");
+    console.log(this.user);
     // this.routeObserver = this.route.params.subscribe((routeParams) => {
     //   this.userObserver = this.userService.getUserByUserId(routeParams.userId)
     //   .subscribe((res) => {

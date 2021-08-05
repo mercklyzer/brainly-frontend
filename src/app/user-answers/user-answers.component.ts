@@ -30,6 +30,7 @@ export class UserAnswersComponent implements OnInit {
       this.userObserver = this.userService.getUserByUserId(routeParams.userId)
       .subscribe((res) => {
         this.user = res.data
+        console.log(this.user);
         this.user.birthday = dateTimeToDate(this.user.birthday)
 
         this.answerObserver = this.answerService.getAnswersByUser(this.user.userId)
@@ -41,11 +42,6 @@ export class UserAnswersComponent implements OnInit {
       },
       (err) => console.log(err))
     })
-
-
-
-
-
   }
 
 }

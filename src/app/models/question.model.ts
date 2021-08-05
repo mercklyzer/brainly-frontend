@@ -9,7 +9,7 @@ export interface Question {
     askerId: string,
     username: string,
     profilePicture: string,
-    userBrainliest: string,
+    hasBrainliest: number,
     answersCtr: number,
     isUserAnswered:boolean
 }

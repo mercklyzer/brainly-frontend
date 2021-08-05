@@ -8,7 +8,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-4">
-                    <app-side-user-profile [user]="user"></app-side-user-profile>
+                    <app-side-user-profile *ngIf="user" [user]="user"></app-side-user-profile>
                 </div>
 
                 <div class="col-8">

@@ -20,7 +20,6 @@ export class AddQuestionComponent implements OnInit {
 
   questionForm:FormGroup = this.fb.group({
     question: ['', Validators.required],
-    image: [''],
     subject: ['filipino', Validators.required],
     rewardPoints: ['', Validators.required]
   })

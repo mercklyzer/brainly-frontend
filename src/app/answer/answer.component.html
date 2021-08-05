@@ -2,7 +2,7 @@
     <div class="answer-header">
         <div class="answer-header-caption">Answer</div>
         <div class="brainliest-container brainliest" *ngIf="answer.isBrainliest"><img src="../../assets/images/excellent.svg" class="brainliest-icon"/></div>
-        <div class="brainliest-container" (click)="onSetBrainliest()" *ngIf="!answer.isBrainliest && !question.userBrainliest && user.username === question.username"><img src="../../assets/images/excellent-1.svg" class="brainliest-icon"/></div>
+        <div class="brainliest-container" (click)="onSetBrainliest()" *ngIf="question.hasBrainliest == 0 && user.userId === question.askerId"><img src="../../assets/images/excellent-1.svg" class="brainliest-icon"/></div>
     </div>
 
     <div class="user-header">

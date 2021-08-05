@@ -51,7 +51,7 @@ export class AddAnswerComponent implements OnInit {
       .subscribe((res) => {
         console.log(res);
 
-        updateUserCurrentPtsCookie(this.cookieService, this.question.rewardPoints)
+        updateUserCurrentPtsCookie(this.cookieService, Number(this.question.rewardPoints))
         this.router.navigate(['/question',res.data.questionId]);
       },
       (err) => {

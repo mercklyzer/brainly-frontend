@@ -33,15 +33,16 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit(){
-    // clear errors first
     this.errorMessages = getFormValidationErrors(this.signupForm)
-
+    console.log(this.signupForm.value);
     if(!this.errorMessages[0]){
-      console.log(this.signupForm.controls);
-      console.log({data: this.signupForm.value});
+
       this.userService.signupUser({data: this.signupForm.value}).subscribe((userResponse) => {
         this.cookieService.put('Token', userResponse.data.token)
         this.cookieService.put('User', JSON.stringify(userResponse.data.user))
+        console.log(userResponse);
+        console.log(userResponse.data.token);
+        console.log(userResponse.data.user);
         this.router.navigate(['/dashboard'])
   
       },

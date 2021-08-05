@@ -57,7 +57,7 @@ export class AnswerComponent implements OnInit {
       .subscribe((res) => {
         console.log(res);
         this.answer.isBrainliest = 1;
-        this.question.userBrainliest = this.user.userId;
+        this.question.hasBrainliest = 1;
       },
       (err) => {
         console.log(err);

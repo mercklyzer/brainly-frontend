@@ -4,8 +4,7 @@ import { CookieService } from 'ngx-cookie'
 
 export const relativeDate = (time:number):string =>  moment(time).fromNow()
 
-export const dateTimeToDate = (dateTime:string):string => {
-  let date = dateTime.substring(0, dateTime.indexOf('T'))
+export const dateTimeToDate = (date:string):string => {
 
   let splitDate = date.split('-')
 
@@ -90,7 +89,7 @@ export const getErrorMessage = (key:string, keyError:string):string => {
 
 export const updateUserCurrentPtsCookie = (cookieService:CookieService, addPoints:number):void => {
   let user = JSON.parse(cookieService.get('User'))
-  user.currentPoints += addPoints
+  user.currentPoints = Number(user.currentPoints) + addPoints
   console.log(user);
   cookieService.put('User', JSON.stringify(user))
 }
