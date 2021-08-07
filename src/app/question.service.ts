@@ -14,15 +14,15 @@ export class QuestionService {
 
   private url = 'http://localhost:3000'
 
-  getQuestions(subject:string): Observable<{data:Question[]}>{
+  getQuestions(subject:string,offset:number): Observable<{data:Question[]}>{
     if(subject !== 'all'){
-      return this.http.get<{data:Question[]}>(this.url+'/subjects/' + subject + '/questions')
+      return this.http.get<{data:Question[]}>(this.url+'/subjects/' + subject + '/questions?offset='+offset)
     }
-    return this.http.get<{data:Question[]}>(this.url+'/questions')
+    return this.http.get<{data:Question[]}>(this.url+'/questions?offset='+offset)
   }
 
-  getQuestionsByUser(userId:string): Observable<{data:Question[]}>{
-    return this.http.get<{data:Question[]}>(`${this.url}/users/${userId}/questions`)
+  getQuestionsByUser(userId:string, offset:number): Observable<{data:Question[]}>{
+    return this.http.get<{data:Question[]}>(`${this.url}/users/${userId}/questions?offset=${offset}`)
   }
 
   getQuestion(questionId:string):Observable<{data:Question}>{

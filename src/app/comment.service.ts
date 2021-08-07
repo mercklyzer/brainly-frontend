@@ -16,12 +16,12 @@ export class CommentService {
 
   private url = 'http://localhost:3000'
 
-  getCommentsOfQuestion(questionId:string): Observable<{data:Comment[]}>{
-    return this.http.get<{data:Comment[]}>(this.url+'/questions/'+questionId+'/comments')
+  getCommentsOfQuestion(questionId:string, offset:number): Observable<{data:Comment[]}>{
+    return this.http.get<{data:Comment[]}>(this.url+'/questions/'+questionId+'/comments?offset='+offset)
   }
 
-  getCommentsOfAnswer(questionId:string, answerId:string): Observable<{data:Comment[]}>{
-    return this.http.get<{data:Comment[]}>(this.url+'/questions/'+questionId+'/answers/' + answerId + '/comments')
+  getCommentsOfAnswer(questionId:string, answerId:string, offset:number): Observable<{data:Comment[]}>{
+    return this.http.get<{data:Comment[]}>(this.url+'/questions/'+questionId+'/answers/' + answerId + '/comments?offset='+offset)
   }
 
   addCommentOfQuestion(questionId:string, comment:{data:Comment}):Observable<{data:Comment}>{

@@ -1,0 +1,10 @@
+.load-more{
+    font-family: 'Roboto', sans-serif;
+    color: #656783;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.load-more:hover{
+    text-decoration: underline;
+}

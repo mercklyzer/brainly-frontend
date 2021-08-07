@@ -15,12 +15,12 @@ export class AnswerService {
 
   private url = 'http://localhost:3000'
 
-  getAnswers(questionId:string): Observable<{data:Answer[]}>{
-    return this.http.get<{data:Answer[]}>(this.url+'/questions/'+questionId+'/answers')
+  getAnswers(questionId:string, offset:number): Observable<{data:Answer[]}>{
+    return this.http.get<{data:Answer[]}>(this.url+'/questions/'+questionId+'/answers?offset='+offset)
   }
 
-  getAnswersByUser(userId:string):Observable<{data:Answer[]}>{
-    return this.http.get<{data:Answer[]}>(`${this.url}/users/${userId}/answers`);
+  getAnswersByUser(userId:string, offset:number):Observable<{data:Answer[]}>{
+    return this.http.get<{data:Answer[]}>(`${this.url}/users/${userId}/answers?offset=${offset}`);
   }
 
   postAnswer(questionId:string, answer:{data: Answer}):Observable<{data: Answer}>{

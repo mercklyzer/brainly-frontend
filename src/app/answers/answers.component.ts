@@ -15,6 +15,10 @@ export class AnswersComponent implements OnInit, OnChanges {
   answerObserver:any
   answers:Answer[] = []
 
+  offset:number = 0
+  disableLoad:boolean = false
+  requestOnProcess:boolean = false
+
   constructor(
     private answerService:AnswerService
   ) { }
@@ -24,12 +28,38 @@ export class AnswersComponent implements OnInit, OnChanges {
 
   ngOnChanges():void{
     if(this.showAnswer){
-      this.answerObserver = this.answerService.getAnswers(this.question.questionId)
+      this.requestOnProcess = true
+      this.answerObserver = this.answerService.getAnswers(this.question.questionId, this.offset)
       .subscribe((answerResponse) => {
         this.answers = answerResponse.data
+        if(this.answers.length !== 5){
+          this.disableLoad = true
+        }
+        this.requestOnProcess = false
+        this.offset += 5
         console.log(this.answers);
       })
     }
+  }
+
+  loadMore(){
+    if(!this.disableLoad && !this.requestOnProcess && this.answers.length !== 0){
+      this.answerObserver = this.answerService.getAnswers(this.question.questionId, this.offset)
+      .subscribe((answerResponse) => {
+        this.answers = this.answers.concat(answerResponse.data)
+        this.requestOnProcess = false
+        this.offset += 5
+
+        if(answerResponse.data.length === 0){
+          this.disableLoad = true
+          this.requestOnProcess = false
+        }
+
+        console.log(this.answers);
+      })
+    }
+
+    this.requestOnProcess = true
   }
 
 }

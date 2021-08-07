@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 import { AnswerService } from '../answer.service';
@@ -19,6 +19,10 @@ export class UserAnswersComponent implements OnInit {
   userObserver:any
   routeObserver:any
 
+  offset:number = 0
+  requestOnProcess = false
+  fetchDisable = false
+
   constructor(
     private answerService:AnswerService,
     private userService:UserService,
@@ -33,9 +37,15 @@ export class UserAnswersComponent implements OnInit {
         console.log(this.user);
         this.user.birthday = dateTimeToDate(this.user.birthday)
 
-        this.answerObserver = this.answerService.getAnswersByUser(this.user.userId)
+        this.offset = 0
+        this.fetchDisable = false
+        this.requestOnProcess = false
+
+        this.answerObserver = this.answerService.getAnswersByUser(this.user.userId, this.offset)
         .subscribe((res) => {
           this.answers = res.data
+          this.requestOnProcess = false
+          this.offset += 5
           console.log(res);
         })
 
@@ -43,5 +53,34 @@ export class UserAnswersComponent implements OnInit {
       (err) => console.log(err))
     })
   }
+
+  @HostListener('window:scroll', ['$event'])
+
+  onWindowScroll() {
+    // if end of the page, get new set of questions
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight){
+
+      if(!this.requestOnProcess && !this.fetchDisable && this.answers.length !== 0){
+        this.answerService.getAnswersByUser(this.user.userId, this.offset)
+        .subscribe((answers) => {
+          this.answers = this.answers.concat(answers.data)
+          this.requestOnProcess = false
+          this.offset += 5
+
+          if(answers.data.length === 0) {
+            this.fetchDisable = true
+            this.requestOnProcess = false
+          }
+        }
+        ,
+        (err) => {
+          console.log(err);
+        })  
+      }
+
+      this.requestOnProcess = true
+    }
+  }
+
 
 }

@@ -1,6 +1,7 @@
 <div class="comments-container" *ngIf="showComment">
     
     <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
+    <span class="load-more" *ngIf="!disableLoad" (click)="loadMore()">View more comments</span>
 
     <app-add-comment (submit)="onSubmit($event)" [question]="question" [answer]="answer"></app-add-comment>
 </div>

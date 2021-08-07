@@ -1,0 +1,14 @@
+*{
+    font-family: 'Roboto', sans-serif;
+}
+
+.load-more{
+    background-color: #4FB3F6;
+    border: none;
+    margin-bottom:20px;
+    transition: 0.4s;
+}
+
+.load-more:hover{
+    background-color: #158edf;
+}
