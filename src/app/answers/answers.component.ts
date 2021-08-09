@@ -44,22 +44,23 @@ export class AnswersComponent implements OnInit, OnChanges {
 
   loadMore(){
     if(!this.disableLoad && !this.requestOnProcess && this.answers.length !== 0){
+      this.requestOnProcess = true
+
       this.answerObserver = this.answerService.getAnswers(this.question.questionId, this.offset)
       .subscribe((answerResponse) => {
         this.answers = this.answers.concat(answerResponse.data)
         this.requestOnProcess = false
         this.offset += 5
 
-        if(answerResponse.data.length === 0){
+        if(answerResponse.data.length !== 5){
           this.disableLoad = true
-          this.requestOnProcess = false
         }
 
         console.log(this.answers);
       })
     }
 
-    this.requestOnProcess = true
+    
   }
 
 }

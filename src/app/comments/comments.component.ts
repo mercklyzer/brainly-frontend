@@ -51,14 +51,11 @@ export class CommentsComponent implements OnInit, OnDestroy {
 
           this.requestOnProcess = false
           this.offset += 5
-          console.log(this.comments);
         })
       }
       else if(this.question && this.answer){
-        console.log(this.answer);
         this.commentObserver = this.commentService.getCommentsOfAnswer(this.question.questionId, this.answer.answerId, this.offset)
         .subscribe((commentResponse) => {
-          console.log(commentResponse);
           this.comments = commentResponse.data
 
           if(this.comments.length !== 5){
@@ -83,12 +80,10 @@ export class CommentsComponent implements OnInit, OnDestroy {
           this.requestOnProcess = false
           this.offset += 5
 
-          if(commentsResponse.data.length === 0){
+          if(commentsResponse.data.length !== 5){
             this.disableLoad = true
-            this.requestOnProcess = false
           }
 
-          console.log(this.comments);
         })
       }
 
@@ -99,12 +94,10 @@ export class CommentsComponent implements OnInit, OnDestroy {
           this.requestOnProcess = false
           this.offset += 5
 
-          if(commentsResponse.data.length === 0){
+          if(commentsResponse.data.length !== 0){
             this.disableLoad = true
-            this.requestOnProcess = false
           }
 
-          console.log(this.comments);
         })
       }
     }

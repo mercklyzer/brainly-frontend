@@ -31,15 +31,15 @@ export class DashboardComponent implements OnInit {
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight){
 
       if(!this.requestOnProcess && !this.fetchDisable && this.questions.length !== 0){
+        this.requestOnProcess = true
         this.questionService.getQuestions(this.subject, this.offset)
         .subscribe((questions) => {
           this.questions = this.questions.concat(questions.data)
           this.requestOnProcess = false
           this.offset += 5
 
-          if(questions.data.length === 0) {
+          if(questions.data.length !== 5) {
             this.fetchDisable = true
-            this.requestOnProcess = false
           }
         }
         ,
@@ -47,8 +47,6 @@ export class DashboardComponent implements OnInit {
           console.log(err);
         })  
       }
-
-      this.requestOnProcess = true
     }
   }
 
@@ -59,12 +57,14 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.routeObserver = this.route.params.subscribe((routeParams) => {
+      this.subject = routeParams.subject
+
       this.questions = []
       this.offset = 0
       this.fetchDisable = false
-      this.requestOnProcess = false
+      this.requestOnProcess = true
 
-      this.questionObserver = this.questionService.getQuestions(routeParams.subject, this.offset).subscribe((questions) => {
+      this.questionObserver = this.questionService.getQuestions(this.subject, this.offset).subscribe((questions) => {
         this.requestOnProcess = false
         this.questions = questions.data
         this.offset += 5
