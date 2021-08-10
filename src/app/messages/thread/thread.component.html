@@ -1,0 +1,19 @@
+<div class="row" *ngIf="thread">
+    
+    <section class="messages" #scrollMe>
+        <p *ngIf="messages.length === 0">No messages yet.</p>
+        <div class="message" *ngFor="let message of messages" [ngClass]="{'right':user.userId === message.senderId}">
+            <div class="user-icon">
+                <img src="../../../assets/images/icon_brain_round.png">
+            </div>
+            <div class="message-text">
+                {{message.message}}
+            </div>
+        </div>
+    </section>
+
+
+    <form [formGroup]="messageForm" class="form">
+        <textarea class="message-area" rows="4" formControlName="message" (keyup.enter)="onSubmit()" placeholder="Aa"></textarea>
+    </form>
+</div>

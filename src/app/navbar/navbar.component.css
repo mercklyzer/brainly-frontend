@@ -41,6 +41,7 @@
     border-radius: 50%;
     cursor:pointer;
     transition: 0.4s;
+    margin-left: 6px;
 }
 
 .user-icon-container:hover{

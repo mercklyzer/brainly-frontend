@@ -1,0 +1,57 @@
+*{
+    font-family: 'Roboto', sans-serif;
+}
+
+.threads-list{
+    padding: 20px 0px;
+    border-right: 2px solid #E5E5E5;
+    height: calc(100vh - 80px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    
+}
+
+.thread{
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    /* border: 2px solid blue; */
+    padding: 10px 20px;
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+.thread:hover{
+    background-color: #e5e5e5;
+}
+
+.user-icon{
+    margin-right: 10px;
+}
+
+.user-icon > img{
+    max-width: 50px;
+    /* width:100%; */
+}
+
+.username{
+    font-weight: 700;
+}
+
+.last-message{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 300px;
+    /* border: 2px solid red; */
+}
+
+.last-message-date{
+    font-weight: 400;
+    font-size: 12px;
+    margin-top: -4px;
+}
+

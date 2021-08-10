@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { EditQuestionComponent } from './edit-question/edit-question.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { LoginComponent } from './login/login.component';
+import { MessagesComponent } from './messages/messages.component';
 import { QuestionComponent } from './question/question.component';
 import { SignupComponent } from './signup/signup.component';
 import { UserAnswersComponent } from './user-answers/user-answers.component';
@@ -27,6 +28,8 @@ const routes: Routes = [
   {path: 'users/:userId', redirectTo: 'users/:userId/answers',pathMatch: 'full'},
   {path: 'users/:userId/answers', component: UserAnswersComponent, canActivate:[UserLoginGuardService],pathMatch: 'full'},
   {path: 'users/:userId/questions', component: UserQuestionsComponent, canActivate:[UserLoginGuardService],pathMatch: 'full'},
+  {path: 'messages', component: MessagesComponent, canActivate:[UserLoginGuardService],pathMatch: 'full'},
+  {path: 'messages/:threadId', component: MessagesComponent, canActivate:[UserLoginGuardService],pathMatch: 'full'},
   {path: '**', redirectTo:'', pathMatch: 'full'}
 ];
 

@@ -1,0 +1,15 @@
+<section class="threads-list">
+    <p *ngIf="threads.length === 0">No threads yet.</p>
+    <div *ngFor="let thread of threads" class="row" (click)="changeThread(thread.threadId)">
+        <div class="thread">
+            <div class="user-icon">
+                <img src="../../assets/images/icon_brain_round.png">
+            </div>
+            <div class="chat-container">
+                <div class="username">{{thread.user1Id === user.userId? thread.user2Username : thread.user1Username}}</div>
+                <div class="last-message">{{thread.lastMessage}}</div>
+                <div class="last-message-date">{{helper.relativeDate(thread.lastMessageDate)}}</div>
+            </div>
+        </div>
+    </div>
+</section>

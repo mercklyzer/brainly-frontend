@@ -63,7 +63,6 @@
 
 
 .ctr-line{
-    /* border: 2px solid red; */
     display:block;
     content: '';
     width: 2px;
@@ -97,6 +96,29 @@
     width: 100%;
     max-width: 25px;
     margin-right: 10px;
+}
+
+.message-icon-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.message-icon{
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    padding: 6px;
+    background-color: #EBF2F7;
+    border-radius: 50%;
+    transition: 0.4s;
+}
+
+.message-icon:hover{
+    background-color: #c6d1da;
+}
+
+.message-icon > svg {
+    width: 25px;
 }
 
 .side-user-footer{

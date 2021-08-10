@@ -8,6 +8,10 @@
             <li class="navbar-item my-item" routerLink="/login" *ngIf="!user"><a >LOG IN</a></li>
             <li class="navbar-item my-item" routerLink="/signup" *ngIf="!user"><a >JOIN NOW</a></li>
             <li class="navbar-item my-item" routerLink="{{user? '/ask-question' : '/login'}}"><a>ASK QUESTION</a></li>
+            <li class="navbar-item user-icon-container" routerLink="{{user? '/messages' : '/login'}}" *ngIf="user">
+                <img src="../../assets/images/messages.svg" class="user-icon">
+            </li>
+            
             <li class="navbar-item user-icon-container" *ngIf="user"> 
                 <div class="dropdown dropstart">
                     <button [ngStyle]="{border: 'none', backgroundColor:'transparent'}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">

@@ -30,6 +30,9 @@ import { UserAnswerComponent } from './user-answer/user-answer.component';
 import { UserQuestionsComponent } from './user-questions/user-questions.component';
 import { UserQuestionComponent } from './user-question/user-question.component';
 import { SideUserProfileComponent } from './side-user-profile/side-user-profile.component';
+import { MessagesComponent } from './messages/messages.component';
+import { ThreadsListComponent } from './messages/threads-list/threads-list.component';
+import { ThreadComponent } from './messages/thread/thread.component';
 
 
 @NgModule({
@@ -57,6 +60,9 @@ import { SideUserProfileComponent } from './side-user-profile/side-user-profile.
     UserQuestionsComponent,
     UserQuestionComponent,
     SideUserProfileComponent,
+    MessagesComponent,
+    ThreadsListComponent,
+    ThreadComponent,
   ],
   imports: [
     BrowserModule,

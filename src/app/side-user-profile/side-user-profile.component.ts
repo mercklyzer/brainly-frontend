@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 import { User } from '../models/user.model';
+import { ThreadsService } from '../threads.service';
 import { UserService } from '../user.service';
 import { dateTimeToDate } from '../utils/utils';
 
@@ -16,25 +17,27 @@ export class SideUserProfileComponent implements OnInit {
   // userObserver:any
   // routeObserver:any
   cookieUser!:User
+  threadObserver: any
 
   constructor(
-    private userService:UserService,
-    private route:ActivatedRoute,
-    private cookieService:CookieService
+    private cookieService:CookieService,
+    private threadsService:ThreadsService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    console.log("side-user-profile");
-    console.log(this.user);
     this.cookieUser = JSON.parse(this.cookieService.get('User'))
-    // this.routeObserver = this.route.params.subscribe((routeParams) => {
-    //   this.userObserver = this.userService.getUserByUserId(routeParams.userId)
-    //   .subscribe((res) => {
-    //     this.user = res.data
-    //     this.user.birthday = dateTimeToDate(this.user.birthday)
-    //   },
-    //   (err) => console.log(err))
-    // })
+  }
+
+  addThread():void {
+    this.threadObserver = this.threadsService.addThread(this.user)
+    .subscribe((res) => {
+      console.log(res);
+      this.router.navigate(['/messages',res.data.threadId])
+    },
+    (err) => {
+      console.log(err);
+    })
   }
 
 }
