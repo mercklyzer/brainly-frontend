@@ -12,14 +12,19 @@ export class Interceptor implements HttpInterceptor {
     ){}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        // let contentType
+        // if (req.reportProgress){
+        //     contentType = 'undefined';
+        //     console.log(contentType);
+        // }
 
         // add the authorization headers
         const cloneReq = req.clone({
             setHeaders: {
-                'Content-Type':  'application/json',
                 Authorization: this.cookieService.get('Token')
             }
         })
+        // const cloneReq = req.clone()
 
         // call the next interceptor if there is any
         return next.handle(cloneReq).pipe(

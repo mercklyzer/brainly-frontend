@@ -15,7 +15,7 @@
             <li class="navbar-item user-icon-container" *ngIf="user"> 
                 <div class="dropdown dropstart">
                     <button [ngStyle]="{border: 'none', backgroundColor:'transparent'}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="../../assets/images/icon_brain_round.png" class="user-icon">
+                        <img src="{{user.profilePicture? 'http://localhost:3000/images/'+user.profilePicture:'../../assets/images/icon_brain_round.png'}}" class="user-icon">
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                       <li><a class="dropdown-item" [routerLink]="['/users',user.userId]">View Profile</a></li>

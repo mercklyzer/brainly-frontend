@@ -49,8 +49,10 @@
 }
 
 .user-icon{
-    max-width: 30px;
-    width: 100%;
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 .my-item{

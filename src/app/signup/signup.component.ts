@@ -13,6 +13,8 @@ import {getFormValidationErrors} from '../utils/utils'
 export class SignupComponent implements OnInit {
   errorMessages:string[] = []
 
+  image:any
+
   signupForm:FormGroup = this.fb.group({
     username: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(16)]],
     email: ['', [Validators.required, Validators.email]],
@@ -32,6 +34,16 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  selectImage(event:any){
+    if(event.target.files.length > 0){
+      const file = <File>event.target.files[0]
+      this.image = file
+      console.log("image name");
+      console.log(this.image.name);
+      this.signupForm.patchValue({profilePicture: this.image.name})
+    }
+  }
+
   onSubmit(){
     this.errorMessages = getFormValidationErrors(this.signupForm)
     console.log(this.signupForm.value);
@@ -40,9 +52,29 @@ export class SignupComponent implements OnInit {
       this.userService.signupUser({data: this.signupForm.value}).subscribe((userResponse) => {
         this.cookieService.put('Token', userResponse.data.token)
         this.cookieService.put('User', JSON.stringify(userResponse.data.user))
-        console.log(userResponse);
-        console.log(userResponse.data.token);
-        console.log(userResponse.data.user);
+
+        if(userResponse.data.user.profilePicture !== ''){
+          console.log("object");
+
+          let blob = this.image.slice(0, this.image.size, this.image.type); 
+          let newFile = new File([blob], `${userResponse.data.user.userId}-${this.image.name}`, {type: this.image.type});
+          // this.image.name = `${userResponse.data.user.userId}-${this.image.name}`
+
+          const fd = new FormData()
+          fd.append('file',newFile)
+          console.log("newFile");
+          console.log(newFile);
+          console.log("after error");
+
+          this.userService.uploadImage(fd)
+          .subscribe((res) => {
+            console.log(res);
+          },
+          (err) => {
+            console.log(err);
+          })
+
+        }
         this.router.navigate(['/dashboard'])
   
       },

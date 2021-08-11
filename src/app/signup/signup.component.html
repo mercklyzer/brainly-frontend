@@ -10,7 +10,7 @@
                 <div class="signup-caption">Sign up</div>
                 <div class="signup-caption">Already have an account? <a routerLink="/login" [ngStyle]="{'text-decoration': 'none'}">Log in here</a></div>
 
-                <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+                <form [formGroup]="signupForm" enctype="multipart/form-data" (ngSubmit)="onSubmit()">
                     <div class="form-group my-form-group">
                       <input type="text" formControlName="username" class="form-control my-input" id="username" aria-describedby="usernameHelp" placeholder="Enter username">                    
                     </div>
@@ -55,7 +55,7 @@
                         
                     <div class="form-group my-form-group">
                       <label for="profilePicture">ProfilePicture</label>
-                      <input type="file" formControlName="profilePicture" class="form-control my-input" id="profilePicture" aria-describedby="profilePictureHelp">                    
+                      <input type="file" (change)="selectImage($event)" name="profilePicture" class="form-control my-input" id="profilePicture" aria-describedby="profilePictureHelp">                    
                     </div>
 
                     <button type="submit" class="btn my-btn">Sign Up</button>

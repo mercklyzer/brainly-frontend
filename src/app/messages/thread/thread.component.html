@@ -4,7 +4,9 @@
         <!-- <p *ngIf="messages?.length === 0">No messages yet.</p> -->
         <div class="message" *ngFor="let message of messages" [ngClass]="{'right':user.userId === message.senderId}">
             <div class="user-icon">
-                <img src="../../../assets/images/icon_brain_round.png">
+                <img 
+                src="{{message.senderProfilePicture? 'http://localhost:3000/images/'+message.senderProfilePicture:'../../assets/images/icon_brain_round.png'}}"
+                >
             </div>
             
             <div class="message-text-container">
@@ -17,7 +19,12 @@
 
         <div class="message" *ngIf="messageTyping">
             <div class="user-icon">
-                <img src="../../../assets/images/icon_brain_round.png">
+                <img src="{{
+                    user.userId === thread.user1Id?
+                    (thread.user2ProfilePicture? 'http://localhost:3000/images/'+thread.user2ProfilePicture: '../../assets/images/messages.svg')
+                    :
+                    (thread.user1ProfilePicture? 'http://localhost:3000/images/'+thread.user1ProfilePicture: '../../assets/images/messages.svg')
+                }}">
             </div>
             
             <div class="message-text-container">

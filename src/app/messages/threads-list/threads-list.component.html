@@ -3,7 +3,12 @@
     <div *ngFor="let thread of threads" class="row" (click)="changeThread(thread.threadId)">
         <div class="thread">
             <div class="user-icon">
-                <img src="../../assets/images/icon_brain_round.png">
+                <img src="{{
+                    user.userId === thread.user1Id?
+                    (thread.user2ProfilePicture? 'http://localhost:3000/images/'+thread.user2ProfilePicture: '../../assets/images/messages.svg')
+                    :
+                    (thread.user1ProfilePicture? 'http://localhost:3000/images/'+thread.user1ProfilePicture: '../../assets/images/messages.svg')
+                }}">
             </div>
             <div class="chat-container">
                 <div class="username">{{thread.user1Id === user.userId? thread.user2Username : thread.user1Username}}</div>
