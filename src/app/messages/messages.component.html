@@ -5,7 +5,7 @@
                 <app-threads-list [threads]="threads"></app-threads-list>
             </div>
             <div class="col-8">
-                <app-thread [messages]="messages" (submit)="onSubmit($event)"></app-thread>
+                <app-thread [messages]="messages" [messageTyping]="messageTyping" (submit)="onSubmit($event)"></app-thread>
             </div>
         </div>
     </div>

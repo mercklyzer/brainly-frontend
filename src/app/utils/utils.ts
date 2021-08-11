@@ -3,6 +3,7 @@ import * as moment from 'moment'
 import { CookieService } from 'ngx-cookie'
 
 export const relativeDate = (time:number):string =>  moment(time).fromNow()
+export const calendarDate = (time:number):string =>  moment(time).calendar()
 
 export const dateTimeToDate = (date:string):string => {
 

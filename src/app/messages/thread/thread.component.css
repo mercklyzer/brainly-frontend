@@ -7,6 +7,7 @@
     border-bottom: 2px solid #E5E5E5;
     height: calc(100vh - 130px);
     overflow-y: auto;
+    overflow-x:hidden;
 }
 
 .message{
@@ -19,7 +20,7 @@
     flex-direction: row-reverse;
 }
 
-.right .message-text{
+.right .message-text-container{
     color:white;
     background-color: #0099FF;
 }
@@ -36,13 +37,47 @@
     max-width: 30px;
 }
 
-.message-text{
+.message-text-container{
     border-radius: 20px;
     padding: 4px 16px;
     background-color: #E4E6EB;
     max-width: 80%;
     overflow-wrap:break-word;
+    position: relative;
 }
+
+.date-tooltip{
+    opacity: 0;
+    vertical-align: middle;
+    position: absolute;
+    color: black;
+    
+    top: 50%;
+    left: 100%;
+    transform:translate(0,-50%);
+
+    white-space: nowrap;
+    font-size: 12px;
+    background-color: rgba(43, 42, 42, 0.8);
+    color:white;
+    border-radius: 4px;
+    padding: 4px 10px;
+    transition: 0.4s;
+}
+
+.right > .message-text-container > .date-tooltip{
+    left: auto;
+    right:100%;
+}
+
+.message-text:hover ~ .date-tooltip{
+    opacity: 1;
+}
+
+.ellipsis{
+    width: 25px;
+}
+
 
 .form{
     width: 100%;
@@ -60,4 +95,3 @@
     resize: none;
     /* overflow-y: auto; */
 }
-

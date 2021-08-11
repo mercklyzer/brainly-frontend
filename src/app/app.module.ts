@@ -33,7 +33,9 @@ import { SideUserProfileComponent } from './side-user-profile/side-user-profile.
 import { MessagesComponent } from './messages/messages.component';
 import { ThreadsListComponent } from './messages/threads-list/threads-list.component';
 import { ThreadComponent } from './messages/thread/thread.component';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 @NgModule({
   declarations: [
@@ -70,6 +72,7 @@ import { ThreadComponent } from './messages/thread/thread.component';
     HttpClientModule,
     ReactiveFormsModule,
     CookieModule.forRoot(),
+    SocketIoModule.forRoot(config)
   ],
   providers: [
     UserLoginGuardService,
