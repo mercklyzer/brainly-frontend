@@ -23,7 +23,7 @@
                 <!-- LOOP FOR EACH QUESTION -->
                 <div class="question-container" *ngFor="let question of questions">
                     <div class="my-question-header">
-                        <img class="brain-icon" src="../../assets/images/icon_brain_round.png" title="{{question.username}}" [routerLink]="['/users',question.askerId]">
+                        <img class="user-icon" src="{{question.profilePicture? 'http://localhost:3000/images/'+question.profilePicture:'../../assets/images/icon_brain_round.png'}}" title="{{question.username}}" [routerLink]="['/users',question.askerId]">
                         <span class="question-subject">{{helper.titleCase(question.subject)}}</span>
                         <span class="date">{{helper.relativeDate(question.date)}}</span>
                         <div class="points-container">
@@ -36,6 +36,16 @@
                     </div>
                     <div class="answer-btn-container">
                         <button class="btn answer-btn">Answer</button>
+                    </div>
+
+                    <div class="watchers-container">
+                        <img src="../../assets/images/seen.svg" class="watch-icon">
+                        <div class="watchers" *ngFor="let watcher of getWatcher(question.questionId).watchers">
+                            <div class="user-icon-container">
+                                <img src="{{watcher.profilePicture? 'http://localhost:3000/images/'+watcher.profilePicture: '../../../assets/brain-icon.svg'}}" class="watcher-icon">
+                                <div class="watcher-username">{{watcher.username}}</div>
+                            </div>
+                         </div>
                     </div>
                 </div>
             </div>

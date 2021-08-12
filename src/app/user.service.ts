@@ -35,14 +35,6 @@ export class UserService {
     })
 
     return this.http.request(req)
-    // return this.http.post<any>(this.url+'/files', data, {
-    //   headers: new HttpHeaders({
-    //     'Content-Type':  'multipart/form-data; boundary=abcdef-ghijkl-mnopq-r-s-t-u---v',
-    //     responseType: 'json',
-    //     reportProgress: 'true'
-    //   }),
-    // }
-    // )
   }
 
 }

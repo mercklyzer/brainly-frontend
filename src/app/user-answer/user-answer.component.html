@@ -1,6 +1,6 @@
 <div class="answer-container">
     <div class="answer-header">
-        <div class="user-icon"><img src="{{user.profilePicture? 'http://localhost:3000/images/'+user.profilePicture:'../../assets/images/icon_brain_round.png'}}"></div>
+        <div class="user-icon"><img src="{{answer.profilePicture? 'http://localhost:3000/images/'+answer.profilePicture:'../../assets/images/icon_brain_round.png'}}"></div>
         <div class="question-detail">
             <div>
                 <span class="username">{{answer.username}}</span> answered <p class="question" [routerLink]="['/question',answer.questionId]">{{answer.question}}</p>

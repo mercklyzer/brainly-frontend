@@ -34,6 +34,8 @@ export class AddAnswerComponent implements OnInit {
     private cookieService:CookieService,
   ) { }
 
+  answerTypingObserver:any
+
   ngOnInit(): void {
     this.routeObserver = this.route.params.subscribe((routeParams) => {
       this.questionObserver = this.questionService.getQuestion(routeParams.questionId)
@@ -58,6 +60,19 @@ export class AddAnswerComponent implements OnInit {
         this.errorMessages.push(err.error.error.message)
         console.log(err);
       })
+    }
+  }
+
+  updateAnswerTyping(key:KeyboardEvent){
+    console.log(key);
+    if(this.answerForm.get('answer')?.value !== '' && key.key !== "Enter"){
+      console.log("true");
+      this.answerTypingObserver = this.answerService.socketUpdateTypingAnswer(this.question.questionId, true)
+
+    }
+    else{
+      console.log("false");
+      this.answerTypingObserver = this.answerService.socketUpdateTypingAnswer(this.question.questionId, false)
     }
   }
 

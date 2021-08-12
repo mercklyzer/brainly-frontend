@@ -2,14 +2,19 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Question } from './models/question.model';
+import { Socket } from 'ngx-socket-io';
+import { User } from './models/user.model';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuestionService {
+  newWatchers = this.socket.fromEvent<{questionId: string, watchers:User[]}>('receive watcher')
 
   constructor(
     private http: HttpClient,
+    private socket: Socket
   ) { }
 
   private url = 'http://localhost:3000'
@@ -39,6 +44,18 @@ export class QuestionService {
 
   deleteQuestion(questionId:string):Observable<{data: Question}>{
     return this.http.delete<{data:Question}>(this.url+'/questions/'+questionId)
+  }
+
+  socketWatchQuestion(question:Question, user:User){
+    this.socket.emit('watch question', question, user)
+  }
+
+  socketJoinRoom(questionId:string){
+    this.socket.emit('join question', questionId)
+  }
+
+  socketLeaveQuestion(questionId:string, user:User){
+    this.socket.emit('leave question',questionId, user)
   }
 
 }

@@ -1,9 +1,10 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { Question } from '../models/question.model';
 import { QuestionService } from '../question.service';
 import {relativeDate, titleCase} from '../utils/utils'
 import { CookieService } from 'ngx-cookie';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,6 +24,8 @@ export class DashboardComponent implements OnInit {
     titleCase : titleCase,
     relativeDate : relativeDate
   }
+
+  watchers:{questionId: string, watchers:User[]}[] = []
   
   @HostListener('window:scroll', ['$event'])
 
@@ -34,6 +37,13 @@ export class DashboardComponent implements OnInit {
         this.requestOnProcess = true
         this.questionService.getQuestions(this.subject, this.offset)
         .subscribe((questions) => {
+
+          questions.data.forEach((question) => {
+            console.log("question.id: ", question.questionId);
+            this.questionService.socketJoinRoom(question.questionId)
+          })
+
+
           this.questions = this.questions.concat(questions.data)
           this.requestOnProcess = false
           this.offset += 5
@@ -41,6 +51,8 @@ export class DashboardComponent implements OnInit {
           if(questions.data.length !== 5) {
             this.fetchDisable = true
           }
+
+          
         }
         ,
         (err) => {
@@ -56,6 +68,7 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
     this.routeObserver = this.route.params.subscribe((routeParams) => {
       this.subject = routeParams.subject
 
@@ -65,11 +78,51 @@ export class DashboardComponent implements OnInit {
       this.requestOnProcess = true
 
       this.questionObserver = this.questionService.getQuestions(this.subject, this.offset).subscribe((questions) => {
-        this.requestOnProcess = false
+        
+        questions.data.forEach((question) => {
+          console.log("question.id: ", question.questionId);
+          this.questionService.socketJoinRoom(question.questionId)
+        })
+        
         this.questions = questions.data
+        this.requestOnProcess = false
         this.offset += 5
-        console.log(this.questions);
       })
+
+      console.log("attempt to subscribe to watchers");
+      this.questionService.newWatchers.subscribe((newWatcher) => {
+        console.log("new watcher:");
+        console.log(newWatcher);
+        
+        this.watchers = this.insertWatcher(this.watchers, newWatcher)
+        console.log("watchers");
+        console.log(this.watchers);
+      })
+
     })
+  }
+
+  insertWatcher(watchers:{questionId: string, watchers:User[]}[], watcher: {questionId: string, watchers:User[]}){
+    let index = watchers.map((el) => el.questionId).indexOf(watcher.questionId)
+
+    // if thread exists
+    if(index !== -1){
+      watchers[index] = watcher 
+      return watchers
+    }
+    else{
+      return [watcher].concat(watchers)
+    }
+  }
+
+  getWatcher(questionId:string){
+    let index = this.watchers?.map((el) => el.questionId).indexOf(questionId)
+
+    if(index !== -1){
+      return this.watchers[index]
+    }
+    else{
+      return {watchers: []}
+    }
   }
 }

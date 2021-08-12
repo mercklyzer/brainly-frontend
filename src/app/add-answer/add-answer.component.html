@@ -11,7 +11,7 @@
                             Answer a question
                         </div>
                         <div class="answer-body">
-                            <textarea rows="8" formControlName="answer" placeholder="Write your answer here. Keep it simple and clear to make it understandable."></textarea>
+                            <textarea rows="8" (keyup)="updateAnswerTyping($event)" formControlName="answer" placeholder="Write your answer here. Keep it simple and clear to make it understandable."></textarea>
                         </div>
 
                         <button class="btn btn-submit" type="submit">SUBMIT ANSWER</button>

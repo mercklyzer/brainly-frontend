@@ -1,3 +1,5 @@
+import { User } from "./user.model";
+
 export interface Question {
     questionId: string,
     question: string,
@@ -11,5 +13,6 @@ export interface Question {
     profilePicture: string,
     hasBrainliest: number,
     answersCtr: number,
-    isUserAnswered:boolean
+    isUserAnswered:boolean,
+    watchers: User[]
 }

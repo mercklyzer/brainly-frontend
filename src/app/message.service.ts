@@ -36,6 +36,6 @@ export class MessageService {
   }
 
   socketJoinRoom(userId:string){
-    this.socket.emit('join', userId)
+    this.socket.emit('join user', userId)
   }
 }

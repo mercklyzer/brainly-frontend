@@ -89,7 +89,7 @@ export class MessagesComponent implements OnInit {
       threads.splice(index, 1)
     }
 
-    return threads = [thread].concat(threads)
+    return [thread].concat(threads)
   }
 
 }
