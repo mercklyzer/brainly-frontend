@@ -4,6 +4,8 @@ import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 import {getFormValidationErrors} from '../utils/utils'
+import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-signup',
@@ -12,6 +14,8 @@ import {getFormValidationErrors} from '../utils/utils'
 })
 export class SignupComponent implements OnInit {
   errorMessages:string[] = []
+
+  url:string = environment.apiUrl
 
   image:any
 
@@ -46,7 +50,16 @@ export class SignupComponent implements OnInit {
 
   onSubmit(){
     this.errorMessages = getFormValidationErrors(this.signupForm)
+    
+    this.signupForm.patchValue({
+      profilePicture: this.signupForm.get('profilePicture')?.value?
+      `${this.url}/images/${this.signupForm.get('profilePicture')?.value}`
+      :
+      ''
+    })
+
     console.log(this.signupForm.value);
+    
     if(!this.errorMessages[0]){
 
       this.userService.signupUser({data: this.signupForm.value}).subscribe((userResponse) => {
@@ -54,20 +67,18 @@ export class SignupComponent implements OnInit {
         this.cookieService.put('User', JSON.stringify(userResponse.data.user))
 
         if(userResponse.data.user.profilePicture !== ''){
+          console.log(userResponse.data);
           console.log("object");
 
           let blob = this.image.slice(0, this.image.size, this.image.type); 
           let newFile = new File([blob], `${userResponse.data.user.userId}-${this.image.name}`, {type: this.image.type});
-          // this.image.name = `${userResponse.data.user.userId}-${this.image.name}`
 
           const fd = new FormData()
           fd.append('file',newFile)
-          console.log("newFile");
-          console.log(newFile);
-          console.log("after error");
 
           this.userService.uploadImage(fd)
           .subscribe((res) => {
+            this.router.navigate(['/dashboard'])
             console.log(res);
           },
           (err) => {
@@ -75,7 +86,9 @@ export class SignupComponent implements OnInit {
           })
 
         }
-        this.router.navigate(['/dashboard'])
+        else{
+          this.router.navigate(['/dashboard'])
+        }
   
       },
       (err) => {

@@ -34,8 +34,9 @@ import { MessagesComponent } from './messages/messages.component';
 import { ThreadsListComponent } from './messages/threads-list/threads-list.component';
 import { ThreadComponent } from './messages/thread/thread.component';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { environment } from 'src/environments/environment';
 
-const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
 
 @NgModule({
   declarations: [

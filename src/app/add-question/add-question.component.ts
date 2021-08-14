@@ -44,6 +44,8 @@ export class AddQuestionComponent implements OnInit {
 
         updateUserCurrentPtsCookie(this.cookieService, -this.questionForm.value.rewardPoints)
         this.router.navigate(['/question',res.data.questionId]);
+
+        this.questionService.socketAddQuestion(res.data)
         
       },
       (err) => {

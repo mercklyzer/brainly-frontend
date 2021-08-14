@@ -4,19 +4,21 @@ import { Observable } from 'rxjs';
 import { Answer } from './models/answer.model';
 import { Thank } from './models/thank.model';
 import { Socket } from 'ngx-socket-io';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnswerService {
   isTypingAnswer = this.socket.fromEvent<boolean>('update typing answer')
+  newAnswers = this.socket.fromEvent<Answer>('new answer')
 
   constructor(
     private http: HttpClient,
     private socket: Socket
   ) { }
 
-  private url = 'http://localhost:3000'
+  private url = environment.apiUrl
 
   getAnswers(questionId:string, offset:number): Observable<{data:Answer[]}>{
     return this.http.get<{data:Answer[]}>(this.url+'/questions/'+questionId+'/answers?offset='+offset)
@@ -44,6 +46,10 @@ export class AnswerService {
 
   socketUpdateTypingAnswer(questionId:string, boolVal:boolean){
     this.socket.emit('typing answer', questionId, boolVal)
+  }
+
+  socketAddAnswer(answer:Answer){
+    this.socket.emit('add answer', answer)
   }
 
 }

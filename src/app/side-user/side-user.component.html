@@ -1,6 +1,6 @@
 <div class="my-user-container">
     <div class="my-user">
-        <img src="{{user.profilePicture? 'http://localhost:3000/images/'+user.profilePicture:'../../assets/images/icon_brain_round.png'}}" class="user-icon">
+        <img src="{{user.profilePicture? user.profilePicture:'../../assets/images/icon_brain_round.png'}}" class="user-icon">
         <div class="user-details">
             <div class="user-name">{{user.username}}</div>
             <div class="user-points"><img src="../../assets/images/points-1.svg" class="points-icon">{{user.currentPoints}}</div>

@@ -1,3 +1,3 @@
 <div class="other-comment">
-    <img src="{{comment.profilePicture? 'http://localhost:3000/images/'+comment.profilePicture:'../../assets/images/icon_brain_round.png'}}" [routerLink]="['/users',comment.userId]" title="{{comment.username}}" class="user-icon comment-user-icon"> {{comment.comment}}
+    <img src="{{comment.profilePicture? comment.profilePicture:'../../assets/images/icon_brain_round.png'}}" class="user-icon comment-user-icon"> {{comment.comment}}
 </div>

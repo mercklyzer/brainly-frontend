@@ -1,5 +1,5 @@
 <div class="add-comment">
-    <img src="../../assets/images/icon_brain_round.png" alt="" class="user-icon comment-user-icon">
+    <img src="{{user.profilePicture? user.profilePicture:'../../assets/images/icon_brain_round.png'}}" alt="" class="user-icon comment-user-icon">
     <form [formGroup]="commentForm">
         <ng-container *ngIf="!answer">
             <textarea class="comment-area" rows="1" formControlName="comment" (keyup.enter)="onSubmit()" placeholder="Ask {{question.username}} about the question..."></textarea>

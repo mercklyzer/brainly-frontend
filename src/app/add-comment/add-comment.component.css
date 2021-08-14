@@ -6,8 +6,10 @@
 }
 
 .user-icon{
-    width: 100%;
-    max-width: 40px;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
     margin-right: 20px;
 }
 
@@ -24,7 +26,7 @@ form{width:100%;}
     background-color: #EBF2F7;
     padding: 10px 20px;
     vertical-align: middle;
-    overflow: hidden;
+    overflow: auto;
     resize: both;
     border: none;
 }
@@ -34,13 +36,18 @@ form{width:100%;}
 
 }
 
-[placeholder]:empty::before {
+/* [placeholder]:empty::before {
     content: attr(placeholder);
     color: #7D7B8C; 
 }
 
 [placeholder]:empty:focus::before {
     content: "";
+} */
+
+[placeholder]{
+    text-overflow:ellipsis;
+    word-wrap:nowrap;
 }
 
 .other-comment{

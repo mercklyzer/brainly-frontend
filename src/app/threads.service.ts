@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { User } from './models/user.model';
 import { Thread } from './models/thread.model';
 import { Socket } from 'ngx-socket-io';
+import { environment } from 'src/environments/environment';
+
 
 
 @Injectable({
@@ -17,7 +19,7 @@ export class ThreadsService {
     private socket: Socket
   ) { }
 
-  private url = 'http://localhost:3000'
+  private url = environment.apiUrl
     
   addThread(user:User):Observable<{data: {threadId: string}}>{
     return this.http.post<{data: {threadId: string}}>(this.url+'/threads',{data: user})

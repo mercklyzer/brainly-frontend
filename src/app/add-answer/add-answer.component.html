@@ -4,7 +4,7 @@
             <div class="alert alert-danger"  *ngIf="errorMessages[0]" role="alert">
                 {{errorMessages[0]}}
             </div>
-            <div class="col-9">
+            <div class="col-lg-9">
                 <div class="answer-container">
                     <form [formGroup]="answerForm" (ngSubmit)="onSubmit()">
                         <div class="answer-header">
@@ -18,7 +18,7 @@
                     </form>
                 </div>
             </div>
-            <div class="col-3">
+            <div class="col-lg-3">
                 <app-side-user></app-side-user>
             </div>
         </div>

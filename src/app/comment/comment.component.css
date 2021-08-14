@@ -54,4 +54,5 @@ form{width:100%;}
 
 .other-comment{
     margin: 6px 0px;
+    word-break: break-all;
 }

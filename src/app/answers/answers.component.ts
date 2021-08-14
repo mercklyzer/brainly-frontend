@@ -14,6 +14,7 @@ export class AnswersComponent implements OnInit, OnChanges {
 
   answerObserver:any
   answers:Answer[] = []
+  // newAnswers:Answer[] = []
 
   offset:number = 0
   disableLoad:boolean = false
@@ -24,6 +25,15 @@ export class AnswersComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit(): void {
+    this.answerService.socketJoinRoom(this.question.questionId)
+
+    this.answerService.newAnswers.subscribe(newAnswer => {
+      console.log("new answer received");
+      console.log(newAnswer);
+      // this.newAnswers.push(newAnswer)
+      this.answers.push(newAnswer)
+    })
+
   }
 
   ngOnChanges():void{

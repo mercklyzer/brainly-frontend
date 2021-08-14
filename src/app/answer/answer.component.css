@@ -59,6 +59,7 @@
 .answer-body{
     font-size: 20px;
     font-weight: 400;
+    word-break: break-all;
 }
 
 .answer-body-header{

@@ -26,7 +26,8 @@ export class DashboardComponent implements OnInit {
   }
 
   watchers:{questionId: string, watchers:User[]}[] = []
-  
+  newQuestions:Question[] = []
+
   @HostListener('window:scroll', ['$event'])
 
   onWindowScroll() {
@@ -67,9 +68,14 @@ export class DashboardComponent implements OnInit {
     private questionService: QuestionService,
   ) { }
 
+  hamburgerOn:boolean = true
+
   ngOnInit(): void {
+    this.questionService.socketJoinSubject(this.subject)
 
     this.routeObserver = this.route.params.subscribe((routeParams) => {
+      this.toggleHamburger()
+
       this.subject = routeParams.subject
 
       this.questions = []
@@ -80,7 +86,6 @@ export class DashboardComponent implements OnInit {
       this.questionObserver = this.questionService.getQuestions(this.subject, this.offset).subscribe((questions) => {
         
         questions.data.forEach((question) => {
-          console.log("question.id: ", question.questionId);
           this.questionService.socketJoinRoom(question.questionId)
         })
         
@@ -89,14 +94,15 @@ export class DashboardComponent implements OnInit {
         this.offset += 5
       })
 
-      console.log("attempt to subscribe to watchers");
       this.questionService.newWatchers.subscribe((newWatcher) => {
-        console.log("new watcher:");
-        console.log(newWatcher);
-        
         this.watchers = this.insertWatcher(this.watchers, newWatcher)
-        console.log("watchers");
-        console.log(this.watchers);
+      })
+
+      this.questionService.newQuestion.subscribe((newQuestion) => {
+
+
+        this.questionService.socketJoinRoom(newQuestion.questionId)
+        this.newQuestions = [newQuestion].concat(this.newQuestions)
       })
 
     })
@@ -124,5 +130,18 @@ export class DashboardComponent implements OnInit {
     else{
       return {watchers: []}
     }
+  }
+
+  onNewQuestions(){
+    window.scroll(0,0)
+    this.questions = this.newQuestions.concat(this.questions)
+    console.log("updated questions");
+    console.log(this.questions);
+    this.newQuestions = []
+  }
+
+  toggleHamburger(){
+    this.hamburgerOn = !this.hamburgerOn
+    console.log("toggling: ", this.hamburgerOn);
   }
 }

@@ -54,6 +54,11 @@ export class AddAnswerComponent implements OnInit {
         console.log(res);
 
         updateUserCurrentPtsCookie(this.cookieService, Number(this.question.rewardPoints))
+
+        this.answerService.socketAddAnswer(res.data)
+        this.answerService.socketUpdateTypingAnswer(this.question.questionId, false)
+
+
         this.router.navigate(['/question',res.data.questionId]);
       },
       (err) => {

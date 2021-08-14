@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Comment } from './models/comment.model';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,7 @@ export class CommentService {
     private http: HttpClient,
   ) { }
 
-  private url = 'http://localhost:3000'
+  private url = environment.apiUrl
 
   getCommentsOfQuestion(questionId:string, offset:number): Observable<{data:Comment[]}>{
     return this.http.get<{data:Comment[]}>(this.url+'/questions/'+questionId+'/comments?offset='+offset)

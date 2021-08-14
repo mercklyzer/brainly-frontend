@@ -6,7 +6,7 @@
     </div>
 
     <div class="user-header">
-        <img src="{{answer.profilePicture? 'http://localhost:3000/images/'+answer.profilePicture:'../../assets/images/icon_brain_round.png'}}" alt="" class="user-icon" [routerLink]="['/users',answer.userId]">
+        <img src="{{answer.profilePicture? answer.profilePicture:'../../assets/images/icon_brain_round.png'}}" alt="" class="user-icon" [routerLink]="['/users',answer.userId]">
         <div class="answer-info-container">
             <div class="user-name">{{answer.username}}</div>
             <div class="answer-info">

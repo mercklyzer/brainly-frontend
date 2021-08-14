@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Question } from './models/question.model';
 import { Socket } from 'ngx-socket-io';
 import { User } from './models/user.model';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -11,13 +12,14 @@ import { User } from './models/user.model';
 })
 export class QuestionService {
   newWatchers = this.socket.fromEvent<{questionId: string, watchers:User[]}>('receive watcher')
+  newQuestion = this.socket.fromEvent<Question>('new question')
 
   constructor(
     private http: HttpClient,
     private socket: Socket
   ) { }
 
-  private url = 'http://localhost:3000'
+  private url = environment.apiUrl
 
   getQuestions(subject:string,offset:number): Observable<{data:Question[]}>{
     if(subject !== 'all'){
@@ -56,6 +58,14 @@ export class QuestionService {
 
   socketLeaveQuestion(questionId:string, user:User){
     this.socket.emit('leave question',questionId, user)
+  }
+
+  socketJoinSubject(subject:string){
+    this.socket.emit('join subject', subject)
+  }
+
+  socketAddQuestion(question:Question){
+    this.socket.emit('add question', question)
   }
 
 }

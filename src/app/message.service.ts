@@ -3,6 +3,7 @@ import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Message } from './models/message.model';
 import { Socket } from 'ngx-socket-io';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class MessageService {
     private socket: Socket
   ) { }
 
-  private url = 'http://localhost:3000'
+  private url = environment.apiUrl
     
   getMessages(threadId:string):Observable<{data: Message[]}>{
     return this.http.get<{data: Message[]}>(`${this.url}/threads/${threadId}/messages`)

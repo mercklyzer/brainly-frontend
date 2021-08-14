@@ -5,7 +5,7 @@
         <div class="message" *ngFor="let message of messages" [ngClass]="{'right':user.userId === message.senderId}">
             <div class="user-icon">
                 <img 
-                src="{{message.senderProfilePicture? 'http://localhost:3000/images/'+message.senderProfilePicture:'../../assets/images/icon_brain_round.png'}}"
+                src="{{message.senderProfilePicture? message.senderProfilePicture:'../../assets/images/icon_brain_round.png'}}"
                 >
             </div>
             
@@ -21,9 +21,9 @@
             <div class="user-icon">
                 <img src="{{
                     user.userId === thread.user1Id?
-                    (thread.user2ProfilePicture? 'http://localhost:3000/images/'+thread.user2ProfilePicture: '../../assets/images/messages.svg')
+                    (thread.user2ProfilePicture? thread.user2ProfilePicture: '../../assets/images/messages.svg')
                     :
-                    (thread.user1ProfilePicture? 'http://localhost:3000/images/'+thread.user1ProfilePicture: '../../assets/images/messages.svg')
+                    (thread.user1ProfilePicture? thread.user1ProfilePicture: '../../assets/images/messages.svg')
                 }}">
             </div>
             

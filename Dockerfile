@@ -1,5 +1,5 @@
 # base image (all dockerfiles should have this)
-FROM node:12-alpine
+FROM node:12.14
  
 # set working directory
 WORKDIR /app
@@ -11,7 +11,6 @@ COPY package*.json ./
  
 # install dependencies of the app
 RUN npm install
-
  
 # copy the source code to the Docker image
 COPY . .

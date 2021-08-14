@@ -1,7 +1,7 @@
 <section class="side-user-profile">
     <div class="side-user-header">
         <div class="user-icon">
-            <img src="{{user.profilePicture? 'http://localhost:3000/images/'+user.profilePicture:'../../assets/images/icon_brain_round.png'}}">
+            <img src="{{user.profilePicture? user.profilePicture:'../../assets/images/icon_brain_round.png'}}">
         </div>
         <div class="user-info">
             <div class="username">{{user.username}}</div>

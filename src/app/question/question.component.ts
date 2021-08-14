@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionService } from '../question.service';
 import { Question } from '../models/question.model';
 import {relativeDate, titleCase} from '../utils/utils'
@@ -54,6 +54,9 @@ export class QuestionComponent implements OnInit, OnDestroy {
           this.isTypingAnswer = boolVal
         })
 
+        this.answerService.newAnswers.subscribe(newAnswer => {
+          this.question.answersCtr++
+        })
 
       },
       (err) => {

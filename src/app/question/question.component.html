@@ -1,12 +1,12 @@
 <section class="question-section">
     <div class="container">
         <div class="row">
-            <div class="col-9">
+            <div class="col-lg-9">
                 <div class="question-container">
                     <div class="question">       
                         <div class="question-header">
 
-                            <img src="{{question.profilePicture? 'http://localhost:3000/images/'+question.profilePicture:'../../assets/images/icon_brain_round.png'}}" alt="" class="user-icon" [routerLink]="['/users',question.askerId]">
+                            <img src="{{question.profilePicture? question.profilePicture:'../../assets/images/icon_brain_round.png'}}" alt="" class="user-icon" [routerLink]="['/users',question.askerId]">
                             <div class="question-info-container">
                                 <div class="user-name">{{question.username}}</div>
                                 <div class="question-info">
@@ -73,7 +73,7 @@
                 <app-answers [showAnswer]="showAnswer" [question]="question"></app-answers>
             </div>
 
-            <div class="col-3">
+            <div class="col-lg-3">
                 <app-side-user></app-side-user>
             </div>
         </div>
