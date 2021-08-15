@@ -19,44 +19,60 @@
             <!-- end of subjects -->
 
             <!-- start of questions -->
-            <div class="col-lg-7 my-questions">
-                <div class="question-header-container">
-                    <div class="question-header-header"><img src="../../assets/images/icon_brain_round.png" class="brain-icon">The Brain Answerer</div>
-                    <div class="question-header-body">
-                        <div class="question-header-caption">What do you need to know?</div>
-                        <button class="btn question-header-btn" routerLink="/ask-question">ASK YOUR QUESTION</button>
-                    </div>
-                </div>
+            <div class="col-lg-7">
 
-                <div *ngIf="questions.length === 0" [ngStyle]="{'margin': '20px 10px'}">No result.</div>
 
-                <!-- LOOP FOR EACH QUESTION -->
-                <div class="question-container" *ngFor="let question of questions" >
-                    <div class="my-question-header">
-                        <img class="user-icon" src="{{question.profilePicture? question.profilePicture:'../../assets/images/icon_brain_round.png'}}" title="{{question.username}}" [routerLink]="['/users',question.askerId]">
-                        <span class="question-subject">{{helper.titleCase(question.subject)}}</span>
-                        <span class="date">{{helper.relativeDate(question.date)}}</span>
-                        <div class="points-container">
-                            <img src="../../assets/images/points.svg" class="points-icon">
-                            +{{question.rewardPoints}} <span [ngStyle]="{color: '#687B8C'}" class="pts"> pts </span>
+
+                <div class="my-questions">
+                    
+                    <div class="question-header-container">
+                        <div class="question-header-header"><img src="../../assets/images/icon_brain_round.png" class="brain-icon">The Brain Answerer</div>
+                        <div class="question-header-body">
+                            <div class="question-header-caption">What do you need to know?</div>
+                            <button class="btn question-header-btn" routerLink="/ask-question">ASK YOUR QUESTION</button>
                         </div>
                     </div>
-                    <div class="question-body" [routerLink]="['/question',question.questionId]">
-                        <p>{{question.question}}</p>
-                    </div>
-                    <div class="answer-btn-container">
-                        <button class="btn answer-btn">Answer</button>
-                    </div>
 
-                    <div class="watchers-container">
-                        <img src="../../assets/images/seen.svg" class="watch-icon">
-                        <div class="watchers" *ngFor="let watcher of getWatcher(question.questionId).watchers">
-                            <div class="user-icon-container">
-                                <img src="{{watcher.profilePicture? watcher.profilePicture:'../../assets/images/icon_brain_round.png'}}" class="watcher-icon">
-                                <div class="watcher-username">{{watcher.username}}</div>
+                    <ng-container *ngIf="!contentLoad">
+                        <div class="question-container" *ngFor="let i of [].constructor(5)">
+                            
+                            <ngx-skeleton-loader count="1" appearance="circle" [theme]="{'background-color': '#E0E3E5'}"></ngx-skeleton-loader>
+                            <ngx-skeleton-loader count="4" [theme]="{'background-color': '#E0E3E5'}"></ngx-skeleton-loader>
+                        </div>
+                    </ng-container>
+
+                    <ng-container  *ngIf="contentLoad">
+                        <div *ngIf="questions.length === 0" [ngStyle]="{'margin': '20px 10px'}">No result.</div>
+
+                        <!-- LOOP FOR EACH QUESTION -->
+                        <div class="question-container" *ngFor="let question of questions" >
+                            <div class="my-question-header">
+                                <img class="user-icon" src="{{question.profilePicture? question.profilePicture:'../../assets/images/icon_brain_round.png'}}" title="{{question.username}}" [routerLink]="['/users',question.askerId]">
+                                <span class="question-subject">{{helper.titleCase(question.subject)}}</span>
+                                <span class="date">{{helper.relativeDate(question.date)}}</span>
+                                <div class="points-container">
+                                    <img src="../../assets/images/points.svg" class="points-icon">
+                                    +{{question.rewardPoints}} <span [ngStyle]="{color: '#687B8C'}" class="pts"> pts </span>
+                                </div>
                             </div>
-                         </div>
-                    </div>
+                            <div class="question-body" [routerLink]="['/question',question.questionId]">
+                                <p>{{question.question}}</p>
+                            </div>
+                            <div class="answer-btn-container">
+                                <button class="btn answer-btn">Answer</button>
+                            </div>
+
+                            <div class="watchers-container">
+                                <img src="../../assets/images/seen.svg" class="watch-icon">
+                                <div class="watchers" *ngFor="let watcher of getWatcher(question.questionId).watchers">
+                                    <div class="user-icon-container">
+                                        <img src="{{watcher.profilePicture? watcher.profilePicture:'../../assets/images/icon_brain_round.png'}}" class="watcher-icon">
+                                        <div class="watcher-username">{{watcher.username}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
                 </div>
             </div>
             <!-- end of questions -->

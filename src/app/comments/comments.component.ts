@@ -26,6 +26,8 @@ export class CommentsComponent implements OnInit, OnDestroy {
     private commentService:CommentService,
   ) { }
 
+  contentLoad:boolean = false
+
   ngOnInit(): void {
   }
 
@@ -51,6 +53,8 @@ export class CommentsComponent implements OnInit, OnDestroy {
 
           this.requestOnProcess = false
           this.offset += 5
+          this.contentLoad = true
+          console.log("content load");
         })
       }
       else if(this.question && this.answer){
@@ -64,8 +68,11 @@ export class CommentsComponent implements OnInit, OnDestroy {
 
           this.requestOnProcess = false
           this.offset += 5
+          this.contentLoad = true
+
         })
       }
+      
     }
   }
 

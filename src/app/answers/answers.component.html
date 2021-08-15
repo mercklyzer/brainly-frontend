@@ -1,8 +1,18 @@
 <ng-container *ngIf="showAnswer" >
-    <app-answer *ngFor="let answer of answers" [question]="question" [answer]="answer"></app-answer>
-    <div *ngIf="!disableLoad">
-        <button class="btn btn-primary load-more" (click)="loadMore()">
-            Load More
-        </button>
-    </div>
+
+    <ng-container *ngIf="!contentLoad">
+        <div [ngStyle]="{'padding': '10px 20px'}" *ngFor="let i of [].constructor(3)">
+            <ngx-skeleton-loader count="1" appearance="circle" [theme]="{'background-color': '#E0E3E5'}"></ngx-skeleton-loader>
+            <ngx-skeleton-loader count="4" [theme]="{'background-color': '#E0E3E5'}"></ngx-skeleton-loader>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="contentLoad">
+        <app-answer *ngFor="let answer of answers" [question]="question" [answer]="answer"></app-answer>
+        <div *ngIf="!disableLoad">
+            <button class="btn btn-primary load-more" (click)="loadMore()">
+                Load More
+            </button>
+        </div>
+    </ng-container>
 </ng-container>

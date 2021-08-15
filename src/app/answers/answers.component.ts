@@ -24,6 +24,8 @@ export class AnswersComponent implements OnInit, OnChanges {
     private answerService:AnswerService
   ) { }
 
+    contentLoad:boolean = false
+
   ngOnInit(): void {
     this.answerService.socketJoinRoom(this.question.questionId)
 
@@ -48,6 +50,8 @@ export class AnswersComponent implements OnInit, OnChanges {
         this.requestOnProcess = false
         this.offset += 5
         console.log(this.answers);
+
+        this.contentLoad = true
       })
     }
   }

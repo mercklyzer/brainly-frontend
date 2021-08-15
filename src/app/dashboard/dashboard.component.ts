@@ -28,6 +28,8 @@ export class DashboardComponent implements OnInit {
   watchers:{questionId: string, watchers:User[]}[] = []
   newQuestions:Question[] = []
 
+  contentLoad:boolean = false
+
   @HostListener('window:scroll', ['$event'])
 
   onWindowScroll() {
@@ -92,9 +94,13 @@ export class DashboardComponent implements OnInit {
         this.questions = questions.data
         this.requestOnProcess = false
         this.offset += 5
+
+        console.log("content loaded");
+        this.contentLoad = true
       })
 
       this.questionService.newWatchers.subscribe((newWatcher) => {
+        console.log("new wathcer");
         this.watchers = this.insertWatcher(this.watchers, newWatcher)
       })
 

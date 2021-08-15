@@ -35,6 +35,7 @@ import { ThreadsListComponent } from './messages/threads-list/threads-list.compo
 import { ThreadComponent } from './messages/thread/thread.component';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { environment } from 'src/environments/environment';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
 
@@ -73,7 +74,8 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     HttpClientModule,
     ReactiveFormsModule,
     CookieModule.forRoot(),
-    SocketIoModule.forRoot(config)
+    SocketIoModule.forRoot(config),
+    NgxSkeletonLoaderModule,
   ],
   providers: [
     UserLoginGuardService,

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionService } from '../question.service';
 import { Question } from '../models/question.model';
@@ -13,6 +13,12 @@ import { AnswerService } from '../answer.service';
   styleUrls: ['./question.component.css']
 })
 export class QuestionComponent implements OnInit, OnDestroy {
+
+  @HostListener('window:beforeunload')
+  beforeClose(){
+    this.questionService.socketLeaveQuestion(this.question.questionId, this.user)
+  }
+
 
   routeObserver:any
   questionObserver:any
@@ -38,14 +44,17 @@ export class QuestionComponent implements OnInit, OnDestroy {
     private cookieService:CookieService
   ) { }
 
+  contentLoad:boolean = false
+
   ngOnInit(): void {
-    console.log("init");
     this.user = JSON.parse(this.cookieService.get('User'))
 
     this.routeObserver = this.route.params.subscribe((routeParams) => {
       this.questionObserver = this.questionService.getQuestion(routeParams.questionId)
       .subscribe((question) => {
         this.question = question.data
+
+        
         
         this.questionService.socketLeaveQuestion(this.question.questionId, this.user)
         this.questionService.socketWatchQuestion(this.question, this.user)
@@ -58,6 +67,8 @@ export class QuestionComponent implements OnInit, OnDestroy {
           this.question.answersCtr++
         })
 
+        this.contentLoad = true
+        console.log('content load');
       },
       (err) => {
         console.log(err.error.error.message);
@@ -67,9 +78,9 @@ export class QuestionComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy():void{
+    this.questionService.socketLeaveQuestion(this.question.questionId, this.user)
     this.routeObserver?.unsubscribe()
     this.questionObserver?.unsubscribe()
-    this.questionService.socketLeaveQuestion(this.question.questionId, this.user)
   }
 
   onAnswerClick():void{
