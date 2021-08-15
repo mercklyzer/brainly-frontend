@@ -36,5 +36,6 @@
 
     <form [formGroup]="messageForm" class="form">
         <textarea class="message-area" rows="4" (keyup)="updateMessageTyping($event)" formControlName="message" (keyup.enter)="onSubmit()" placeholder="Aa"></textarea>
+        <img src="../../../assets/images/send.svg" (click)="onSubmit()">
     </form>
 </div>

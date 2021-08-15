@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
@@ -35,6 +35,11 @@ export class AddAnswerComponent implements OnInit {
   ) { }
 
   answerTypingObserver:any
+
+  @HostListener('window:beforeunload')
+  beforeClose(){
+    this.answerService.socketUpdateTypingAnswer(this.question.questionId, false)
+  }
 
   ngOnInit(): void {
     this.routeObserver = this.route.params.subscribe((routeParams) => {
