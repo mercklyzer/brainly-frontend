@@ -7,5 +7,6 @@
         <ng-container *ngIf="answer">
             <textarea class="comment-area" rows="1" formControlName="comment" (keyup.enter)="onSubmit()" placeholder="Ask {{answer.username}} about the answer..."></textarea>
         </ng-container>
+        <img src="../../../assets/images/send.svg" (click)="onSubmit()">
     </form>
 </div>
