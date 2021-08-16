@@ -78,13 +78,20 @@ export class ThreadComponent implements OnInit, OnChanges {
   updateMessageTyping(key:KeyboardEvent){
     console.log(key);
     if(this.messageForm.get('message')?.value !== '' && key.key !== "Enter"){
-      console.log("true");
       this.messageTypingObserver = this.messageService.socketMessageTyping(this.messageForm.value, true)
 
     }
     else{
-      console.log("false");
       this.messageTypingObserver = this.messageService.socketMessageTyping(this.messageForm.value, false)
+    }
+  }
+
+  prevVal:boolean = false
+
+  updateSocketMessageTyping(boolVal:boolean){
+    if(this.prevVal !== boolVal){
+      this.prevVal = !this.prevVal
+      this.messageService.socketMessageTyping(this.messageForm.value, boolVal)
     }
   }
 
@@ -94,6 +101,7 @@ export class ThreadComponent implements OnInit, OnChanges {
     this.thread.lastMessage = this.messageForm.get('message')?.value
     this.thread.lastMessageDate = new Date().getTime()
     this.socketThreadObserver = this.threadsService.socketUpdateThread(this.thread)
+    // this.messageTypingObserver = this.messageService.socketMessageTyping(this.messageForm.value, false)
 
     
     this.messageForm.get('message')?.reset()

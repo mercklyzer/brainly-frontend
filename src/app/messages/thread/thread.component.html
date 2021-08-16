@@ -35,7 +35,15 @@
 
 
     <form [formGroup]="messageForm" class="form">
-        <textarea class="message-area" rows="4" (keyup)="updateMessageTyping($event)" formControlName="message" (keyup.enter)="onSubmit()" placeholder="Aa"></textarea>
+        <textarea class="message-area" rows="4" formControlName="message" (keyup.enter)="onSubmit()" placeholder="Aa"></textarea>
         <img src="../../../assets/images/send.svg" (click)="onSubmit()">
     </form>
+
+    <ng-container *ngIf="messageForm.status !== 'INVALID'">
+        {{updateSocketMessageTyping(true)}}
+    </ng-container>
+
+    <ng-container *ngIf="messageForm.status === 'INVALID'">
+        {{updateSocketMessageTyping(false)}}
+    </ng-container>
 </div>
