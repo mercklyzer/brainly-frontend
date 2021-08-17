@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class MessageService {
   newMessage = this.socket.fromEvent<Message>('receive message')
-  messageTyping = this.socket.fromEvent<boolean>('message typing')
+  messageTyping = this.socket.fromEvent<{threadId: string, isTyping: boolean}>('message typing')
 
   constructor(
     private http: HttpClient,

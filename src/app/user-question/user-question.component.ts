@@ -23,7 +23,6 @@ export class UserQuestionComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = JSON.parse(this.cookieService.get('User'))
-    console.log(this.question);
   }
 
 }

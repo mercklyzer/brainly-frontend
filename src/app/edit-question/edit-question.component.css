@@ -61,3 +61,21 @@ textarea{
 .btn-submit:hover{
     background-color: #1091e7;
 }
+
+@media screen and (max-width:992px) {
+    input[type="number"]{
+        margin-top: 20px;
+    }
+}
+
+@media screen and (max-width:576px) {
+    .btn-submit{
+        font-weight: 500;
+        font-size: 16px;
+        border-radius: 16px;
+    }
+
+    .point-status{
+        display: none;
+    }
+}

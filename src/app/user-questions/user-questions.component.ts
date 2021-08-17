@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 import { Question } from '../models/question.model';
@@ -12,7 +12,7 @@ import { dateTimeToDate } from '../utils/utils';
   templateUrl: './user-questions.component.html',
   styleUrls: ['./user-questions.component.css']
 })
-export class UserQuestionsComponent implements OnInit {
+export class UserQuestionsComponent implements OnInit, OnDestroy {
   questions:Question[] = []
   user!:User
   questionObserver:any
@@ -54,6 +54,12 @@ export class UserQuestionsComponent implements OnInit {
       },
       (err) => console.log(err))
     })
+  }
+
+  ngOnDestroy():void{
+    this.routeObserver.unsubscribe()
+    this.userObserver.unsubscribe()
+    this.questionObserver.unsubscribe()
   }
 
   @HostListener('window:scroll', ['$event'])

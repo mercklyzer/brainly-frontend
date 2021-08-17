@@ -36,6 +36,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
   }
 
   // used onChanges since showComment input changes upon comment icon click
+  // better be done using *ngIf
   ngOnChanges():void{
     if(this.showComment && !this.requestOnProcess && !this.disableLoad){
 
@@ -54,7 +55,6 @@ export class CommentsComponent implements OnInit, OnDestroy {
           this.requestOnProcess = false
           this.offset += 5
           this.contentLoad = true
-          console.log("content load");
         })
       }
       else if(this.question && this.answer){

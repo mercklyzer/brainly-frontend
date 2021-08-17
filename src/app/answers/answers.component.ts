@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { AnswerService } from '../answer.service';
 import { Answer } from '../models/answer.model';
 import { Question } from '../models/question.model';
@@ -8,13 +8,13 @@ import { Question } from '../models/question.model';
   templateUrl: './answers.component.html',
   styleUrls: ['./answers.component.css']
 })
-export class AnswersComponent implements OnInit, OnChanges {
+export class AnswersComponent implements OnInit, OnChanges, OnDestroy {
   @Input() question!:Question
   @Input() showAnswer:boolean = false
 
   answerObserver:any
+  newAnswersObserver:any
   answers:Answer[] = []
-  // newAnswers:Answer[] = []
 
   offset:number = 0
   disableLoad:boolean = false
@@ -29,13 +29,15 @@ export class AnswersComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.answerService.socketJoinRoom(this.question.questionId)
 
-    this.answerService.newAnswers.subscribe(newAnswer => {
-      console.log("new answer received");
-      console.log(newAnswer);
-      // this.newAnswers.push(newAnswer)
+    this.newAnswersObserver = this.answerService.newAnswers.subscribe(newAnswer => {
       this.answers.push(newAnswer)
     })
+  }
 
+  ngOnDestroy(): void {
+    this.answerService.socketLeaveRoom(this.question.questionId)
+    this.newAnswersObserver?.unsubscribe()
+    this.answerObserver?.unsubscribe()
   }
 
   ngOnChanges():void{
@@ -49,8 +51,6 @@ export class AnswersComponent implements OnInit, OnChanges {
         }
         this.requestOnProcess = false
         this.offset += 5
-        console.log(this.answers);
-
         this.contentLoad = true
       })
     }
@@ -69,8 +69,6 @@ export class AnswersComponent implements OnInit, OnChanges {
         if(answerResponse.data.length !== 5){
           this.disableLoad = true
         }
-
-        console.log(this.answers);
       })
     }
 

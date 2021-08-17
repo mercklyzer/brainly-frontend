@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { Question } from '../models/question.model';
 import { QuestionService } from '../question.service';
@@ -11,11 +11,14 @@ import { User } from '../models/user.model';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   questions:Question[] = []
 
   routeObserver:any
   questionObserver:any
+  newWatcherObserver:any
+  newQuestionObserver:any
+
   subject:string = 'all'
   offset:number = 0
   requestOnProcess = false
@@ -38,14 +41,12 @@ export class DashboardComponent implements OnInit {
 
       if(!this.requestOnProcess && !this.fetchDisable && this.questions.length !== 0){
         this.requestOnProcess = true
-        this.questionService.getQuestions(this.subject, this.offset)
+        this.questionObserver = this.questionService.getQuestions(this.subject, this.offset)
         .subscribe((questions) => {
 
           questions.data.forEach((question) => {
-            console.log("question.id: ", question.questionId);
             this.questionService.socketJoinRoom(question.questionId)
           })
-
 
           this.questions = this.questions.concat(questions.data)
           this.requestOnProcess = false
@@ -53,9 +54,7 @@ export class DashboardComponent implements OnInit {
 
           if(questions.data.length !== 5) {
             this.fetchDisable = true
-          }
-
-          
+          }         
         }
         ,
         (err) => {
@@ -80,13 +79,15 @@ export class DashboardComponent implements OnInit {
 
       this.subject = routeParams.subject
 
+      // have to declare here for changing the subject in the dashboard
       this.questions = []
       this.offset = 0
       this.fetchDisable = false
       this.requestOnProcess = true
+      this.contentLoad = false
 
       this.questionObserver = this.questionService.getQuestions(this.subject, this.offset).subscribe((questions) => {
-        
+
         questions.data.forEach((question) => {
           this.questionService.socketJoinRoom(question.questionId)
         })
@@ -94,25 +95,31 @@ export class DashboardComponent implements OnInit {
         this.questions = questions.data
         this.requestOnProcess = false
         this.offset += 5
-
-        console.log("content loaded");
         this.contentLoad = true
       })
 
-      this.questionService.newWatchers.subscribe((newWatcher) => {
-        console.log("new wathcer");
+      // accepts a new watcher and assigns to which question
+      this.newWatcherObserver = this.questionService.newWatchers.subscribe((newWatcher) => {
         this.watchers = this.insertWatcher(this.watchers, newWatcher)
       })
 
-      this.questionService.newQuestion.subscribe((newQuestion) => {
-
-
+      // for updating newly added questions
+      this.newQuestionObserver = this.questionService.newQuestion.subscribe((newQuestion) => {
         this.questionService.socketJoinRoom(newQuestion.questionId)
         this.newQuestions = [newQuestion].concat(this.newQuestions)
       })
 
     })
   }
+
+  ngOnDestroy(): void{
+    this.questionService.socketLeaveSubject(this.subject)
+    this.routeObserver.unsubscribe();
+    this.questionObserver.unsubscribe();
+    this.newWatcherObserver.unsubscribe();
+    this.newQuestionObserver.unsubscribe();
+  }
+
 
   insertWatcher(watchers:{questionId: string, watchers:User[]}[], watcher: {questionId: string, watchers:User[]}){
     let index = watchers.map((el) => el.questionId).indexOf(watcher.questionId)
@@ -141,8 +148,6 @@ export class DashboardComponent implements OnInit {
   onNewQuestions(){
     window.scroll(0,0)
     this.questions = this.newQuestions.concat(this.questions)
-    console.log("updated questions");
-    console.log(this.questions);
     this.newQuestions = []
   }
 

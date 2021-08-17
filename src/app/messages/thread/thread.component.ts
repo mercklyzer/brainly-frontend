@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChange, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
@@ -14,7 +14,7 @@ import { calendarDate } from 'src/app/utils/utils';
   templateUrl: './thread.component.html',
   styleUrls: ['./thread.component.css']
 })
-export class ThreadComponent implements OnInit, OnChanges {
+export class ThreadComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('scrollMe') myScrollContainer!:ElementRef;
 
   @Input() messages!:Message[]
@@ -30,6 +30,8 @@ export class ThreadComponent implements OnInit, OnChanges {
   messageTypingObserver:any
 
   messageForm!:FormGroup 
+
+  prevVal:boolean = false
 
   constructor(
     private fb:FormBuilder,
@@ -68,25 +70,18 @@ export class ThreadComponent implements OnInit, OnChanges {
     })
   }
 
-
   ngOnChanges(changes: any):void{
-    console.log(changes.messageTyping);
     this.messages = changes.messages? changes.messages.currentValue : this.messages
     this.messageTyping = changes.messageTyping.currentValue
   }
 
-  updateMessageTyping(key:KeyboardEvent){
-    console.log(key);
-    if(this.messageForm.get('message')?.value !== '' && key.key !== "Enter"){
-      this.messageTypingObserver = this.messageService.socketMessageTyping(this.messageForm.value, true)
-
-    }
-    else{
-      this.messageTypingObserver = this.messageService.socketMessageTyping(this.messageForm.value, false)
-    }
+  ngOnDestroy():void{
+    this.threadObserver?.unsubscribe()
+    this.routeObserver?.unsubscribe()
+    this.socketThreadObserver?.unsubscribe()
+    this.messageTypingObserver?.unsubscribe()
   }
 
-  prevVal:boolean = false
 
   updateSocketMessageTyping(boolVal:boolean){
     if(this.prevVal !== boolVal){
@@ -95,20 +90,13 @@ export class ThreadComponent implements OnInit, OnChanges {
     }
   }
 
-
   onSubmit():void{
     this.submit.emit({data: this.messageForm.value})
-    this.thread.lastMessage = this.messageForm.get('message')?.value
-    this.thread.lastMessageDate = new Date().getTime()
-    this.socketThreadObserver = this.threadsService.socketUpdateThread(this.thread)
-    // this.messageTypingObserver = this.messageService.socketMessageTyping(this.messageForm.value, false)
-
     
     this.messageForm.get('message')?.reset()
   }
 
   scrollToBottom():void{
-    console.log("scroll called");
     try{
       this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
     }

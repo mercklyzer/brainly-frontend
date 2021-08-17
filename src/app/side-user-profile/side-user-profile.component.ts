@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 import { User } from '../models/user.model';
@@ -11,11 +11,9 @@ import { dateTimeToDate } from '../utils/utils';
   templateUrl: './side-user-profile.component.html',
   styleUrls: ['./side-user-profile.component.css']
 })
-export class SideUserProfileComponent implements OnInit {
+export class SideUserProfileComponent implements OnInit, OnDestroy {
   @Input() user!:User
 
-  // userObserver:any
-  // routeObserver:any
   cookieUser!:User
   threadObserver: any
 
@@ -29,10 +27,13 @@ export class SideUserProfileComponent implements OnInit {
     this.cookieUser = JSON.parse(this.cookieService.get('User'))
   }
 
+  ngOnDestroy():void {
+    this.threadObserver?.unsubscribe()
+  }
+
   addThread():void {
     this.threadObserver = this.threadsService.addThread(this.user)
     .subscribe((res) => {
-      console.log(res);
       this.router.navigate(['/messages',res.data.threadId])
     },
     (err) => {

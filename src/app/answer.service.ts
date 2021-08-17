@@ -44,6 +44,10 @@ export class AnswerService {
     this.socket.emit('join question-answer', questionId)
   }
 
+  socketLeaveRoom(questionId:string){
+    this.socket.emit('leave question-answer', questionId)
+  }
+
   socketUpdateTypingAnswer(questionId:string, boolVal:boolean){
     this.socket.emit('typing answer', questionId, boolVal)
   }

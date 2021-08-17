@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
@@ -12,7 +12,7 @@ import { getFormValidationErrors, updateUserCurrentPtsCookie } from '../utils/ut
   templateUrl: './add-answer.component.html',
   styleUrls: ['./add-answer.component.css']
 })
-export class AddAnswerComponent implements OnInit {
+export class AddAnswerComponent implements OnInit, OnDestroy {
   question!:Question
 
   answerObserver:any
@@ -50,6 +50,11 @@ export class AddAnswerComponent implements OnInit {
     })
   }
 
+  ngOnDestroy():void{
+    this.routeObserver.unsubscribe()
+    this.questionObserver.unsubscribe()
+  }
+
   onSubmit(){
     this.errorMessages = getFormValidationErrors(this.answerForm)
 
@@ -60,10 +65,7 @@ export class AddAnswerComponent implements OnInit {
 
         updateUserCurrentPtsCookie(this.cookieService, Number(this.question.rewardPoints))
 
-        this.answerService.socketAddAnswer(res.data)
         this.answerService.socketUpdateTypingAnswer(this.question.questionId, false)
-
-
         this.router.navigate(['/question',res.data.questionId]);
       },
       (err) => {

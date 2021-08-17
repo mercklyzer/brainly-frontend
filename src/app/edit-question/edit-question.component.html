@@ -4,7 +4,7 @@
             <div class="alert alert-danger"  *ngIf="errorMessages[0]" role="alert">
                 {{errorMessages[0]}}
             </div>
-            <div class="col-9">
+            <div class="col-lg-9">
                 <div class="edit-question-container">
                     <form [formGroup]="editQuestionForm" (ngSubmit)="onSubmit()">
                         <div class="edit-question-header">
@@ -16,21 +16,21 @@
                         <div class="edit-question-options">
                             
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-lg-6">
                                         <div class="subject">
                                             <select class="form-select" [disabled]="true">
                                                 <option [selected]="true">{{helper.titleCase(question.subject)}}</option>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-10 col-sm-4 col-md-3 col-lg-2">
                                         <div class="points">
                                             <div class="form-group">
                                                 <input type="number" [disabled]="true" class="form-control" [min]="10" [max]="user.currentPoints" value="{{question.rewardPoints}}" placeholder="Reward">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-lg-4">
                                         <div class="point-status">
                                             You have {{user.currentPoints}} points
                                         </div>
@@ -44,7 +44,7 @@
                     </form>
                 </div>
             </div>
-            <div class="col-3">
+            <div class="col-lg-3">
                 <app-side-user></app-side-user>
             </div>
         </div>

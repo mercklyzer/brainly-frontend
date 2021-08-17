@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 import { MessageService } from '../message.service';
 import { Message } from '../models/message.model';
 import { Thread } from '../models/thread.model';
+import { User } from '../models/user.model';
 import { ThreadsService } from '../threads.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { ThreadsService } from '../threads.service';
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.css']
 })
-export class MessagesComponent implements OnInit {
+export class MessagesComponent implements OnInit, OnDestroy {
 
   threadsObserver:any
   messageLoadObserver:any
@@ -22,12 +23,14 @@ export class MessagesComponent implements OnInit {
   socketThreadObserver: any
   messageTypingObserver:any
 
+  user!:User
 
   threads:Thread[] = []
   messages:Message[] = []
 
   messageTyping:boolean = false
 
+  threadId!:string
 
   constructor(
     private threadsService:ThreadsService,
@@ -37,19 +40,25 @@ export class MessagesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.messageService.socketJoinRoom(JSON.parse(this.cookieService.get('User')).userId)
+    this.user = JSON.parse(this.cookieService.get('User'))
+    this.messageService.socketJoinRoom(this.user.userId)
+    console.log("joining room");
+    console.log(this.user.userId);
     this.socketMessageObserver = this.messageService.newMessage.subscribe(message => {
-      console.log("message received");
-      this.messages.push(message)
+      console.log("receiverId: " , message.receiverId);
+      console.log("userId: " , this.user.userId);
+      if(message.threadId === this.threadId){
+        this.messages.push(message)
+      }
     })
 
-    this.messageTypingObserver = this.messageService.messageTyping.subscribe(boolVal => {
-      this.messageTyping = boolVal
-      console.log("message typing: ", boolVal);
+    this.messageTypingObserver = this.messageService.messageTyping.subscribe(typingObj => {
+      if(this.threadId === typingObj.threadId){
+        this.messageTyping = typingObj.isTyping
+      }
     })
 
     this.socketThreadObserver = this.threadsService.newThread.subscribe(thread => {
-      console.log("new thread");
       console.log(thread);
       this.threads = this.insertThread(this.threads, thread)
     })
@@ -58,6 +67,7 @@ export class MessagesComponent implements OnInit {
     this.routeObserver = this.route.params.subscribe((routeParams) => {
       this.messageLoadObserver = this.messageService.getMessages(routeParams.threadId)
       .subscribe((res) => {
+        this.threadId = routeParams.threadId
         this.messages = res.data.reverse()
       })
     })
@@ -71,13 +81,20 @@ export class MessagesComponent implements OnInit {
     })
   }
 
+  ngOnDestroy():void{
+    this.threadsObserver?.unsubscribe()
+    this.messageLoadObserver?.unsubscribe()
+    this.messageSendObserver?.unsubscribe()
+    this.routeObserver?.unsubscribe()
+    this.socketMessageObserver?.unsubscribe()
+    this.socketThreadObserver?.unsubscribe()
+    this.messageTypingObserver?.unsubscribe()
+  }
+
   onSubmit(message:{data:Message}){
     this.messageSendObserver = this.messageService.addMessage(message)
     .subscribe((res) => {
-      this.socketMessageObserver = this.messageService.socketAddMessage(message.data)
-
-      // this.messages = this.messages.concat(res.data)
-
+      console.log(res.data);
     })
   }
 

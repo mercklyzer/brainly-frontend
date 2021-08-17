@@ -30,7 +30,7 @@ form{
     padding: 10px 20px;
     vertical-align: middle;
     overflow: auto;
-    resize: both;
+    resize: none;
     border: none;
     flex-grow: 2;
 }

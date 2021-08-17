@@ -19,10 +19,12 @@ export class QuestionComponent implements OnInit, OnDestroy {
     this.questionService.socketLeaveQuestion(this.question.questionId, this.user)
   }
 
-
   routeObserver:any
   questionObserver:any
-  
+  isTypingAnswerObserver:any
+  newAnswersObserver:any
+
+
   showAnswer:boolean = false
   showComment:boolean = false
 
@@ -53,22 +55,20 @@ export class QuestionComponent implements OnInit, OnDestroy {
       this.questionObserver = this.questionService.getQuestion(routeParams.questionId)
       .subscribe((question) => {
         this.question = question.data
-
-        
         
         this.questionService.socketLeaveQuestion(this.question.questionId, this.user)
+        // watch question does not need to join room
         this.questionService.socketWatchQuestion(this.question, this.user)
 
-        this.answerService.isTypingAnswer.subscribe((boolVal) => {
+        this.isTypingAnswerObserver = this.answerService.isTypingAnswer.subscribe((boolVal) => {
           this.isTypingAnswer = boolVal
         })
 
-        this.answerService.newAnswers.subscribe(newAnswer => {
+        this.newAnswersObserver = this.answerService.newAnswers.subscribe(newAnswer => {
           this.question.answersCtr++
         })
 
         this.contentLoad = true
-        console.log('content load');
       },
       (err) => {
         console.log(err.error.error.message);
@@ -78,9 +78,11 @@ export class QuestionComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy():void{
-    this.questionService.socketLeaveQuestion(this.question.questionId, this.user)
+    this.questionService.socketLeaveQuestion(this.question?.questionId, this.user)
     this.routeObserver?.unsubscribe()
     this.questionObserver?.unsubscribe()
+    this.isTypingAnswerObserver?.unsubscribe()
+    this.newAnswersObserver?.unsubscribe()
   }
 
   onAnswerClick():void{
@@ -94,7 +96,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
   onDelete():void{
     this.questionObserver = this.questionService.deleteQuestion(this.question.questionId)
     .subscribe((deletedAnswer) => {
-      console.log(deletedAnswer);
       this.router.navigate(['/dashboard'])
     },
     (err) => {

@@ -84,6 +84,7 @@ export const getErrorMessage = (key:string, keyError:string):string => {
     }
   }
   if(keyError === 'email')    return 'has invalid format.'
+  if(keyError === 'min')    return 'is not enough.'
 
   return ''
 }
