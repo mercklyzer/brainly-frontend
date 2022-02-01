@@ -76,6 +76,7 @@ export class SignupComponent implements OnInit {
           this.userService.uploadImage(fd)
           .subscribe((res) => {
             console.log(res);
+            console.log("after res");
             this.cookieService.put('Token', userResponse.data.token)
             this.cookieService.put('User', JSON.stringify(userResponse.data.user))
             this.router.navigate(['/dashboard'])
