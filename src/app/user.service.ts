@@ -28,15 +28,10 @@ export class UserService {
     return this.http.get<{data:User}>(this.url+'/users/'+userId)
   }
 
-  uploadImage(data:FormData):Observable<HttpEvent<any>>{
+  uploadImage(data:FormData):Observable<{data:string}>{
     console.log(data);
 
-    const req = new HttpRequest('POST', this.url+'/files', data, {
-      reportProgress: false,
-      responseType: 'json',
-    })
-
-    return this.http.request(req)
+    return this.http.post<{data:string}>(this.url+'/files',data)
   }
 
 }

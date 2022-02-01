@@ -63,6 +63,8 @@ export class SignupComponent implements OnInit {
     if(!this.errorMessages[0]){
 
       this.userService.signupUser({data: this.signupForm.value}).subscribe((userResponse) => {
+        this.cookieService.put('Token', userResponse.data.token)
+        this.cookieService.put('User', JSON.stringify(userResponse.data.user))
         if(userResponse.data.user.profilePicture !== ''){
           console.log(userResponse.data);
           console.log("object");
@@ -76,10 +78,9 @@ export class SignupComponent implements OnInit {
           this.userService.uploadImage(fd)
           .subscribe((res) => {
             console.log(res);
-            console.log("after res");
-            this.cookieService.put('Token', userResponse.data.token)
-            this.cookieService.put('User', JSON.stringify(userResponse.data.user))
-            this.router.navigate(['/dashboard'])
+            if(res.data === 'uploaded'){
+              this.router.navigate(['/dashboard'])
+            }
           },
           (err) => {
             console.log(err);
@@ -87,8 +88,6 @@ export class SignupComponent implements OnInit {
 
         }
         else{
-          this.cookieService.put('Token', userResponse.data.token)
-          this.cookieService.put('User', JSON.stringify(userResponse.data.user))
           this.router.navigate(['/dashboard'])
         }
   
