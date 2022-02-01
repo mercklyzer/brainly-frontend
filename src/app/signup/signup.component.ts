@@ -79,7 +79,7 @@ export class SignupComponent implements OnInit {
           this.userService.uploadImage(fd)
           .subscribe((res) => {
             console.log(res);
-            this.router.navigate(['/dashboard']).then(() => window.location.reload())
+            this.router.navigate(['/dashboard'])
           },
           (err) => {
             console.log(err);
