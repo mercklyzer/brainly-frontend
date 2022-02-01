@@ -32,7 +32,7 @@ export class UserService {
     console.log(data);
 
     const req = new HttpRequest('POST', this.url+'/files', data, {
-      reportProgress: true,
+      reportProgress: false,
       responseType: 'json',
     })
 
