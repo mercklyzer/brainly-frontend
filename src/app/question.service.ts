@@ -68,8 +68,8 @@ export class QuestionService {
     this.socket.emit('leave subject', subject)
   }
 
-  socketAddQuestion(question:Question){
-    this.socket.emit('add question', question)
-  }
+  // socketAddQuestion(question:Question){
+  //   this.socket.emit('add question', question)
+  // }
 
 }
