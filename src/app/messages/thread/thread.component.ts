@@ -80,6 +80,7 @@ export class ThreadComponent implements OnInit, OnChanges, OnDestroy {
     this.routeObserver?.unsubscribe()
     this.socketThreadObserver?.unsubscribe()
     this.messageTypingObserver?.unsubscribe()
+    this.updateSocketMessageTyping(false)
   }
 
 

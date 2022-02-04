@@ -53,7 +53,11 @@ export class MessagesComponent implements OnInit, OnDestroy {
     })
 
     this.messageTypingObserver = this.messageService.messageTyping.subscribe(typingObj => {
+      console.log("messageTyping");
+      console.log(this.threadId);
+      console.log(typingObj);
       if(this.threadId === typingObj.threadId){
+        console.log("message typing inside thread");
         this.messageTyping = typingObj.isTyping
       }
     })
