@@ -16,6 +16,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
   @Input() answer?:Answer
 
   commentObserver:any
+  newCommentsObserver:any
   comments:Comment[] = []
 
   offset:number = 0
@@ -29,6 +30,18 @@ export class CommentsComponent implements OnInit, OnDestroy {
   contentLoad:boolean = false
 
   ngOnInit(): void {
+    this.newCommentsObserver = this.commentService.newComments.subscribe((newComment) => {
+      if(this.answer){
+        if(newComment.answerId === this.answer?.answerId){
+          this.comments.push(newComment)
+        }
+      }
+      else{
+        if(!newComment.answerId){
+          this.comments.push(newComment)
+        }
+      }
+    })
   }
 
   ngOnDestroy():void{
@@ -117,7 +130,6 @@ export class CommentsComponent implements OnInit, OnDestroy {
       this.commentObserver = this.commentService.addCommentOfAnswer(this.question.questionId, this.answer.answerId, comment)
       .subscribe((res) => {
         console.log(res);
-        this.comments.push(res.data)
       },
       (err) => {
         console.log(err);
@@ -127,7 +139,6 @@ export class CommentsComponent implements OnInit, OnDestroy {
       this.commentObserver = this.commentService.addCommentOfQuestion(this.question.questionId, comment)
       .subscribe((res) => {
         console.log(res);
-        this.comments.push(res.data)
       },
       (err) => {
         console.log(err);
