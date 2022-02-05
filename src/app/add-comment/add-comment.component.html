@@ -2,11 +2,12 @@
     <img src="{{user.profilePicture? user.profilePicture:'../../assets/images/icon_brain_round.png'}}" alt="" class="user-icon comment-user-icon">
     <form [formGroup]="commentForm">
         <ng-container *ngIf="!answer">
-            <textarea class="comment-area" rows="1" formControlName="comment" (keyup.enter)="onSubmit()" placeholder="Ask {{question.username}} about the question..."></textarea>
+            <textarea class="comment-area" rows="1" formControlName="comment" (keyup)="updateCommentTyping($event)" (keyup.enter)="onSubmit()" placeholder="Ask {{question.username}} about the question..."></textarea>
         </ng-container>
         <ng-container *ngIf="answer">
-            <textarea class="comment-area" rows="1" formControlName="comment" (keyup.enter)="onSubmit()" placeholder="Ask {{answer.username}} about the answer..."></textarea>
+            <textarea class="comment-area" rows="1" formControlName="comment" (keyup)="updateCommentTyping($event)" (keyup.enter)="onSubmit()" placeholder="Ask {{answer.username}} about the answer..."></textarea>
         </ng-container>
         <img src="../../../assets/images/send.svg" (click)="onSubmit()">
     </form>
 </div>
+<div *ngIf="isTypingComment" [ngStyle]="{'margin-top':'10px'}">A user is typing a comment...</div>

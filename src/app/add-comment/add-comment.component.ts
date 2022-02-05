@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie';
+import { CommentService } from '../comment.service';
 import { Answer } from '../models/answer.model';
 import { Comment } from '../models/comment.model';
 import { Question } from '../models/question.model';
@@ -16,6 +17,10 @@ export class AddCommentComponent implements OnInit {
   @Input() answer?:Answer
   @Output() submit = new EventEmitter<{data : Comment}>()
 
+  commentTypingObserver:any
+  isTypingCommentObserver:any
+  isTypingComment:boolean = false
+
   user!:User
 
   commentForm:FormGroup = this.fb.group({
@@ -25,16 +30,45 @@ export class AddCommentComponent implements OnInit {
 
   constructor(
     private fb:FormBuilder,
-    private cookieService:CookieService
+    private cookieService:CookieService,
+    private commentService:CommentService
   ) { }
 
   ngOnInit(): void {
     this.user = JSON.parse(this.cookieService.get('User'))
+    this.isTypingCommentObserver = this.commentService.isTypingComment.subscribe(({questionId, answerId, isTyping}) => {
+      if(answerId){
+        if(answerId === this.answer?.answerId){
+          this.isTypingComment = isTyping
+        }
+      }
+      else{
+        this.isTypingComment = isTyping
+      }
+      console.log("received: ", isTyping);
+    })
   }
 
   onSubmit():void{
     this.submit.emit({data: this.commentForm.value})
     this.commentForm.reset()
+    this.commentService.socketUpdateTypingComment(this.question.questionId, this.answer?.answerId, false)
+  }
+
+  updateCommentTyping(key:KeyboardEvent){
+    console.log(key);
+    if(key.key === "Enter" || key.key === 'Tab' || key.key === 'Alt'){
+      return
+    }
+    if(this.commentForm.get('comment')?.value !== ''){
+      console.log("true");
+      this.commentTypingObserver = this.commentService.socketUpdateTypingComment(this.question.questionId, this.answer?.answerId, true)
+
+    }
+    else{
+      console.log("false");
+      this.commentTypingObserver = this.commentService.socketUpdateTypingComment(this.question.questionId, this.answer?.answerId, false)
+    }
   }
 
 }
