@@ -44,19 +44,19 @@ export class SignupComponent implements OnInit {
       this.image = file
       console.log("image name");
       console.log(this.image.name);
-      this.signupForm.patchValue({profilePicture: this.image.name})
+      this.signupForm.patchValue({profilePicture: `${this.url}/images/${this.image.name}`})
     }
   }
 
   onSubmit(){
     this.errorMessages = getFormValidationErrors(this.signupForm)
     
-    this.signupForm.patchValue({
-      profilePicture: this.signupForm.get('profilePicture')?.value?
-      `${this.url}/images/${this.signupForm.get('profilePicture')?.value}`
-      :
-      ''
-    })
+    // this.signupForm.patchValue({
+    //   profilePicture: this.signupForm.get('profilePicture')?.value?
+    //   `${this.url}/images/${this.signupForm.get('profilePicture')?.value}`
+    //   :
+    //   ''
+    // })
 
     console.log(this.signupForm.value);
     
