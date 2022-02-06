@@ -6,6 +6,7 @@ import { AnswerService } from '../services/answer.service';
 import { Question } from '../models/question.model';
 import { QuestionService } from '../services/question.service';
 import { getFormValidationErrors, updateUserCurrentPtsCookie } from '../utils/utils';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-answer',
@@ -14,10 +15,6 @@ import { getFormValidationErrors, updateUserCurrentPtsCookie } from '../utils/ut
 })
 export class AddAnswerComponent implements OnInit, OnDestroy {
   question!:Question
-
-  answerObserver:any
-  routeObserver:any
-  questionObserver:any
 
   errorMessages:String[] = []
 
@@ -34,7 +31,7 @@ export class AddAnswerComponent implements OnInit, OnDestroy {
     private cookieService:CookieService,
   ) { }
 
-  answerTypingObserver:any
+  private subscriptions = new Subscription()
 
   @HostListener('window:beforeunload')
   beforeClose(){
@@ -42,24 +39,23 @@ export class AddAnswerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.routeObserver = this.route.params.subscribe((routeParams) => {
-      this.questionObserver = this.questionService.getQuestion(routeParams.questionId)
+    this.subscriptions.add(this.route.params.subscribe((routeParams) => {
+      this.subscriptions.add(this.questionService.getQuestion(routeParams.questionId)
       .subscribe((question) => {
         this.question = question.data
-      })
-    })
+      }))
+    }))
   }
 
   ngOnDestroy():void{
-    this.routeObserver.unsubscribe()
-    this.questionObserver.unsubscribe()
+    this.subscriptions.unsubscribe()
   }
 
   onSubmit(){
     this.errorMessages = getFormValidationErrors(this.answerForm)
 
     if(!this.errorMessages[0]){
-      this.answerObserver = this.answerService.postAnswer(this.question.questionId, {data: this.answerForm.value})
+      this.subscriptions.add(this.answerService.postAnswer(this.question.questionId, {data: this.answerForm.value})
       .subscribe((res) => {
         console.log(res);
 
@@ -71,7 +67,7 @@ export class AddAnswerComponent implements OnInit, OnDestroy {
       (err) => {
         this.errorMessages.push(err.error.error.message)
         console.log(err);
-      })
+      }))
     }
   }
 
@@ -79,12 +75,12 @@ export class AddAnswerComponent implements OnInit, OnDestroy {
     console.log(key);
     if(this.answerForm.get('answer')?.value !== '' && key.key !== "Enter"){
       console.log("true");
-      this.answerTypingObserver = this.answerService.socketUpdateTypingAnswer(this.question.questionId, true)
+      this.subscriptions.add(this.answerService.socketUpdateTypingAnswer(this.question.questionId, true))
 
     }
     else{
       console.log("false");
-      this.answerTypingObserver = this.answerService.socketUpdateTypingAnswer(this.question.questionId, false)
+      this.subscriptions.add(this.answerService.socketUpdateTypingAnswer(this.question.questionId, false))
     }
   }
 
