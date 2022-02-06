@@ -75,12 +75,12 @@ export class AddAnswerComponent implements OnInit, OnDestroy {
     console.log(key);
     if(this.answerForm.get('answer')?.value !== '' && key.key !== "Enter"){
       console.log("true");
-      this.subscriptions.add(this.answerService.socketUpdateTypingAnswer(this.question.questionId, true))
+      this.answerService.socketUpdateTypingAnswer(this.question.questionId, true)
 
     }
     else{
       console.log("false");
-      this.subscriptions.add(this.answerService.socketUpdateTypingAnswer(this.question.questionId, false))
+      this.answerService.socketUpdateTypingAnswer(this.question.questionId, false)
     }
   }
 

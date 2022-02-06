@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { titleCase } from '../utils/utils';
 @Component({
@@ -6,7 +6,7 @@ import { titleCase } from '../utils/utils';
   templateUrl: './subjects.component.html',
   styleUrls: ['./subjects.component.css']
 })
-export class SubjectsComponent implements OnInit {
+export class SubjectsComponent implements OnInit, OnDestroy {
   subjects:{subject:string, imgSource:string, route:string}[] = [
     {subject: 'All', imgSource: '../assets/images/all_1.svg', route: 'all'},
     {subject: 'Filipino', imgSource: '../../assets/images/language.svg', route: 'filipino'},
@@ -48,5 +48,9 @@ export class SubjectsComponent implements OnInit {
       this.subject = this.helper.titleCase(routeParams.subject)
       console.log(this.subject);
     })
+  }
+
+  ngOnDestroy(): void {
+    this.routeObserver?.unsubscribe()
   }
 }

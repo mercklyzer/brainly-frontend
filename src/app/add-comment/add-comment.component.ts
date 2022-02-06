@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie';
 import { CommentService } from '../services/comment.service';
@@ -6,19 +6,18 @@ import { Answer } from '../models/answer.model';
 import { Comment } from '../models/comment.model';
 import { Question } from '../models/question.model';
 import { User } from '../models/user.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-comment',
   templateUrl: './add-comment.component.html',
   styleUrls: ['./add-comment.component.css']
 })
-export class AddCommentComponent implements OnInit {
+export class AddCommentComponent implements OnInit, OnDestroy {
   @Input() question!:Question
   @Input() answer?:Answer
   @Output() submit = new EventEmitter<{data : Comment}>()
 
-  commentTypingObserver:any
-  isTypingCommentObserver:any
   isTypingComment:boolean = false
 
   user!:User
@@ -34,9 +33,11 @@ export class AddCommentComponent implements OnInit {
     private commentService:CommentService
   ) { }
 
+  private subscriptions = new Subscription()
+
   ngOnInit(): void {
     this.user = JSON.parse(this.cookieService.get('User'))
-    this.isTypingCommentObserver = this.commentService.isTypingComment.subscribe(({questionId, answerId, isTyping}) => {
+    this.subscriptions.add(this.commentService.isTypingComment.subscribe(({questionId, answerId, isTyping}) => {
       if(answerId){
         if(answerId === this.answer?.answerId){
           this.isTypingComment = isTyping
@@ -46,7 +47,11 @@ export class AddCommentComponent implements OnInit {
         this.isTypingComment = isTyping
       }
       console.log("received: ", isTyping);
-    })
+    }))
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe()
   }
 
   onSubmit():void{
@@ -62,12 +67,12 @@ export class AddCommentComponent implements OnInit {
     }
     if(this.commentForm.get('comment')?.value !== ''){
       console.log("true");
-      this.commentTypingObserver = this.commentService.socketUpdateTypingComment(this.question.questionId, this.answer?.answerId, true)
+      this.commentService.socketUpdateTypingComment(this.question.questionId, this.answer?.answerId, true)
 
     }
     else{
       console.log("false");
-      this.commentTypingObserver = this.commentService.socketUpdateTypingComment(this.question.questionId, this.answer?.answerId, false)
+      this.commentService.socketUpdateTypingComment(this.question.questionId, this.answer?.answerId, false)
     }
   }
 

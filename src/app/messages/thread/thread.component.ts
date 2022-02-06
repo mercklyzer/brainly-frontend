@@ -8,6 +8,7 @@ import { Thread } from 'src/app/models/thread.model';
 import { User } from 'src/app/models/user.model';
 import { ThreadsService } from '../../services/threads.service';
 import { calendarDate } from 'src/app/utils/utils';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-thread',
@@ -24,10 +25,7 @@ export class ThreadComponent implements OnInit, OnChanges, OnDestroy {
   user!:User
   thread!:Thread
   
-  threadObserver:any
-  routeObserver:any
-  socketThreadObserver:any
-  messageTypingObserver:any
+  private subscriptions = new Subscription()
 
   messageForm!:FormGroup 
 
@@ -48,8 +46,8 @@ export class ThreadComponent implements OnInit, OnChanges, OnDestroy {
   ngOnInit(): void {
     this.user = JSON.parse(this.cookieService.get('User'))
 
-    this.routeObserver = this.route.params.subscribe((routeParams) => {
-      this.threadObserver = this.threadsService.getThread(routeParams.threadId)
+    this.subscriptions.add(this.route.params.subscribe((routeParams) => {
+      this.subscriptions.add(this.threadsService.getThread(routeParams.threadId)
       .subscribe((res) => {
         this.thread = res.data
 
@@ -66,8 +64,8 @@ export class ThreadComponent implements OnInit, OnChanges, OnDestroy {
       },
       (err) => {
         console.log(err);
-      })
-    })
+      }))
+    }))
   }
 
   ngOnChanges(changes: any):void{
@@ -76,10 +74,7 @@ export class ThreadComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy():void{
-    this.threadObserver?.unsubscribe()
-    this.routeObserver?.unsubscribe()
-    this.socketThreadObserver?.unsubscribe()
-    this.messageTypingObserver?.unsubscribe()
+    this.subscriptions.unsubscribe()
     this.updateSocketMessageTyping(false)
   }
 

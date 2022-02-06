@@ -5,6 +5,7 @@ import { QuestionService } from '../services/question.service';
 import {relativeDate, titleCase} from '../utils/utils'
 import { CookieService } from 'ngx-cookie';
 import { User } from '../models/user.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,10 +15,7 @@ import { User } from '../models/user.model';
 export class DashboardComponent implements OnInit, OnDestroy {
   questions:Question[] = []
 
-  routeObserver:any
-  questionObserver:any
-  newWatcherObserver:any
-  newQuestionObserver:any
+  private subscriptions = new Subscription()
 
   subject:string = 'all'
   offset:number = 0
@@ -41,7 +39,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
       if(!this.requestOnProcess && !this.fetchDisable && this.questions.length !== 0){
         this.requestOnProcess = true
-        this.questionObserver = this.questionService.getQuestions(this.subject, this.offset)
+        this.subscriptions.add(this.questionService.getQuestions(this.subject, this.offset)
         .subscribe((questions) => {
 
           questions.data.forEach((question) => {
@@ -59,7 +57,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         ,
         (err) => {
           console.log(err);
-        })  
+        }))
       }
     }
   }
@@ -74,7 +72,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.questionService.socketJoinSubject(this.subject)
 
-    this.routeObserver = this.route.params.subscribe((routeParams) => {
+    this.subscriptions.add(this.route.params.subscribe((routeParams) => {
       this.toggleHamburger()
 
       this.subject = routeParams.subject
@@ -86,7 +84,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.requestOnProcess = true
       this.contentLoad = false
 
-      this.questionObserver = this.questionService.getQuestions(this.subject, this.offset).subscribe((questions) => {
+      this.subscriptions.add(this.questionService.getQuestions(this.subject, this.offset).subscribe((questions) => {
 
         questions.data.forEach((question) => {
           this.questionService.socketJoinRoom(question.questionId)
@@ -96,28 +94,25 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.requestOnProcess = false
         this.offset += 5
         this.contentLoad = true
-      })
+      }))
 
       // accepts a new watcher and assigns to which question
-      this.newWatcherObserver = this.questionService.newWatchers.subscribe((newWatcher) => {
+      this.subscriptions.add(this.questionService.newWatchers.subscribe((newWatcher) => {
         this.watchers = this.insertWatcher(this.watchers, newWatcher)
-      })
+      }))
 
       // for updating newly added questions
-      this.newQuestionObserver = this.questionService.newQuestion.subscribe((newQuestion) => {
+      this.subscriptions.add(this.questionService.newQuestion.subscribe((newQuestion) => {
         this.questionService.socketJoinRoom(newQuestion.questionId)
         this.newQuestions = [newQuestion].concat(this.newQuestions)
-      })
+      }))
 
-    })
+    }))
   }
 
   ngOnDestroy(): void{
     this.questionService.socketLeaveSubject(this.subject)
-    this.routeObserver.unsubscribe();
-    this.questionObserver.unsubscribe();
-    this.newWatcherObserver.unsubscribe();
-    this.newQuestionObserver.unsubscribe();
+    this.subscriptions.unsubscribe()
   }
 
 

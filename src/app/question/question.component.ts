@@ -6,6 +6,7 @@ import {relativeDate, titleCase} from '../utils/utils'
 import { CookieService } from 'ngx-cookie';
 import { User } from '../models/user.model';
 import { AnswerService } from '../services/answer.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-question',
@@ -19,10 +20,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
     this.questionService.socketLeaveQuestion(this.question.questionId, this.user)
   }
 
-  routeObserver:any
-  questionObserver:any
-  isTypingAnswerObserver:any
-  newAnswersObserver:any
+  private subscriptions = new Subscription()
 
 
   showAnswer:boolean = false
@@ -51,8 +49,8 @@ export class QuestionComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.user = JSON.parse(this.cookieService.get('User'))
 
-    this.routeObserver = this.route.params.subscribe((routeParams) => {
-      this.questionObserver = this.questionService.getQuestion(routeParams.questionId)
+    this.subscriptions.add(this.route.params.subscribe((routeParams) => {
+      this.subscriptions.add(this.questionService.getQuestion(routeParams.questionId)
       .subscribe((question) => {
         this.question = question.data
         
@@ -60,29 +58,26 @@ export class QuestionComponent implements OnInit, OnDestroy {
         // watch question does not need to join room
         this.questionService.socketWatchQuestion(this.question, this.user)
 
-        this.isTypingAnswerObserver = this.answerService.isTypingAnswer.subscribe((boolVal) => {
+        this.subscriptions.add(this.answerService.isTypingAnswer.subscribe((boolVal) => {
           this.isTypingAnswer = boolVal
-        })
+        }))
 
-        this.newAnswersObserver = this.answerService.newAnswers.subscribe(newAnswer => {
+        this.subscriptions.add(this.answerService.newAnswers.subscribe(newAnswer => {
           this.question.answersCtr++
-        })
+        }))
 
         this.contentLoad = true
       },
       (err) => {
         console.log(err.error.error.message);
         this.router.navigate(['/dashboard']);
-      })
-    })
+      }))
+    }))
   }
 
   ngOnDestroy():void{
     this.questionService.socketLeaveQuestion(this.question?.questionId, this.user)
-    this.routeObserver?.unsubscribe()
-    this.questionObserver?.unsubscribe()
-    this.isTypingAnswerObserver?.unsubscribe()
-    this.newAnswersObserver?.unsubscribe()
+    this.subscriptions.unsubscribe()
   }
 
   onAnswerClick():void{
@@ -94,13 +89,13 @@ export class QuestionComponent implements OnInit, OnDestroy {
   }
 
   onDelete():void{
-    this.questionObserver = this.questionService.deleteQuestion(this.question.questionId)
+    this.subscriptions.add(this.questionService.deleteQuestion(this.question.questionId)
     .subscribe((deletedAnswer) => {
       this.router.navigate(['/dashboard'])
     },
     (err) => {
       console.log(err.error.error.message);
       this.router.navigate(['/dashboard'])
-    })
+    }))
   }
 }

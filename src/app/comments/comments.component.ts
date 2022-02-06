@@ -4,6 +4,7 @@ import { CommentService } from '../services/comment.service';
 import { Answer } from '../models/answer.model';
 import { Comment } from '../models/comment.model';
 import { Question } from '../models/question.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-comments',
@@ -28,9 +29,10 @@ export class CommentsComponent implements OnInit, OnDestroy {
   ) { }
 
   contentLoad:boolean = false
+  private subscriptions = new Subscription()
 
   ngOnInit(): void {
-    this.newCommentsObserver = this.commentService.newComments.subscribe((newComment) => {
+    this.subscriptions.add(this.commentService.newComments.subscribe((newComment) => {
       if(this.answer){
         if(newComment.answerId === this.answer?.answerId){
           this.comments.push(newComment)
@@ -41,11 +43,11 @@ export class CommentsComponent implements OnInit, OnDestroy {
           this.comments.push(newComment)
         }
       }
-    })
+    }))
   }
 
   ngOnDestroy():void{
-    this.commentObserver?.unsubscribe()
+    this.subscriptions.unsubscribe()
   }
 
   // used onChanges since showComment input changes upon comment icon click
@@ -57,7 +59,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
 
       if(this.question && !this.answer){
         
-        this.commentObserver = this.commentService.getCommentsOfQuestion(this.question.questionId, this.offset)
+        this.subscriptions.add(this.commentService.getCommentsOfQuestion(this.question.questionId, this.offset)
         .subscribe((commentResponse) => {
           this.comments = commentResponse.data
 
@@ -68,10 +70,10 @@ export class CommentsComponent implements OnInit, OnDestroy {
           this.requestOnProcess = false
           this.offset += 5
           this.contentLoad = true
-        })
+        }))
       }
       else if(this.question && this.answer){
-        this.commentObserver = this.commentService.getCommentsOfAnswer(this.question.questionId, this.answer.answerId, this.offset)
+        this.subscriptions.add(this.commentService.getCommentsOfAnswer(this.question.questionId, this.answer.answerId, this.offset)
         .subscribe((commentResponse) => {
           this.comments = commentResponse.data
 
@@ -83,7 +85,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
           this.offset += 5
           this.contentLoad = true
 
-        })
+        }))
       }
       
     }
@@ -94,7 +96,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
 
       if(this.question && !this.answer){
 
-        this.commentObserver = this.commentService.getCommentsOfQuestion(this.question.questionId, this.offset)
+        this.subscriptions.add(this.commentService.getCommentsOfQuestion(this.question.questionId, this.offset)
         .subscribe((commentsResponse) => {
           this.comments = this.comments.concat(commentsResponse.data)
           this.requestOnProcess = false
@@ -104,11 +106,11 @@ export class CommentsComponent implements OnInit, OnDestroy {
             this.disableLoad = true
           }
 
-        })
+        }))
       }
 
       else if(this.question && this.answer){
-        this.commentObserver = this.commentService.getCommentsOfAnswer(this.question.questionId, this.answer.answerId,this.offset)
+        this.subscriptions.add(this.commentService.getCommentsOfAnswer(this.question.questionId, this.answer.answerId,this.offset)
         .subscribe((commentsResponse) => {
           this.comments = this.comments.concat(commentsResponse.data)
           this.requestOnProcess = false
@@ -118,7 +120,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
             this.disableLoad = true
           }
 
-        })
+        }))
       }
     }
     this.requestOnProcess = true
@@ -127,22 +129,22 @@ export class CommentsComponent implements OnInit, OnDestroy {
 
   onSubmit(comment:{data:Comment}){
     if(this.answer){
-      this.commentObserver = this.commentService.addCommentOfAnswer(this.question.questionId, this.answer.answerId, comment)
+      this.subscriptions.add(this.commentService.addCommentOfAnswer(this.question.questionId, this.answer.answerId, comment)
       .subscribe((res) => {
         console.log(res);
       },
       (err) => {
         console.log(err);
-      })
+      }))
     }
     else{
-      this.commentObserver = this.commentService.addCommentOfQuestion(this.question.questionId, comment)
+      this.subscriptions.add(this.commentService.addCommentOfQuestion(this.question.questionId, comment)
       .subscribe((res) => {
         console.log(res);
       },
       (err) => {
         console.log(err);
-      })
+      }))
     }
 
   }

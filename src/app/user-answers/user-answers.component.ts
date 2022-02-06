@@ -6,6 +6,7 @@ import { Answer } from '../models/answer.model';
 import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
 import { dateTimeToDate } from '../utils/utils';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-answers',
@@ -15,9 +16,7 @@ import { dateTimeToDate } from '../utils/utils';
 export class UserAnswersComponent implements OnInit, OnDestroy {
   answers:Answer[] = []
   user!:User
-  answerObserver:any
-  userObserver:any
-  routeObserver:any
+  private subscriptions = new Subscription()
 
   offset:number = 0
   requestOnProcess = false
@@ -30,8 +29,8 @@ export class UserAnswersComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.routeObserver = this.route.params.subscribe((routeParams) => {
-      this.userObserver = this.userService.getUserByUserId(routeParams.userId)
+    this.subscriptions.add(this.route.params.subscribe((routeParams) => {
+      this.subscriptions.add(this.userService.getUserByUserId(routeParams.userId)
       .subscribe((res) => {
         this.user = res.data
         this.user.birthday = dateTimeToDate(this.user.birthday)
@@ -40,22 +39,20 @@ export class UserAnswersComponent implements OnInit, OnDestroy {
         this.fetchDisable = false
         this.requestOnProcess = false
 
-        this.answerObserver = this.answerService.getAnswersByUser(this.user.userId, this.offset)
+        this.subscriptions.add(this.answerService.getAnswersByUser(this.user.userId, this.offset)
         .subscribe((res) => {
           this.answers = res.data
           this.requestOnProcess = false
           this.offset += 5
-        })
+        }))
 
       },
-      (err) => console.log(err))
-    })
+      (err) => console.log(err)))
+    }))
   }
 
   ngOnDestroy():void{
-    this.routeObserver?.unsubscribe()
-    this.userObserver?.unsubscribe()
-    this.answerObserver?.unsubscribe()
+    this.subscriptions.unsubscribe()
   }
 
   @HostListener('window:scroll', ['$event'])
@@ -65,7 +62,7 @@ export class UserAnswersComponent implements OnInit, OnDestroy {
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight){
 
       if(!this.requestOnProcess && !this.fetchDisable && this.answers.length !== 0){
-        this.answerService.getAnswersByUser(this.user.userId, this.offset)
+        this.subscriptions.add(this.answerService.getAnswersByUser(this.user.userId, this.offset)
         .subscribe((answers) => {
           this.answers = this.answers.concat(answers.data)
           this.requestOnProcess = false
@@ -79,7 +76,7 @@ export class UserAnswersComponent implements OnInit, OnDestroy {
         ,
         (err) => {
           console.log(err);
-        })  
+        }))
       }
 
       this.requestOnProcess = true

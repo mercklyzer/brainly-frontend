@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
+import { Subscription } from 'rxjs';
 import { Question } from '../models/question.model';
 import { User } from '../models/user.model';
 import { QuestionService } from '../services/question.service';
@@ -12,11 +13,10 @@ import { getFormValidationErrors, titleCase } from '../utils/utils';
   templateUrl: './edit-question.component.html',
   styleUrls: ['./edit-question.component.css']
 })
-export class EditQuestionComponent implements OnInit {
+export class EditQuestionComponent implements OnInit, OnDestroy {
   user!:User
   question!:Question
-  questionObserver:any
-  routeObserver:any
+  private subscriptions = new Subscription()
 
   errorMessages:string[] = []
 
@@ -38,8 +38,8 @@ export class EditQuestionComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = JSON.parse(this.cookieService.get('User'));
-    this.routeObserver = this.route.params.subscribe((routeParams) => {
-      this.questionObserver = this.questionService.getQuestion(routeParams.questionId)
+    this.subscriptions.add(this.route.params.subscribe((routeParams) => {
+      this.subscriptions.add(this.questionService.getQuestion(routeParams.questionId)
       .subscribe((question) => {
         this.question = question.data
         this.editQuestionForm.patchValue({newQuestion: this.question.question})
@@ -47,22 +47,26 @@ export class EditQuestionComponent implements OnInit {
       (err) => {
         console.log(err.error.error.message);
         this.router.navigate(['/dashboard'])
-      })
-    })
+      }))
+    }))
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe()
   }
 
   onSubmit(){
     this.errorMessages = getFormValidationErrors(this.editQuestionForm)
 
     if(!this.errorMessages[0]){
-      this.questionObserver = this.questionService.editQuestion(this.question.questionId, {data: this.editQuestionForm.value})
+      this.subscriptions.add(this.questionService.editQuestion(this.question.questionId, {data: this.editQuestionForm.value})
       .subscribe((res) => { 
         this.router.navigate(['/question',res.data.questionId]);
       },
       (err) => {
         console.log(err);
         this.errorMessages.push(err.error.error.message)
-      })
+      }))
     }
   }
 

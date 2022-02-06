@@ -1,6 +1,7 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
+import { Subscription } from 'rxjs';
 import { Question } from '../models/question.model';
 import { User } from '../models/user.model';
 import { QuestionService } from '../services/question.service';
@@ -15,9 +16,7 @@ import { dateTimeToDate } from '../utils/utils';
 export class UserQuestionsComponent implements OnInit, OnDestroy {
   questions:Question[] = []
   user!:User
-  questionObserver:any
-  routeObserver:any
-  userObserver:any
+  private subscriptions = new Subscription()
 
   offset:number = 0
   requestOnProcess = false
@@ -30,8 +29,8 @@ export class UserQuestionsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.routeObserver = this.route.params.subscribe((routeParams) => {
-      this.userObserver = this.userService.getUserByUserId(routeParams.userId)
+    this.subscriptions.add(this.route.params.subscribe((routeParams) => {
+      this.subscriptions.add(this.userService.getUserByUserId(routeParams.userId)
       .subscribe((res) => {
         this.user = res.data
         this.user.birthday = dateTimeToDate(this.user.birthday)
@@ -40,7 +39,7 @@ export class UserQuestionsComponent implements OnInit, OnDestroy {
         this.fetchDisable = false
         this.requestOnProcess = false
 
-        this.questionObserver = this.questionService.getQuestionsByUser(this.user.userId, this.offset)
+        this.subscriptions.add(this.questionService.getQuestionsByUser(this.user.userId, this.offset)
         .subscribe((res) => {
           this.questions = res.data
           this.requestOnProcess = false
@@ -49,17 +48,15 @@ export class UserQuestionsComponent implements OnInit, OnDestroy {
         },
         (err) => {
           console.log(err);
-        })
+        }))
 
       },
-      (err) => console.log(err))
-    })
+      (err) => console.log(err)))
+    }))
   }
 
   ngOnDestroy():void{
-    this.routeObserver.unsubscribe()
-    this.userObserver.unsubscribe()
-    this.questionObserver.unsubscribe()
+    this.subscriptions.unsubscribe()
   }
 
   @HostListener('window:scroll', ['$event'])

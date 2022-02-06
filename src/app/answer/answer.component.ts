@@ -1,34 +1,38 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Answer } from '../models/answer.model';
-import * as utils from '../utils/utils';
 import * as moment from 'moment'
 import { AnswerService } from '../services/answer.service';
 import { Question } from '../models/question.model';
 import { User } from '../models/user.model';
 import { CookieService } from 'ngx-cookie';
-import { Thank } from '../models/thank.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-answer',
   templateUrl: './answer.component.html',
   styleUrls: ['./answer.component.css']
 })
-export class AnswerComponent implements OnInit {
+export class AnswerComponent implements OnInit, OnDestroy {
   @Input() answer!:Answer
   @Input() question!:Question
   @Output() thankEmitter = new EventEmitter<{questionId:string, answerId:string}>()
   user!:User
   
   showComment:boolean = false
-  answerObserver:any
 
   constructor(
     private cookieService:CookieService,
     private answerService:AnswerService
   ) { }
 
+  private subscriptions = new Subscription()
+
   ngOnInit(): void {
     this.user = JSON.parse(this.cookieService.get('User'))
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe()
   }
 
   onCommentClick():void{
@@ -38,8 +42,7 @@ export class AnswerComponent implements OnInit {
   onThank():void{
     console.log(this.answer.isUserThanked);
     if(this.answer.isUserThanked === 0){
-      // this.thankEmitter.emit({questionId: this.question.questionId, answerId:this.answer.answerId})
-      this.answerObserver = this.answerService.addThank(this.question.questionId,this.answer.answerId)
+      this.subscriptions.add(this.answerService.addThank(this.question.questionId,this.answer.answerId)
       .subscribe((res) => {
         console.log(res);
         this.answer.thanksCtr++;
@@ -47,13 +50,13 @@ export class AnswerComponent implements OnInit {
       },
       (err) => {
         console.log(err);
-      })
+      }))
     }
   }
 
   onSetBrainliest():void{
     if(this.question.username === this.user.username ){
-      this.answerObserver = this.answerService.setBrainliest(this.question.questionId, this.answer.answerId)
+      this.subscriptions.add(this.answerService.setBrainliest(this.question.questionId, this.answer.answerId)
       .subscribe((res) => {
         console.log(res);
         this.answer.isBrainliest = 1;
@@ -61,7 +64,7 @@ export class AnswerComponent implements OnInit {
       },
       (err) => {
         console.log(err);
-      })
+      }))
     }
   }
 
