@@ -44,7 +44,9 @@ export class AddCommentComponent implements OnInit, OnDestroy {
         }
       }
       else{
-        this.isTypingComment = isTyping
+        if(!this.answer?.answerId){
+          this.isTypingComment = isTyping
+        }
       }
       console.log("received: ", isTyping);
     }))
