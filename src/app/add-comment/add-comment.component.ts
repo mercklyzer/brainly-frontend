@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie';
-import { CommentService } from '../comment.service';
+import { CommentService } from '../services/comment.service';
 import { Answer } from '../models/answer.model';
 import { Comment } from '../models/comment.model';
 import { Question } from '../models/question.model';

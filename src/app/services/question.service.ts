@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Question } from './models/question.model';
+import { Question } from '../models/question.model';
 import { Socket } from 'ngx-socket-io';
-import { User } from './models/user.model';
+import { User } from '../models/user.model';
 import { environment } from 'src/environments/environment';
 
 

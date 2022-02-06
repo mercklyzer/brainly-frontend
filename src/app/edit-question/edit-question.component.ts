@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 import { Question } from '../models/question.model';
 import { User } from '../models/user.model';
-import { QuestionService } from '../question.service';
+import { QuestionService } from '../services/question.service';
 import { getFormValidationErrors, titleCase } from '../utils/utils';
 
 @Component({

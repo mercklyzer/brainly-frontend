@@ -1,11 +1,11 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { QuestionService } from '../question.service';
+import { QuestionService } from '../services/question.service';
 import { Question } from '../models/question.model';
 import {relativeDate, titleCase} from '../utils/utils'
 import { CookieService } from 'ngx-cookie';
 import { User } from '../models/user.model';
-import { AnswerService } from '../answer.service';
+import { AnswerService } from '../services/answer.service';
 
 @Component({
   selector: 'app-question',

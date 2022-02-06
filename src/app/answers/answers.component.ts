@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
-import { AnswerService } from '../answer.service';
+import { AnswerService } from '../services/answer.service';
 import { Answer } from '../models/answer.model';
 import { Question } from '../models/question.model';
 

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { Answer } from '../models/answer.model';
 import * as utils from '../utils/utils';
 import * as moment from 'moment'
-import { AnswerService } from '../answer.service';
+import { AnswerService } from '../services/answer.service';
 import { Question } from '../models/question.model';
 import { User } from '../models/user.model';
 import { CookieService } from 'ngx-cookie';

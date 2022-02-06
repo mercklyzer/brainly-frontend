@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 import { User } from '../models/user.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { QuestionService } from '../question.service';
+import { QuestionService } from '../services/question.service';
 import { getFormValidationErrors, updateUserCurrentPtsCookie } from '../utils/utils';
 
 

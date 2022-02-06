@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 import { Question } from '../models/question.model';
 import { User } from '../models/user.model';
-import { QuestionService } from '../question.service';
-import { UserService } from '../user.service';
+import { QuestionService } from '../services/question.service';
+import { UserService } from '../services/user.service';
 import { dateTimeToDate } from '../utils/utils';
 
 @Component({

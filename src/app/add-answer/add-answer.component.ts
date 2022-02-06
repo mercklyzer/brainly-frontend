@@ -2,9 +2,9 @@ import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
-import { AnswerService } from '../answer.service';
+import { AnswerService } from '../services/answer.service';
 import { Question } from '../models/question.model';
-import { QuestionService } from '../question.service';
+import { QuestionService } from '../services/question.service';
 import { getFormValidationErrors, updateUserCurrentPtsCookie } from '../utils/utils';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { CommentService } from '../comment.service';
+import { CommentService } from '../services/comment.service';
 import { Answer } from '../models/answer.model';
 import { Comment } from '../models/comment.model';
 import { Question } from '../models/question.model';

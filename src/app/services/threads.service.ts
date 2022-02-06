@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from './models/user.model';
-import { Thread } from './models/thread.model';
+import { User } from '../models/user.model';
+import { Thread } from '../models/thread.model';
 import { Socket } from 'ngx-socket-io';
 import { environment } from 'src/environments/environment';
 

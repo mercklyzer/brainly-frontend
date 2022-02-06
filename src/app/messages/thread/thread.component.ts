@@ -2,11 +2,11 @@ import { AfterViewChecked, AfterViewInit, Component, ElementRef, EventEmitter, I
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
-import { MessageService } from 'src/app/message.service';
+import { MessageService } from '../../services/message.service';
 import { Message } from 'src/app/models/message.model';
 import { Thread } from 'src/app/models/thread.model';
 import { User } from 'src/app/models/user.model';
-import { ThreadsService } from 'src/app/threads.service';
+import { ThreadsService } from '../../services/threads.service';
 import { calendarDate } from 'src/app/utils/utils';
 
 @Component({

@@ -1,10 +1,10 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
-import { AnswerService } from '../answer.service';
+import { AnswerService } from '../services/answer.service';
 import { Answer } from '../models/answer.model';
 import { User } from '../models/user.model';
-import { UserService } from '../user.service';
+import { UserService } from '../services/user.service';
 import { dateTimeToDate } from '../utils/utils';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
 import { Question } from '../models/question.model';
-import { QuestionService } from '../question.service';
+import { QuestionService } from '../services/question.service';
 import {relativeDate, titleCase} from '../utils/utils'
 import { CookieService } from 'ngx-cookie';
 import { User } from '../models/user.model';

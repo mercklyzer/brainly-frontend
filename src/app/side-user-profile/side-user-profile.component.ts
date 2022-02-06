@@ -2,8 +2,8 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 import { User } from '../models/user.model';
-import { ThreadsService } from '../threads.service';
-import { UserService } from '../user.service';
+import { ThreadsService } from '../services/threads.service';
+import { UserService } from '../services/user.service';
 import { dateTimeToDate } from '../utils/utils';
 
 @Component({

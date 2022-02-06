@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
-import { MessageService } from '../message.service';
+import { MessageService } from '../services/message.service';
 import { Message } from '../models/message.model';
 import { Thread } from '../models/thread.model';
 import { User } from '../models/user.model';
-import { ThreadsService } from '../threads.service';
+import { ThreadsService } from '../services/threads.service';
 
 @Component({
   selector: 'app-messages',
