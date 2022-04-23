@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://brainlyapi-env.eba-ydkjupk7.ap-southeast-1.elasticbeanstalk.com'
+  apiUrl: 'http://brainlynode-env.eba-pj5323zv.ap-southeast-1.elasticbeanstalk.com/'
 };
