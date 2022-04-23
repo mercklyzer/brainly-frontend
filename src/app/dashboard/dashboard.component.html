@@ -59,7 +59,7 @@
                                 <p>{{question.question}}</p>
                             </div>
                             <div class="answer-btn-container">
-                                <button class="btn answer-btn">Answer</button>
+                                <button class="btn answer-btn" [routerLink]="['/question',question.questionId,'add-answer']">Answer</button>
                             </div>
 
                             <div class="watchers-container">
