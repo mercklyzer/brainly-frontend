@@ -11,5 +11,5 @@ http://brainly-angular.s3-website-ap-southeast-1.amazonaws.com/
 * Socket.io
 * MySQL
 
-## Documentation:
+## Documentation (links in the documentation are outdated):
 https://saperium-website.s3.ap-southeast-1.amazonaws.com/Brainly_Clone_User_Manual.pdf 
