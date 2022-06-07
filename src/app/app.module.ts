@@ -9,7 +9,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HeroComponent } from './hero/hero.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
-import { HomepageComponent } from './homepage/homepage.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { QuestionComponent } from './question/question.component';
 import { SubjectsComponent } from './subjects/subjects.component';
@@ -46,7 +45,6 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     HeroComponent,
     LoginComponent,
     SignupComponent,
-    HomepageComponent,
     DashboardComponent,
     QuestionComponent,
     SubjectsComponent,
