@@ -1,13 +1,13 @@
 import { Component, Input } from "@angular/core";
 
 @Component({
-    selector: 'signup-error',
+    selector: 'error-message',
     template: `
     <div class="alert alert-danger" role="alert">
         {{errorMessage}}
     </div>
     `
 })
-export class SignupErrorComponent {
+export class ErrorMessageComponent {
     @Input() errorMessage!:string
 }
