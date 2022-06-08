@@ -4,7 +4,6 @@ import { AddAnswerComponent } from './add-answer/add-answer.component';
 import { AddQuestionComponent } from './add-question/add-question.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EditQuestionComponent } from './edit-question/edit-question.component';
-import { LoginComponent } from './login/login.component';
 import { MessagesComponent } from './messages/messages.component';
 import { QuestionComponent } from './question/question.component';
 import { UserAnswersComponent } from './user-answers/user-answers.component';
@@ -16,7 +15,7 @@ import { UserQuestionsComponent } from './user-questions/user-questions.componen
 const routes: Routes = [
   {path: '', loadChildren: () => import('./home/home.module').then(m => m.HomeModule), canActivate:[UserLogoutGuardService], pathMatch: 'full'},
   {path: 'signup', loadChildren: () => import('./signup/signup.module').then(m => m.SignupModule), canActivate:[UserLogoutGuardService], pathMatch: 'full'},
-  {path: 'login', component: LoginComponent, canActivate:[UserLogoutGuardService],pathMatch:'full'},
+  {path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule), canActivate:[UserLogoutGuardService], pathMatch: 'full'},
   {path: 'dashboard/questions/:subject', component: DashboardComponent, canActivate:[UserLoginGuardService], pathMatch:'full'},
   {path: 'dashboard', redirectTo: 'dashboard/questions/all', pathMatch:'full'},
   {path: 'question/:questionId', component: QuestionComponent, canActivate:[UserLoginGuardService], pathMatch: 'full'},

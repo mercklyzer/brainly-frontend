@@ -1,0 +1,15 @@
+<div class="login-caption">Log in</div>
+<form [formGroup]="loginForm" (ngSubmit)="handleSubmit()">
+    <div class="form-group my-form-group">
+        <input type="text" formControlName="usernameOrEmail" class="form-control my-input" id="username" aria-describedby="usernameHelp" placeholder="Enter username or email">                    
+    </div>
+
+    <div class="form-group my-form-group">
+        <input type="password" formControlName="password" class="form-control my-input" id="password" aria-describedby="passwordHelp" placeholder="Enter password">                    
+    </div>
+    
+    <button type="submit" class="btn my-btn">LOG IN</button>
+
+</form>
+
+<span class="login-small-text">I don't have an account, <a routerLink="/signup">join now</a>.</span>

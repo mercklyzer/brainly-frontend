@@ -1,0 +1,23 @@
+<section class="login-section">
+    <div class="container">
+        <div class="row">
+
+            <error-message *ngIf="errorMessages[0]" errorMessage="{{errorMessages[0]}}"></error-message>
+
+            <!-- <div class="alert alert-danger"  *ngIf="errorMessages[0]" role="alert">
+                {{errorMessages[0]}}
+              </div> -->
+              
+            <div class="col-lg-4 my-form">
+                <login-form
+                    [loginForm]="loginForm"
+                    (onSubmit)="submitForm()"
+                ></login-form>
+            </div>
+
+            <div class="col-lg-8 caption-container">
+                <tagline>LET'S START SHARING KNOWLEDGE</tagline>
+            </div>
+        </div>
+    </div>
+</section>
