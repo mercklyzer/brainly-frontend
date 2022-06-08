@@ -1,0 +1,18 @@
+<section class="signup-section">
+    <div class="container">
+        <signup-error *ngIf="errorMessages[0]" errorMessage="{{errorMessages[0]}}"></signup-error>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <signup-form 
+                    [signupForm]="signupForm"
+                    (onSubmit)="submitForm()"
+                    (onSelectImage)="updateImage($event)"
+                ></signup-form>
+            </div>
+            <div class="col-lg-8">
+                <signup-tagline></signup-tagline>
+            </div>
+        </div>
+    </div>
+</section>

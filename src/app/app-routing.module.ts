@@ -7,7 +7,6 @@ import { EditQuestionComponent } from './edit-question/edit-question.component';
 import { LoginComponent } from './login/login.component';
 import { MessagesComponent } from './messages/messages.component';
 import { QuestionComponent } from './question/question.component';
-import { SignupComponent } from './signup/signup.component';
 import { UserAnswersComponent } from './user-answers/user-answers.component';
 import { UserLoginGuardService } from './user-login-guard.service';
 import { UserLogoutGuardService } from './user-logout-guard.service';
@@ -16,7 +15,7 @@ import { UserQuestionsComponent } from './user-questions/user-questions.componen
 
 const routes: Routes = [
   {path: '', loadChildren: () => import('./home/home.module').then(m => m.HomeModule), canActivate:[UserLogoutGuardService], pathMatch: 'full'},
-  {path: 'signup', component: SignupComponent, canActivate:[UserLogoutGuardService],pathMatch: 'full'},
+  {path: 'signup', loadChildren: () => import('./signup/signup.module').then(m => m.SignupModule), canActivate:[UserLogoutGuardService], pathMatch: 'full'},
   {path: 'login', component: LoginComponent, canActivate:[UserLogoutGuardService],pathMatch:'full'},
   {path: 'dashboard/questions/:subject', component: DashboardComponent, canActivate:[UserLoginGuardService], pathMatch:'full'},
   {path: 'dashboard', redirectTo: 'dashboard/questions/all', pathMatch:'full'},
