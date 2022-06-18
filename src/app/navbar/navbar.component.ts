@@ -1,8 +1,9 @@
-import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { AfterContentChecked, AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Event, NavigationEnd, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 import { User } from '../models/user.model';
-import {filter} from 'rxjs/operators';
+import {filter, map, tap} from 'rxjs/operators';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
@@ -21,25 +22,27 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
   }
   // end of navbar animation on scroll
-  
+
   url?:string
   routerObserver: any
   user:User | null = null
 
   constructor(
     private router:Router,
+    private activatedRoute:ActivatedRoute,
+    private location:Location,
     private cookieService:CookieService
   ) { }
 
   ngOnInit(): void {
+
+
     // keep track of the value of the route (url) and check if user cookie exists
     this.routerObserver = this.router.events.pipe(
       filter(event => event instanceof NavigationEnd))
       .subscribe((receivedEvent) => {
-        if(receivedEvent instanceof NavigationEnd){
-          this.url = receivedEvent.url;
+          this.url = (receivedEvent as NavigationEnd).url
           this.user = this.cookieService.get('User')? JSON.parse(this.cookieService.get('User')) : null;
-        }
       });
   }
 

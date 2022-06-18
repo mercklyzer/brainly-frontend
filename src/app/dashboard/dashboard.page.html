@@ -1,0 +1,55 @@
+<section class="dashboard">
+
+    <!-- <button *ngIf="newQuestions.length !== 0" class="btn new-questions-btn" (click)="onNewQuestions()">
+        New Questions
+    </button> -->
+
+    <!-- <div class="black-layer" [ngClass]="{'open':hamburgerOn}"></div> -->
+
+    <!-- <img src="../../assets/images/hamburger.png" class="hamburger" (click)="toggleHamburger()"> -->
+
+    <div class="container-lg">
+        <div class="row">
+
+            <!-- start of subjects -->
+            <!-- <div class="col-10 col-sm-6 col-lg-2 subjects-container" [ngClass]="{'open':hamburgerOn}"> -->
+            <div class="col-10 col-sm-6 col-lg-2 subjects-container" >
+                <!-- <img src="../../assets/images/x.png" class="x" *ngIf="hamburgerOn" (click)="toggleHamburger()"> -->
+                <!-- <app-subjects></app-subjects> -->
+                <dashboard-sidebar></dashboard-sidebar>
+            </div>
+            <!-- end of subjects -->
+
+            <!-- start of questions -->
+            <div class="col-lg-7">
+                <dashboard-questions
+                    [subject]="subject$ | async "
+                >
+                </dashboard-questions>
+
+                <!-- <div class="my-questions"> -->
+                    
+
+
+                    <!-- <ng-container *ngIf="!contentLoad">
+                        <div class="question-container" *ngFor="let i of [].constructor(5)">
+                            
+                            <ngx-skeleton-loader count="1" appearance="circle" [theme]="{'background-color': '#E0E3E5'}"></ngx-skeleton-loader>
+                            <ngx-skeleton-loader count="4" [theme]="{'background-color': '#E0E3E5'}"></ngx-skeleton-loader>
+                        </div>
+                    </ng-container> -->
+
+                <!-- </div> -->
+            </div>
+            <!-- end of questions -->
+
+
+            <!-- start of user -->
+            <div class="col-lg-3">
+                side user
+                <!-- <app-side-user></app-side-user> -->
+            </div>
+            <!-- end of user -->
+        </div>
+    </div>
+</section>

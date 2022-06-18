@@ -1,0 +1,16 @@
+<div class="my-subjects">
+    <dashboard-sidebar-header></dashboard-sidebar-header>
+
+    <div class="row my-subject active" 
+        *ngFor="let item of subjects" 
+        [routerLink]="['/dashboard/questions', item.route]"
+        [ngClass]="{'active': subject === (item.subject)}"
+        >
+        <div class="col-2 subject-icon">
+            <img src="{{item.imgSource}}"/>
+        </div>
+        <div class="col-10">
+            <span class="subject-name">{{item.subject | titlecase}}</span>
+        </div>
+    </div>
+</div>

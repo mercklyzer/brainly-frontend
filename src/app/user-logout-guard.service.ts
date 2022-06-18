@@ -17,6 +17,7 @@ export class UserLogoutGuardService implements CanActivate{
       return true
     }
     else{
+      console.log("called reroute");
       this.router.navigate(['/dashboard'])
       return false
     }

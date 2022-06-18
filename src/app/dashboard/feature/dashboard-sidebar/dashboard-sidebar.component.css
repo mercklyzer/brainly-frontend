@@ -1,9 +1,3 @@
-*{
-    font-family: 'Roboto', sans-serif;
-}
-
-/* start of subjects styles */
-
 .my-subjects{
     padding: 20px;
     background-color: white;
@@ -32,5 +26,5 @@
 }
 
 .subject-icon{
-    margin: auto 0;
+    margin-right: 0px;
 }
