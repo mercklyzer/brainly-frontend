@@ -1,6 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
+import { NgxSkeletonLoaderModule } from "ngx-skeleton-loader";
 import { DashboardQuestionsComponent } from "./dashboard-questions.component";
 
 @NgModule({
@@ -9,7 +10,8 @@ import { DashboardQuestionsComponent } from "./dashboard-questions.component";
     ],
     imports: [
         CommonModule,
-        RouterModule
+        RouterModule,
+        NgxSkeletonLoaderModule
     ],
     exports: [
         DashboardQuestionsComponent

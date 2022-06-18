@@ -7,13 +7,13 @@
         </div>
     </div>
 
-    <!-- <ng-container *ngIf="!contentLoad">
+    <ng-container *ngIf="!contentLoad">
         <div class="question-container" *ngFor="let i of [].constructor(5)">
             
             <ngx-skeleton-loader count="1" appearance="circle" [theme]="{'background-color': '#E0E3E5'}"></ngx-skeleton-loader>
             <ngx-skeleton-loader count="4" [theme]="{'background-color': '#E0E3E5'}"></ngx-skeleton-loader>
         </div>
-    </ng-container> -->
+    </ng-container>
 
     <ng-container  *ngIf="contentLoad">
         <div *ngIf="questions.length === 0" [ngStyle]="{'margin': '20px 10px'}">No result.</div>

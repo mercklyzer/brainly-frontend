@@ -1,5 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
+import { NgxSkeletonLoaderModule } from "ngx-skeleton-loader";
 import { SubjectTitlecaseModule } from "../shared/utils/subject-titlecase/subject-titlecase.module";
 import { DashboardRoutingModule } from "./dashboard-routing.module";
 import { DashboardPage } from "./dashboard.page";
@@ -14,7 +15,7 @@ import { DashboardSidebarModule } from "./feature/dashboard-sidebar/dashboard-si
         CommonModule,
         DashboardSidebarModule,
         DashboardQuestionsModule,
-        DashboardRoutingModule
+        DashboardRoutingModule,
     ]
 })
 export class DashboardModule {}

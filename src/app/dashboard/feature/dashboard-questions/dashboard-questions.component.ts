@@ -30,6 +30,7 @@ export class DashboardQuestionsComponent implements OnDestroy {
     contentLoad: boolean = false
 
     @Input() set subject(_subject: string) {
+        this.contentLoad = false
         this._subject = _subject
         this.offset = 0
 
@@ -43,7 +44,6 @@ export class DashboardQuestionsComponent implements OnDestroy {
             })
 
             this.questions = questions.data
-            console.log(this.questions);
             this.requestOnProcess = false
             this.offset += 5
             this.contentLoad = true
@@ -63,12 +63,12 @@ export class DashboardQuestionsComponent implements OnDestroy {
 
     @HostListener('window:scroll', ['$event'])
 
+    // refactor algorithm in infinite scrolling
+    // use intersection o
     onWindowScroll() {
         // if end of the page, get new set of questions
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-            console.log("end of page");
             // can use debounce on this
-            console.log(!this.requestOnProcess && !this.fetchDisable && this.questions.length !== 0);
             if (!this.requestOnProcess && !this.fetchDisable && this.questions.length !== 0) {
                 this.requestOnProcess = true
                 console.log(this._subject, this.offset);
