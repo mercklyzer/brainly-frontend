@@ -15,8 +15,7 @@ const routes: Routes = [
   {path: '', loadChildren: () => import('./home/home.module').then(m => m.HomeModule), canActivate:[UserLogoutGuardService], pathMatch: 'full'},
   {path: 'signup', loadChildren: () => import('./signup/signup.module').then(m => m.SignupModule), canActivate:[UserLogoutGuardService], pathMatch: 'full'},
   {path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule), canActivate:[UserLogoutGuardService], pathMatch: 'full'},
-  // {path: 'dashboard', loadChildren: () => import('./login/login.module').then(m => m.LoginModule), canActivate:[UserLoginGuardService], pathMatch: 'full'},
-  {path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)},
+  {path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule), canActivate:[UserLoginGuardService], pathMatch: 'full'},
   
   {path: 'question/:questionId', component: QuestionComponent, canActivate:[UserLoginGuardService], pathMatch: 'full'},
   {path: 'question/:questionId/add-answer', component: AddAnswerComponent, canActivate:[UserLoginGuardService], pathMatch: 'full'},

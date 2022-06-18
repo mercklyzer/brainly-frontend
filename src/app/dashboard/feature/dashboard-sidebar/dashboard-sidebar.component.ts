@@ -20,9 +20,7 @@ export class DashboardSidebarComponent{
     subjects:Subject[] = subjects
     routeObserver:any
 
-    constructor(
-        private route: ActivatedRoute
-    ) { }
+    constructor() {}
 
     handleCloseMenu():void{
         this.onCloseMenu.emit();
