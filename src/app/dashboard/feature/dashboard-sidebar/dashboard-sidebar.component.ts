@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { titleCase } from "src/app/utils/utils";
 import { Subject } from "../../data-access/subject.model";
@@ -15,6 +15,7 @@ export class DashboardSidebarComponent{
       }
     
     @Input() subject!:string
+    @Output() onCloseMenu:EventEmitter<null> = new EventEmitter<null>();
 
     subjects:Subject[] = subjects
     routeObserver:any
@@ -22,5 +23,9 @@ export class DashboardSidebarComponent{
     constructor(
         private route: ActivatedRoute
     ) { }
+
+    handleCloseMenu():void{
+        this.onCloseMenu.emit();
+    }
 
 }

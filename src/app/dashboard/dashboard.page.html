@@ -1,22 +1,18 @@
-<section class="dashboard">
+<section class="dashboard" [ngStyle]="{overflow: 'hidden'}">
 
     <!-- <button *ngIf="newQuestions.length !== 0" class="btn new-questions-btn" (click)="onNewQuestions()">
         New Questions
     </button> -->
 
-    <!-- <div class="black-layer" [ngClass]="{'open':hamburgerOn}"></div> -->
+    
+    <div class="black-layer" [ngClass]="{'open':showMenu}"></div>
+    <img src="../../assets/images/hamburger.png" class="menu" (click)="handleOpenMenu()">
 
-    <!-- <img src="../../assets/images/hamburger.png" class="hamburger" (click)="toggleHamburger()"> -->
-
-    <div class="container-lg">
+    <div class="container-lg white">
         <div class="row">
-
             <!-- start of subjects -->
-            <!-- <div class="col-10 col-sm-6 col-lg-2 subjects-container" [ngClass]="{'open':hamburgerOn}"> -->
-            <div class="col-10 col-sm-6 col-lg-2 subjects-container" >
-                <!-- <img src="../../assets/images/x.png" class="x" *ngIf="hamburgerOn" (click)="toggleHamburger()"> -->
-                <!-- <app-subjects></app-subjects> -->
-                <dashboard-sidebar></dashboard-sidebar>
+            <div class="col-12 col-sm-6 col-lg-2 subjects-container" [ngClass]="{'open':showMenu}"> <!-- move this line to sidebar -->
+                <dashboard-sidebar (onCloseMenu)="handleCloseMenu()"></dashboard-sidebar>
             </div>
             <!-- end of subjects -->
 
@@ -26,8 +22,6 @@
                     [subject]="subject$ | async "
                 >
                 </dashboard-questions>
-
-
             </div>
             <!-- end of questions -->
 

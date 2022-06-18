@@ -1,5 +1,5 @@
 <div class="my-subjects">
-    <dashboard-sidebar-header></dashboard-sidebar-header>
+    <dashboard-sidebar-header (onCloseMenu)="handleCloseMenu()"></dashboard-sidebar-header>
 
     <div class="row my-subject active" 
         *ngFor="let item of subjects" 

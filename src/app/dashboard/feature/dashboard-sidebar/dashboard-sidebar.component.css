@@ -1,6 +1,7 @@
 .my-subjects{
     padding: 20px;
     background-color: white;
+    z-index: 9999;
 }
 
 .subjects-header{

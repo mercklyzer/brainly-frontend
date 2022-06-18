@@ -8,6 +8,10 @@ body{
     overflow-x:hidden;
 }
 
+body.unscrollable{
+    overflow: hidden;
+}
+
 @media only screen and (max-width:992px){
     .container-lg{
         padding: 0px 20px 0px 20px;

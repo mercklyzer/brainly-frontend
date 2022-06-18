@@ -5,4 +5,65 @@
 .dashboard{
     padding-top: 80px;
     position: relative;
+    background-color: white;
+}
+
+.subjects-container{
+    position: relative;
+    z-index: 999;
+}
+
+.menu{
+    cursor: pointer;
+    display:none;
+    width:30px;
+    height:30px;
+    margin: 20px 0px 0px 20px;
+}
+
+.white{
+    background-color: white;
+}
+
+.black-layer{
+    background-color: rgba(0,0,0,0);
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    visibility: hidden;
+    transition: 0.4s;
+    z-index: 999;
+}
+
+@media screen and (max-width: 992px){
+    .menu{
+        display: block;
+    }
+
+    .x{
+        display:block;
+    }
+
+    .subjects-container{
+        padding: 0;
+        position: fixed;
+        top: 80px;
+        bottom:0;
+        left: -100%;
+        transition: 0.4s;
+        overflow-y: auto;
+    }
+
+    .subjects-container.open{
+        left: 0%;
+    }
+
+    .dashboard{
+        overflow:hidden;
+    }
+
+    .black-layer.open{
+        background-color: rgba(0,0,0, 0.7);
+        visibility:visible;
+    }
 }

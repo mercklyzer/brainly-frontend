@@ -1,12 +1,6 @@
 import { Component, HostListener} from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { Subscription } from "rxjs";
-import { map } from "rxjs/operators";
-import { Question } from "../models/question.model";
-import { User } from "../models/user.model";
-import { QuestionService } from "../services/question.service";
-import { relativeDate, titleCase } from "../utils/utils";
-
+import { map, tap } from "rxjs/operators";
 
 @Component({
     selector: 'dashboard',
@@ -19,8 +13,20 @@ export class DashboardPage {
     ){}
 
     subject$ = this.route.params.pipe(
-        map(params => params['subject'])
+        map(params => params['subject']),
+        tap(() => this.handleCloseMenu()),
     )
 
+    showMenu:boolean = false;
+
+    handleCloseMenu():void{
+        this.showMenu = false;
+        document.body.classList.remove('unscrollable');
+    }
+
+    handleOpenMenu():void{
+        this.showMenu = true;
+        document.body.classList.add('unscrollable');
+    }
 
 }

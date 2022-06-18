@@ -4,6 +4,7 @@ import { DashboardRoutingModule } from "./dashboard-routing.module";
 import { DashboardPage } from "./dashboard.page";
 import { DashboardQuestionsModule } from "./feature/dashboard-questions/dashboard-questions.module";
 import { DashboardSidebarModule } from "./feature/dashboard-sidebar/dashboard-sidebar.module";
+import { DashboardSidebarMenuModule } from "./ui/dashboard-sidebar-menu/dashboard-sidebar-menu.module";
 
 @NgModule({
     declarations: [
@@ -12,6 +13,7 @@ import { DashboardSidebarModule } from "./feature/dashboard-sidebar/dashboard-si
     imports: [
         CommonModule,
         DashboardSidebarModule,
+        DashboardSidebarMenuModule,
         DashboardQuestionsModule,
         DashboardRoutingModule,
     ]
