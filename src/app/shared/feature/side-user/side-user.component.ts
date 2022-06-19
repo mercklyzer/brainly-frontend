@@ -3,11 +3,11 @@ import { CookieService } from "ngx-cookie";
 import { User } from "src/app/models/user.model";
 
 @Component({
-    selector: 'dashboard-side-user',
-    templateUrl: './dashboard-side-user.component.html',
-    styleUrls: ['./dashboard-side-user.component.css'],
+    selector: 'side-user',
+    templateUrl: './side-user.component.html',
+    styleUrls: ['./side-user.component.css'],
 })
-export class DashboardSideUserComponent implements OnInit{
+export class SideUserComponent implements OnInit{
 
     user!:User
 
