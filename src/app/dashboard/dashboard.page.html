@@ -6,7 +6,7 @@
     <div class="container-lg white">
         <div class="row">
 
-            <div class="col-12 col-sm-6 col-lg-2 subjects-container" [ngClass]="{'open':showMenu}"> <!-- move this line to sidebar -->
+            <div class="col-12 col-sm-6 col-lg-2 subjects-container" [ngClass]="{'open':showMenu}">
                 <dashboard-sidebar (onCloseMenu)="handleCloseMenu()"></dashboard-sidebar>
             </div>
 
@@ -14,12 +14,9 @@
                 <dashboard-questions [subject]="subject$ | async "></dashboard-questions>
             </div>
 
-            <!-- start of user -->
             <div class="col-lg-3">
-                side user
-                <!-- <app-side-user></app-side-user> -->
+                <dashboard-side-user></dashboard-side-user>
             </div>
-            <!-- end of user -->
         </div>
     </div>
 </section>
