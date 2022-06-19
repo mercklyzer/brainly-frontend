@@ -127,7 +127,7 @@ export class DashboardQuestionsComponent implements OnDestroy {
         }
     }
 
-    onNewQuestions() {
+    handleNewQuestions() {
         window.scroll(0, 0)
         this.questions = this.newQuestions.concat(this.questions)
         this.newQuestions = []

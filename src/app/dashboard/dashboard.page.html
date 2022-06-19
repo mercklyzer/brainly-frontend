@@ -1,30 +1,18 @@
 <section class="dashboard" [ngStyle]="{overflow: 'hidden'}">
-
-    <!-- <button *ngIf="newQuestions.length !== 0" class="btn new-questions-btn" (click)="onNewQuestions()">
-        New Questions
-    </button> -->
-
     
     <div class="black-layer" [ngClass]="{'open':showMenu}"></div>
     <img src="../../assets/images/hamburger.png" class="menu" (click)="handleOpenMenu()">
 
     <div class="container-lg white">
         <div class="row">
-            <!-- start of subjects -->
+
             <div class="col-12 col-sm-6 col-lg-2 subjects-container" [ngClass]="{'open':showMenu}"> <!-- move this line to sidebar -->
                 <dashboard-sidebar (onCloseMenu)="handleCloseMenu()"></dashboard-sidebar>
             </div>
-            <!-- end of subjects -->
 
-            <!-- start of questions -->
             <div class="col-lg-7">
-                <dashboard-questions
-                    [subject]="subject$ | async "
-                >
-                </dashboard-questions>
+                <dashboard-questions [subject]="subject$ | async "></dashboard-questions>
             </div>
-            <!-- end of questions -->
-
 
             <!-- start of user -->
             <div class="col-lg-3">

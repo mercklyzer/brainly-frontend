@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { Route, RouterModule } from "@angular/router";
+import { UserLoginGuardService } from "../user-login-guard.service";
 import { DashboardPage } from "./dashboard.page";
 
 const routes:Route[] = [
