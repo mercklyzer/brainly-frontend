@@ -9,7 +9,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HeroComponent } from './hero/hero.component';
 import { QuestionComponent } from './question/question.component';
 import { SubjectsComponent } from './subjects/subjects.component';
-import { SideUserComponent } from './side-user/side-user.component';
 import { AnswerComponent } from './answer/answer.component';
 import { CommentComponent } from './comment/comment.component';
 import { AnswersComponent } from './answers/answers.component';
@@ -42,7 +41,6 @@ const config: SocketIoConfig = { url: environment.apiUrl, options: {} };
     HeroComponent,
     QuestionComponent,
     SubjectsComponent,
-    SideUserComponent,
     AnswerComponent,
     CommentComponent,
     AnswersComponent,
