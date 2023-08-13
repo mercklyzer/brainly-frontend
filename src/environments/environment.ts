@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000'
-  // apiUrl: 'http://brainlyapi-env.eba-ptxpbwn5.ap-southeast-1.elasticbeanstalk.com'
+  // apiUrl: 'http://localhost:3000'
+  apiUrl: 'http://www.api.brainly.lyzerbautista.com'
 };
 
 /*

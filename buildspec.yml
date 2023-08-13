@@ -14,4 +14,4 @@ phases:
   post_build:
     commands:
       - echo "Updating files in the S3 bucket..."
-      - aws s3 sync dist/brainly-angular/ s3://brainly-angular --delete
+      - aws s3 sync dist/brainly-angular/ s3://brainly.lyzerbautista.com --delete
